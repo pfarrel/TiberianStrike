@@ -36,7 +36,7 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            harvesters = new List<Harvester>() { new Harvester(this, new Point(24, 24)) };
+            harvesters = new List<Harvester>() { new Harvester(this, new Point(300, 300)) };
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             base.Initialize();
@@ -74,9 +74,20 @@ namespace CncTd
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
+            if (IsActive)
             {
-                harvesters.Add(new Harvester(this, previousMouseState.Position));
+                if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
+                {
+                    harvesters.Add(new Harvester(this, previousMouseState.Position));
+                }
+
+                if (previousMouseState.RightButton == ButtonState.Pressed && Mouse.GetState().RightButton == ButtonState.Released)
+                {
+                    foreach (Harvester harvester in harvesters)
+                    {
+                        harvester.setTarget(previousMouseState.Position);
+                    }
+                }
             }
 
             // TODO: Add your update logic here
