@@ -45,6 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CncTdGame.cs" />
+    <Compile Include="Entities\Refinery.cs" />
     <Compile Include="Entities\Harvester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +60,7 @@
   <ItemGroup>
     <Content Include="Content\harvester.png" />
     <Content Include="Content\map.jpeg" />
+    <Content Include="Content\refinery.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

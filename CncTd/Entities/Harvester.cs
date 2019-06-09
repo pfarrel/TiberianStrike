@@ -33,7 +33,7 @@ namespace CncTd.Entities
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
             int spriteNumber = (Sprites- 1) - (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
 
-            Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
+            //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
             {
                 throw new Exception("Bad sprit index");
@@ -51,7 +51,7 @@ namespace CncTd.Entities
                 Point diff = Target - Position;
                 Vector2 diffV = new Vector2(diff.X, diff.Y);
                 float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
-                Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
+                //Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
                 Rotation = targetRotation;
             }
 

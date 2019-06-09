@@ -15,6 +15,7 @@ namespace CncTd
         static void Main()
         {
             using (var game = new CncTdGame())
+
                 game.Run();
         }
     }

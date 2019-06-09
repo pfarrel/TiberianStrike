@@ -14,10 +14,14 @@ namespace CncTd
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Texture2D map;
         private Texture2D harvesterSprite;
+        private Texture2D mapSprite;
+        private Texture2D refinerySprite;
+
         private List<Harvester> harvesters;
+        private List<Refinery> refineries;
         private MouseState previousMouseState;
+        private KeyboardState previousKeyboardState;
 
         public CncTdGame()
         {
@@ -37,8 +41,11 @@ namespace CncTd
         protected override void Initialize()
         {
             harvesters = new List<Harvester>() { new Harvester(this, new Point(300, 300)) };
+            refineries = new List<Refinery>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
+            previousKeyboardState = Keyboard.GetState();
+
             base.Initialize();
         }
 
@@ -51,8 +58,9 @@ namespace CncTd
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            map = Content.Load<Texture2D>("map");
             harvesterSprite = Content.Load<Texture2D>("harvester");
+            mapSprite = Content.Load<Texture2D>("map");
+            refinerySprite = Content.Load<Texture2D>("refinery");
         }
 
         /// <summary>
@@ -88,6 +96,10 @@ namespace CncTd
                         harvester.setTarget(previousMouseState.Position);
                     }
                 }
+
+                if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
+                    refineries.Add(new Refinery(this, previousMouseState.Position, gameTime.TotalGameTime));
+                }
             }
 
             // TODO: Add your update logic here
@@ -96,6 +108,7 @@ namespace CncTd
             }
 
             previousMouseState = Mouse.GetState();
+            previousKeyboardState = Keyboard.GetState();
 
             base.Update(gameTime);
         }
@@ -110,10 +123,14 @@ namespace CncTd
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(map, new Rectangle(0, 0, 744, 744), Color.White);
+            spriteBatch.Draw(mapSprite, new Rectangle(0, 0, 744, 744), Color.White);
             foreach (Harvester harvester in harvesters)
             {
                 harvester.Draw(gameTime, spriteBatch, harvesterSprite);
+            }
+            foreach (Refinery refinery in refineries)
+            {
+                refinery.Draw(gameTime, spriteBatch, refinerySprite);
             }
 
             spriteBatch.End();
