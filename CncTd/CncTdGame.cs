@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace CncTd
 {
@@ -14,8 +15,9 @@ namespace CncTd
         SpriteBatch spriteBatch;
 
         private Texture2D map;
-        private Texture2D harvester;
-        private Harvester harvesterObj;
+        private Texture2D harvesterSprite;
+        private List<Harvester> harvesters;
+        private MouseState previousMouseState;
 
         public CncTdGame()
         {
@@ -34,7 +36,9 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            harvesterObj = new Harvester(this, new Point(24, 24));
+            harvesters = new List<Harvester>() { new Harvester(this, new Point(24, 24)) };
+            IsMouseVisible = true;
+            previousMouseState = Mouse.GetState();
             base.Initialize();
         }
 
@@ -48,7 +52,7 @@ namespace CncTd
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             map = Content.Load<Texture2D>("map");
-            harvester = Content.Load<Texture2D>("harvester");
+            harvesterSprite = Content.Load<Texture2D>("harvester");
         }
 
         /// <summary>
@@ -70,8 +74,17 @@ namespace CncTd
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
+            {
+                harvesters.Add(new Harvester(this, previousMouseState.Position));
+            }
+
             // TODO: Add your update logic here
-            harvesterObj.Update(gameTime);
+            foreach (Harvester harvester in harvesters) {
+                harvester.Update(gameTime);
+            }
+
+            previousMouseState = Mouse.GetState();
 
             base.Update(gameTime);
         }
@@ -85,8 +98,13 @@ namespace CncTd
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+
             spriteBatch.Draw(map, new Rectangle(0, 0, 744, 744), Color.White);
-            harvesterObj.Draw(gameTime, spriteBatch, harvester);
+            foreach (Harvester harvester in harvesters)
+            {
+                harvester.Draw(gameTime, spriteBatch, harvesterSprite);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
