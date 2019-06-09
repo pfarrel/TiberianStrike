@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using CncTd.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,6 +15,7 @@ namespace CncTd
 
         private Texture2D map;
         private Texture2D harvester;
+        private Harvester harvesterObj;
 
         public CncTdGame()
         {
@@ -32,8 +34,7 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            harvesterObj = new Harvester(this, new Point(24, 24));
             base.Initialize();
         }
 
@@ -70,6 +71,7 @@ namespace CncTd
                 Exit();
 
             // TODO: Add your update logic here
+            harvesterObj.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -84,8 +86,7 @@ namespace CncTd
 
             spriteBatch.Begin();
             spriteBatch.Draw(map, new Rectangle(0, 0, 744, 744), Color.White);
-            spriteBatch.Draw(harvester, new Rectangle(0, 0, 48, 48), new Rectangle(0, 0, 48, 48), Color.White);
-            spriteBatch.Draw(harvester, new Rectangle(48, 0, 48, 48), new Rectangle(0, 0, 48, 48), Color.White);
+            harvesterObj.Draw(gameTime, spriteBatch, harvester);
             spriteBatch.End();
 
             base.Draw(gameTime);
