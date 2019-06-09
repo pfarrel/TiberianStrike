@@ -12,9 +12,14 @@ namespace CncTd
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Texture2D map;
+
         public CncTdGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 800;
+
             Content.RootDirectory = "Content";
         }
 
@@ -40,7 +45,7 @@ namespace CncTd
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            map = Content.Load<Texture2D>("map");
         }
 
         /// <summary>
@@ -73,9 +78,11 @@ namespace CncTd
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(map, new Rectangle(0, 0, 744, 744), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
