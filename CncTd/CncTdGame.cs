@@ -13,6 +13,7 @@ namespace CncTd
         SpriteBatch spriteBatch;
 
         private Texture2D map;
+        private Texture2D harvester;
 
         public CncTdGame()
         {
@@ -46,6 +47,7 @@ namespace CncTd
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             map = Content.Load<Texture2D>("map");
+            harvester = Content.Load<Texture2D>("harvester");
         }
 
         /// <summary>
@@ -82,6 +84,8 @@ namespace CncTd
 
             spriteBatch.Begin();
             spriteBatch.Draw(map, new Rectangle(0, 0, 744, 744), Color.White);
+            spriteBatch.Draw(harvester, new Rectangle(0, 0, 48, 48), new Rectangle(0, 0, 48, 48), Color.White);
+            spriteBatch.Draw(harvester, new Rectangle(48, 0, 48, 48), new Rectangle(0, 0, 48, 48), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

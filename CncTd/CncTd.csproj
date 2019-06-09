@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\harvester.png" />
+    <Content Include="Content\map.jpeg" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
