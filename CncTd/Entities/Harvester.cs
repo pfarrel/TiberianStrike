@@ -39,10 +39,12 @@ namespace CncTd.Entities
             int y = Math.Max(0, Position.Y - 24);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            adjustedRotation -= 0.1; // off by one frame
-            int spriteNumber = (Sprites- 1) - (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
+            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
+            spriteNumber -= 1;
+            spriteNumber = (Sprites - 1) - spriteNumber;
+            spriteNumber %= Sprites;
 
-            //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
+            Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
             {
                 throw new Exception("Bad sprite index");
