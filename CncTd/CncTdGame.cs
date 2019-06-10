@@ -17,9 +17,12 @@ namespace CncTd
         private Texture2D harvesterSprite;
         private Texture2D mapSprite;
         private Texture2D refinerySprite;
+        private Texture2D turretConstructingSprite;
+        private Texture2D turretSprite;
 
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
+        private List<Turret> turrets;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -45,6 +48,7 @@ namespace CncTd
         {
             harvesters = new List<Harvester>() { new Harvester(this, target1, target2) };
             refineries = new List<Refinery>();
+            turrets = new List<Turret>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -64,6 +68,8 @@ namespace CncTd
             harvesterSprite = Content.Load<Texture2D>("harvester");
             mapSprite = Content.Load<Texture2D>("map");
             refinerySprite = Content.Load<Texture2D>("refinery");
+            turretConstructingSprite = Content.Load<Texture2D>("gun-turret-build");
+            turretSprite = Content.Load<Texture2D>("gun-turret");
         }
 
         /// <summary>
@@ -98,14 +104,22 @@ namespace CncTd
                     {
                         harvester.Target = previousMouseState.Position;
                     }
+                    foreach (Turret turret in turrets)
+                    {
+                        turret.Target = previousMouseState.Position;
+                    }
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
                     refineries.Add(new Refinery(this, previousMouseState.Position, gameTime.TotalGameTime));
                 }
+
+                if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
+                {
+                    turrets.Add(new Turret(this, previousMouseState.Position, gameTime.TotalGameTime));
+                }
             }
 
-            // TODO: Add your update logic here
             foreach (Harvester harvester in harvesters) {
                 if (harvester.Position == harvester.Target)
                 {
@@ -118,6 +132,14 @@ namespace CncTd
                     }
                 }
                 harvester.Update(gameTime);
+            }
+            foreach (Refinery refinery in refineries)
+            {
+                refinery.Update(gameTime);
+            }
+            foreach (Turret turret in turrets)
+            {
+                turret.Update(gameTime);
             }
 
             previousMouseState = Mouse.GetState();
@@ -144,6 +166,10 @@ namespace CncTd
             foreach (Refinery refinery in refineries)
             {
                 refinery.Draw(gameTime, spriteBatch, refinerySprite);
+            }
+            foreach (Turret turret in turrets)
+            {
+                turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite);
             }
 
             spriteBatch.End();

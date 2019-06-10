@@ -45,6 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CncTdGame.cs" />
+    <Compile Include="Entities\Turret.cs" />
     <Compile Include="Entities\Refinery.cs" />
     <Compile Include="Entities\Harvester.cs" />
     <Compile Include="Program.cs" />
@@ -58,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\gun-turret-build.png" />
+    <Content Include="Content\gun-turret.png" />
     <Content Include="Content\harvester.png" />
     <Content Include="Content\map.jpeg" />
     <Content Include="Content\refinery.png" />
