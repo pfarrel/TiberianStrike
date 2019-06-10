@@ -43,7 +43,7 @@ namespace CncTd.Entities
             //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
             {
-                throw new Exception("Bad sprit index");
+                throw new Exception("Bad sprite index");
             }
 
             spriteBatch.Draw(sprite, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);

@@ -40,7 +40,7 @@ namespace CncTd.Entities
 
             if (spriteNumber >= Sprites || spriteNumber < 0)
             {
-                throw new Exception("Bad sprit index");
+                throw new Exception("Bad sprite index");
             }
 
             spriteBatch.Draw(sprite, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
