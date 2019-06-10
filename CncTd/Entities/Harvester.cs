@@ -11,16 +11,23 @@ namespace CncTd.Entities
     class Harvester : DrawableGameComponent
     {
         private const int Sprites = 32;
-        private const double RotationSpeed = (Math.PI * 2) / 3;
+        private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
+        private const double MovementSpeed = 15.0d;  // per second
 
-        private Point Position { get; set; }
+        private Vector2 RealPosition { get; set; }
+        private Point Position {
+            get
+            {
+                return new Point((int) RealPosition.X, (int) RealPosition.Y);
+            }
+        }
         private Point Target { get; set; }
 
         double Rotation { get; set; }
 
         public Harvester(Game game, Point position) : base(game)
         {
-            Position = position;
+            RealPosition = new Vector2(position.X, position.Y);
             Target = new Point(0, 0);
             Rotation = 0;
         }
@@ -50,8 +57,13 @@ namespace CncTd.Entities
             {
                 Point diff = Target - Position;
                 Vector2 diffV = new Vector2(diff.X, diff.Y);
+                diffV.Normalize();
                 float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
                 //Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
+                if (Rotation == targetRotation)
+                {
+                    RealPosition += Vector2.Multiply(diffV, (float)(MovementSpeed * (gameTime.ElapsedGameTime.TotalSeconds)));
+                }
                 Rotation = targetRotation;
             }
 
