@@ -12,23 +12,24 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
-        private const double MovementSpeed = 15.0d;  // per second
+        private const double MovementSpeed = 45.0d;  // per second
 
-        private Vector2 RealPosition { get; set; }
-        private Point Position {
+        public Point Position
+        {
             get
             {
-                return new Point((int) RealPosition.X, (int) RealPosition.Y);
+                return new Point((int)RealPosition.X, (int)RealPosition.Y);
             }
         }
-        private Point Target { get; set; }
+        public Point Target { get; set; }
 
-        double Rotation { get; set; }
+        private Vector2 RealPosition { get; set; }
+        private double Rotation { get; set; }
 
-        public Harvester(Game game, Point position) : base(game)
+        public Harvester(Game game, Point position, Point target) : base(game)
         {
             RealPosition = new Vector2(position.X, position.Y);
-            Target = new Point(0, 0);
+            Target = target;
             Rotation = 0;
         }
 
@@ -38,6 +39,7 @@ namespace CncTd.Entities
             int y = Math.Max(0, Position.Y - 24);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
+            adjustedRotation -= 0.1; // off by one frame
             int spriteNumber = (Sprites- 1) - (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
 
             //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
@@ -68,11 +70,6 @@ namespace CncTd.Entities
             }
 
             base.Update(gameTime);
-        }
-
-        public void setTarget(Point target)
-        {
-            Target = target;
         }
     }
 }

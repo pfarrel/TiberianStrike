@@ -23,6 +23,9 @@ namespace CncTd
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
+        private Point target1 = new Point(300, 50);
+        private Point target2 = new Point(300, 500);
+
         public CncTdGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,7 +43,7 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            harvesters = new List<Harvester>() { new Harvester(this, new Point(300, 300)) };
+            harvesters = new List<Harvester>() { new Harvester(this, target1, target2) };
             refineries = new List<Refinery>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
@@ -86,14 +89,14 @@ namespace CncTd
             {
                 if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
-                    harvesters.Add(new Harvester(this, previousMouseState.Position));
+                    harvesters.Add(new Harvester(this, previousMouseState.Position, target1));
                 }
 
                 if (previousMouseState.RightButton == ButtonState.Pressed && Mouse.GetState().RightButton == ButtonState.Released)
                 {
                     foreach (Harvester harvester in harvesters)
                     {
-                        harvester.setTarget(previousMouseState.Position);
+                        harvester.Target = previousMouseState.Position;
                     }
                 }
 
@@ -104,6 +107,16 @@ namespace CncTd
 
             // TODO: Add your update logic here
             foreach (Harvester harvester in harvesters) {
+                if (harvester.Position == harvester.Target)
+                {
+                    if (harvester.Target == target1)
+                    {
+                        harvester.Target = target2;
+                    } else
+                    {
+                        harvester.Target = target1;
+                    }
+                }
                 harvester.Update(gameTime);
             }
 
