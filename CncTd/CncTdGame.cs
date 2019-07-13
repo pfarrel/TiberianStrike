@@ -20,10 +20,12 @@ namespace CncTd
         private Texture2D refinerySprite;
         private Texture2D turretConstructingSprite;
         private Texture2D turretSprite;
+        private Texture2D bulletSprite;
 
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
+        private List<Bullet> bullets;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -50,6 +52,7 @@ namespace CncTd
             harvesters = new List<Harvester>() { new Harvester(this, Player.One, target1, target2) };
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
+            bullets = new List<Bullet>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -71,6 +74,7 @@ namespace CncTd
             refinerySprite = Content.Load<Texture2D>("refinery");
             turretConstructingSprite = Content.Load<Texture2D>("gun-turret-build");
             turretSprite = Content.Load<Texture2D>("gun-turret");
+            bulletSprite = Content.Load<Texture2D>("120mm");
         }
 
         /// <summary>
@@ -146,8 +150,13 @@ namespace CncTd
             }
             foreach (Turret turret in turrets)
             {
-                turret.Update(gameTime, allEntities);
+                turret.Update(gameTime, allEntities, bullets);
             }
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Update(gameTime, allEntities);
+            }
+            bullets = bullets.Where(b => b.Alive).ToList();
 
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -177,6 +186,10 @@ namespace CncTd
             foreach (Turret turret in turrets)
             {
                 turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite);
+            }
+            foreach (Bullet bullet in bullets)
+            {
+                bullet.Draw(gameTime, spriteBatch, bulletSprite);
             }
 
             spriteBatch.End();

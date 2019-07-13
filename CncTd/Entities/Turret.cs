@@ -16,15 +16,17 @@ namespace CncTd.Entities
         private const int Size = 24;
         private const float TimeToBuild = 5000;
         private const int Range = 200;
+        private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
 
         public Player Player { get; }
-        public Point Position{ get; }
+        public Point Position { get; }
         public Point Target { get; set; }
 
         private double Rotation { get; set; }
         private Boolean Constructing { get; set; }
         private TimeSpan TimeWhenCreated { get; }
         private IPlayerEntity TargetEntity { get; set; }
+        private TimeSpan LastShot { get; set;}
 
         public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated) : base(game)
         {
@@ -72,7 +74,7 @@ namespace CncTd.Entities
             base.Draw(gameTime);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Bullet> bullets)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -110,22 +112,21 @@ namespace CncTd.Entities
                     double targetRotation = Math.Atan2(diffV.X, -diffV.Y);
                     double rotationDiff = targetRotation - Rotation;
                     double rotationPerFrame = RotationSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0d);
-                    Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);
+                    //Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);
                     if (rotationDiff < rotationPerFrame)
                     {
                         Rotation = targetRotation;
+                        if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
+                        {
+                            Bullet bullet = new Bullet(Game, Player, Position, Target);
+                            bullets.Add(bullet);
+                            LastShot = gameTime.TotalGameTime;
+                        }
                     }
                     else
                     {
                         Rotation+= rotationPerFrame;
                     }
-
-                    //Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
-                    //if (Rotation == targetRotation)
-                    //{
-                    //    RealPosition += Vector2.Multiply(diffV, (float)(MovementSpeed * (gameTime.ElapsedGameTime.TotalSeconds)));
-                    //}
-                    //Rotation = targetRotation;
                 }
             }
 

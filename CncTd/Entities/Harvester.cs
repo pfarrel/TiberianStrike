@@ -12,7 +12,7 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
-        private const double MovementSpeed = 50.0d;  // per second
+        private const double MovementSpeed = 30.0d;  // per second
 
         public Player Player { get; }
         public Point Position
