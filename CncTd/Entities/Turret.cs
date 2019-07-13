@@ -8,23 +8,27 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Turret : DrawableGameComponent
+    class Turret : DrawableGameComponent, IPlayerEntity
     {
         private const int Sprites = 32;
         private const int ConstructionSprites = 20;
-        private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
+        private const double RotationSpeed = (Math.PI * 2) / 30;  // per second
         private const int Size = 24;
         private const float TimeToBuild = 5000;
+        private const int Range = 200;
 
+        public Player Player { get; }
         public Point Position{ get; }
         public Point Target { get; set; }
 
         private double Rotation { get; set; }
         private Boolean Constructing { get; set; }
         private TimeSpan TimeWhenCreated { get; }
+        private IPlayerEntity TargetEntity { get; set; }
 
-        public Turret(Game game, Point position, TimeSpan timeWhenCreated) : base(game)
+        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated) : base(game)
         {
+            Player = player;
             Constructing = true;
             Position = position;
             Rotation = 0;
@@ -56,7 +60,7 @@ namespace CncTd.Entities
                 spriteNumber = (Sprites - 1) - spriteNumber;
                 spriteNumber %= Sprites;
 
-                Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
+                //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
                 if (spriteNumber >= Sprites || spriteNumber < 0)
                 {
                     throw new Exception("Bad sprite index");
@@ -68,7 +72,7 @@ namespace CncTd.Entities
             base.Draw(gameTime);
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -77,18 +81,51 @@ namespace CncTd.Entities
 
             if (!Constructing)
             {
-                if (Position != Target)
+                if (TargetEntity != null)
                 {
+                    float distance = Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(TargetEntity.Position.X, TargetEntity.Position.Y));
+                    if (distance > Range)
+                    {
+                        TargetEntity = null;
+                    }
+                }
+                if (TargetEntity == null)
+                {
+                    IPlayerEntity nearestEnemyHarvester = playerEntities.Where(e => e.Player != Player && e is Harvester)
+                        .OrderBy(e => Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(e.Position.X, e.Position.Y)))
+                        .FirstOrDefault();
+                    float distance = Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(nearestEnemyHarvester.Position.X, nearestEnemyHarvester.Position.Y));
+                    if (distance < Range)
+                    {
+                        TargetEntity = nearestEnemyHarvester;
+                    }
+                }
+
+                if (TargetEntity != null)
+                {
+                    Target = TargetEntity.Position;
                     Point diff = Target - Position;
                     Vector2 diffV = new Vector2(diff.X, diff.Y);
                     diffV.Normalize();
-                    float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
+                    double targetRotation = Math.Atan2(diffV.X, -diffV.Y);
+                    double rotationDiff = targetRotation - Rotation;
+                    double rotationPerFrame = RotationSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0d);
+                    Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);
+                    if (rotationDiff < rotationPerFrame)
+                    {
+                        Rotation = targetRotation;
+                    }
+                    else
+                    {
+                        Rotation+= rotationPerFrame;
+                    }
+
                     //Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
                     //if (Rotation == targetRotation)
                     //{
                     //    RealPosition += Vector2.Multiply(diffV, (float)(MovementSpeed * (gameTime.ElapsedGameTime.TotalSeconds)));
                     //}
-                    Rotation = targetRotation;
+                    //Rotation = targetRotation;
                 }
             }
 

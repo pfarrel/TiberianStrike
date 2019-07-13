@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Harvester : DrawableGameComponent
+    class Harvester : DrawableGameComponent, IPlayerEntity
     {
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
-        private const double MovementSpeed = 45.0d;  // per second
+        private const double MovementSpeed = 50.0d;  // per second
 
+        public Player Player { get; }
         public Point Position
         {
             get
@@ -26,8 +27,9 @@ namespace CncTd.Entities
         private Vector2 RealPosition { get; set; }
         private double Rotation { get; set; }
 
-        public Harvester(Game game, Point position, Point target) : base(game)
+        public Harvester(Game game, Player player, Point position, Point target) : base(game)
         {
+            Player = player;
             RealPosition = new Vector2(position.X, position.Y);
             Target = target;
             Rotation = 0;
@@ -44,7 +46,7 @@ namespace CncTd.Entities
             spriteNumber = (Sprites - 1) - spriteNumber;
             spriteNumber %= Sprites;
 
-            Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
+            //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
             {
                 throw new Exception("Bad sprite index");
@@ -55,7 +57,7 @@ namespace CncTd.Entities
             base.Draw(gameTime);
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
         {
             if (Position != Target)
             {

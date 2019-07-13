@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Refinery : DrawableGameComponent
+    class Refinery : DrawableGameComponent, IPlayerEntity
     {
         private const int Sprites = 20;
         private const float TimeToBuild = 5000;
         private const int Size = 72;
 
-        private Point Position { get; set; }
+        public Player Player { get; }
+        public Point Position { get; private set; }
         private TimeSpan TimeWhenCreated { get; set; }
 
-        public Refinery(Game game, Point position, TimeSpan elapsedWhenCreated) : base(game)
+        public Refinery(Game game, Player player, Point position, TimeSpan elapsedWhenCreated) : base(game)
         {
+            Player = player;
             Position = position;
             TimeWhenCreated = elapsedWhenCreated;
         }
@@ -48,7 +50,7 @@ namespace CncTd.Entities
             base.Draw(gameTime);
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
         {
             base.Update(gameTime);
         }

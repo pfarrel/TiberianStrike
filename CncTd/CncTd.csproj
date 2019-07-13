@@ -44,6 +44,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\PlayerEntity.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="CncTdGame.cs" />
     <Compile Include="Entities\Turret.cs" />
     <Compile Include="Entities\Refinery.cs" />

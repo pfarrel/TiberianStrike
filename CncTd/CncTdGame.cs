@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CncTd
 {
@@ -46,7 +47,7 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            harvesters = new List<Harvester>() { new Harvester(this, target1, target2) };
+            harvesters = new List<Harvester>() { new Harvester(this, Player.One, target1, target2) };
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
             IsMouseVisible = true;
@@ -95,7 +96,7 @@ namespace CncTd
             {
                 if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
-                    harvesters.Add(new Harvester(this, previousMouseState.Position, target1));
+                    harvesters.Add(new Harvester(this, Player.One, previousMouseState.Position, target1));
                 }
 
                 if (previousMouseState.RightButton == ButtonState.Pressed && Mouse.GetState().RightButton == ButtonState.Released)
@@ -111,14 +112,20 @@ namespace CncTd
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    refineries.Add(new Refinery(this, previousMouseState.Position, gameTime.TotalGameTime));
+                    refineries.Add(new Refinery(this, Player.One, previousMouseState.Position, gameTime.TotalGameTime));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    turrets.Add(new Turret(this, previousMouseState.Position, gameTime.TotalGameTime));
+                    turrets.Add(new Turret(this, Player.Two, previousMouseState.Position, gameTime.TotalGameTime));
                 }
             }
+
+
+            List<IPlayerEntity> allEntities = new List<IPlayerEntity>();
+            allEntities.AddRange(harvesters);
+            allEntities.AddRange(refineries);
+            allEntities.AddRange(turrets);
 
             foreach (Harvester harvester in harvesters) {
                 if (harvester.Position == harvester.Target)
@@ -131,15 +138,15 @@ namespace CncTd
                         harvester.Target = target1;
                     }
                 }
-                harvester.Update(gameTime);
+                harvester.Update(gameTime, allEntities);
             }
             foreach (Refinery refinery in refineries)
             {
-                refinery.Update(gameTime);
+                refinery.Update(gameTime, allEntities);
             }
             foreach (Turret turret in turrets)
             {
-                turret.Update(gameTime);
+                turret.Update(gameTime, allEntities);
             }
 
             previousMouseState = Mouse.GetState();
