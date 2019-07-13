@@ -13,6 +13,7 @@ namespace CncTd.Entities
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
         private const double MovementSpeed = 30.0d;  // per second
+        private const int MaxHealth = 100;
 
         public Player Player { get; }
         public Point Position
@@ -23,6 +24,7 @@ namespace CncTd.Entities
             }
         }
         public Point Target { get; set; }
+        public int Health { get; private set; }
 
         private Vector2 RealPosition { get; set; }
         private double Rotation { get; set; }
@@ -35,7 +37,7 @@ namespace CncTd.Entities
             Rotation = 0;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite, Texture2D whitePixelSprite)
         {
             int x = Math.Max(0, Position.X - 24);
             int y = Math.Max(0, Position.Y - 24);
@@ -53,6 +55,14 @@ namespace CncTd.Entities
             }
 
             spriteBatch.Draw(sprite, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);
+
+            int maxHealthBarWidth = 24;
+            float healthFraction = (float) Health / MaxHealth;
+            int healthBarWidth = (int)(healthFraction * (maxHealthBarWidth - 2));
+            Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
+
+            spriteBatch.Draw(whitePixelSprite, new Rectangle(x + 12, y + 2, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
+            spriteBatch.Draw(whitePixelSprite, new Rectangle(x + 12 + 1, y + 3, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
 
             base.Draw(gameTime);
         }
@@ -72,6 +82,7 @@ namespace CncTd.Entities
                 }
                 Rotation = targetRotation;
             }
+            Health = 100 - gameTime.TotalGameTime.Seconds * 4;
 
             base.Update(gameTime);
         }

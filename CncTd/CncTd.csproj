@@ -45,6 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Content\120mm.png" />
+    <Content Include="Content\whitepixel.png" />
     <Content Include="Content\Recolor.fx" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />

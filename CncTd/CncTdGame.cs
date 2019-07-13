@@ -21,6 +21,7 @@ namespace CncTd
         private Texture2D turretConstructingSprite;
         private Texture2D turretSprite;
         private Texture2D bulletSprite;
+        private Texture2D whitePixelSprite;
 
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
@@ -75,6 +76,7 @@ namespace CncTd
             turretConstructingSprite = Content.Load<Texture2D>("gun-turret-build");
             turretSprite = Content.Load<Texture2D>("gun-turret");
             bulletSprite = Content.Load<Texture2D>("120mm");
+            whitePixelSprite = Content.Load<Texture2D>("whitepixel");
         }
 
         /// <summary>
@@ -177,7 +179,7 @@ namespace CncTd
             spriteBatch.Draw(mapSprite, new Rectangle(0, 0, 744, 744), Color.White);
             foreach (Harvester harvester in harvesters)
             {
-                harvester.Draw(gameTime, spriteBatch, harvesterSprite);
+                harvester.Draw(gameTime, spriteBatch, harvesterSprite, whitePixelSprite);
             }
             foreach (Refinery refinery in refineries)
             {
