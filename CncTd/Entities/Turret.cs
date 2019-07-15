@@ -38,7 +38,7 @@ namespace CncTd.Entities
             TimeWhenCreated = timeWhenCreated;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D constructionSprite, Texture2D mainSprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D constructionSprite, Texture2D mainSprite, Texture2D nodSprite)
         {
             int x = Math.Max(0, Position.X - Size / 2);
             int y = Math.Max(0, Position.Y - Size / 2);
@@ -54,7 +54,7 @@ namespace CncTd.Entities
             }
             else
             {
-                spriteToUse = mainSprite;
+                spriteToUse = Player == Player.One ? mainSprite : nodSprite;
 
                 double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
                 spriteNumber = (int)((adjustedRotation / (Math.PI * 2)) * Sprites);

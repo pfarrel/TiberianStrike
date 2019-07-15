@@ -20,6 +20,7 @@ namespace CncTd
         private Texture2D refinerySprite;
         private Texture2D turretConstructingSprite;
         private Texture2D turretSprite;
+        private Texture2D turretSpriteNod;
         private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
 
@@ -77,6 +78,25 @@ namespace CncTd
             turretSprite = Content.Load<Texture2D>("gun-turret");
             bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
+
+            turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
+            Color[] data = new Color[turretSprite.Width * turretSprite.Height];
+            turretSpriteNod.GetData(data);
+            Color source = new Color(246, 214, 121);
+            Color source2 = new Color(222, 190, 105);
+            Color source3 = new Color(178, 149, 80);
+            Color source4 = new Color(170, 153, 85);
+            Color source5 = new Color(194, 174, 97);
+            Color source6 = new Color(198, 170, 93);
+            Color source7 = new Color(145, 137, 76);
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] == source || data[i] == source2 || data[i] == source3 || data[i] == source4 || data[i] == source5 || data[i] == source6 || data[i] == source7)
+                {
+                    data[i] = Color.Red;
+                }
+            }
+            turretSpriteNod.SetData(data);
         }
 
         /// <summary>
@@ -173,7 +193,6 @@ namespace CncTd
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
             spriteBatch.Begin();
 
             spriteBatch.Draw(mapSprite, new Rectangle(0, 0, 744, 744), Color.White);
@@ -187,7 +206,7 @@ namespace CncTd
             }
             foreach (Turret turret in turrets)
             {
-                turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite);
+                turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite, turretSpriteNod);
             }
             foreach (Projectile bullet in bullets)
             {
