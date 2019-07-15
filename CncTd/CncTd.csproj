@@ -47,7 +47,7 @@
     <Content Include="Content\120mm.png" />
     <Content Include="Content\whitepixel.png" />
     <Content Include="Content\Recolor.fx" />
-    <Compile Include="Entities\Bullet.cs" />
+    <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="CncTdGame.cs" />

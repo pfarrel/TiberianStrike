@@ -46,13 +46,12 @@ namespace CncTd.Entities
             }
 
             spriteBatch.Draw(sprite, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
-
-            base.Draw(gameTime);
         }
 
         public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
         {
-            base.Update(gameTime);
         }
+
+        public void Damage(int amount) { }
     }
 }

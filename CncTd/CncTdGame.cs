@@ -26,7 +26,7 @@ namespace CncTd
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
-        private List<Bullet> bullets;
+        private List<Projectile> bullets;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -53,7 +53,7 @@ namespace CncTd
             harvesters = new List<Harvester>() { new Harvester(this, Player.One, target1, target2) };
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
-            bullets = new List<Bullet>();
+            bullets = new List<Projectile>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -154,7 +154,7 @@ namespace CncTd
             {
                 turret.Update(gameTime, allEntities, bullets);
             }
-            foreach (Bullet bullet in bullets)
+            foreach (Projectile bullet in bullets)
             {
                 bullet.Update(gameTime, allEntities);
             }
@@ -189,7 +189,7 @@ namespace CncTd
             {
                 turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite);
             }
-            foreach (Bullet bullet in bullets)
+            foreach (Projectile bullet in bullets)
             {
                 bullet.Draw(gameTime, spriteBatch, bulletSprite);
             }

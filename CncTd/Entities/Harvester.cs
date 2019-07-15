@@ -12,7 +12,7 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
-        private const double MovementSpeed = 30.0d;  // per second
+        private const double MovementSpeed = 20.0d;  // per second
         private const int MaxHealth = 100;
 
         public Player Player { get; }
@@ -35,6 +35,7 @@ namespace CncTd.Entities
             RealPosition = new Vector2(position.X, position.Y);
             Target = target;
             Rotation = 0;
+            Health = MaxHealth;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite, Texture2D whitePixelSprite)
@@ -82,9 +83,13 @@ namespace CncTd.Entities
                 }
                 Rotation = targetRotation;
             }
-            Health = 100 - gameTime.TotalGameTime.Seconds * 4;
 
             base.Update(gameTime);
+        }
+
+        public void Damage(int amount)
+        {
+            Health = Math.Max(0, Health - amount);
         }
     }
 }

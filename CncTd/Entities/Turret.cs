@@ -12,7 +12,7 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const int ConstructionSprites = 20;
-        private const double RotationSpeed = (Math.PI * 2) / 30;  // per second
+        private const double RotationSpeed = (Math.PI * 2) / 25;  // per second
         private const int Size = 24;
         private const float TimeToBuild = 5000;
         private const int Range = 200;
@@ -70,11 +70,9 @@ namespace CncTd.Entities
             }
 
             spriteBatch.Draw(spriteToUse, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
-
-            base.Draw(gameTime);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Bullet> bullets)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -118,7 +116,7 @@ namespace CncTd.Entities
                         Rotation = targetRotation;
                         if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
                         {
-                            Bullet bullet = new Bullet(Game, Player, Position, Target);
+                            Projectile bullet = new Projectile(Game, Player, Position, Target);
                             bullets.Add(bullet);
                             LastShot = gameTime.TotalGameTime;
                         }
@@ -129,8 +127,8 @@ namespace CncTd.Entities
                     }
                 }
             }
-
-            base.Update(gameTime);
         }
+
+        public void Damage(int amount) { }
     }
 }

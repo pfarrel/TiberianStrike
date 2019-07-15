@@ -11,5 +11,6 @@ namespace CncTd.Entities
     {
         Player Player { get; }
         Point Position { get; }
+        void Damage(int amount);
     }
 }

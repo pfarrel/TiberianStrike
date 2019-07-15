@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Bullet
+    class Projectile
     {
-        private const double MovementSpeed = 120.0d;  // per second
+        private const double MovementSpeed = 180.0d;  // per second
+        private const double ExplosionRadius = 15;
+        private const int Damage = 10;
 
         public Player Player { get; }
         public Point Position
@@ -25,7 +27,7 @@ namespace CncTd.Entities
 
         private Vector2 RealPosition { get; set; }
 
-        public Bullet(Game game, Player player, Point position, Point target)
+        public Projectile(Game game, Player player, Point position, Point target)
         {
             Player = player;
             RealPosition = new Vector2(position.X, position.Y);
@@ -49,6 +51,14 @@ namespace CncTd.Entities
             if (Target == Position)
             {
                 Alive = false;
+                List<IPlayerEntity> inRadius = playerEntities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
+                    .ToList();
+                foreach (IPlayerEntity entity in inRadius)
+                {
+                    float distance = Vector2.Distance(new Vector2(entity.Position.X, entity.Position.Y), targetVector);
+                    int damage = (int)(Damage * (distance / ExplosionRadius));
+                    entity.Damage(damage);
+                }
             }
             else if (distanceToTarget < speedPerFrame)
             {
