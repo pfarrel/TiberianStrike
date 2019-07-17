@@ -23,11 +23,13 @@ namespace CncTd
         private Texture2D turretSpriteNod;
         private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
+        private Texture2D shellExplosionSprite;
 
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
         private List<Projectile> bullets;
+        private List<ShellExplosion> explosions;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -55,6 +57,7 @@ namespace CncTd
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
             bullets = new List<Projectile>();
+            explosions = new List<ShellExplosion>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -78,6 +81,7 @@ namespace CncTd
             turretSprite = Content.Load<Texture2D>("gun-turret");
             bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
+            shellExplosionSprite = Content.Load<Texture2D>("veh-hit3");
 
             turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
             Color[] data = new Color[turretSprite.Width * turretSprite.Height];
@@ -174,11 +178,26 @@ namespace CncTd
             {
                 turret.Update(gameTime, allEntities, bullets);
             }
+            List<Projectile> survivingBullets = new List<Projectile>();
             foreach (Projectile bullet in bullets)
             {
                 bullet.Update(gameTime, allEntities);
+                if (bullet.Alive)
+                {
+                    survivingBullets.Add(bullet);
+                }
+                else
+                {
+                    explosions.Add(new ShellExplosion(bullet.Position));
+                }
             }
-            bullets = bullets.Where(b => b.Alive).ToList();
+            bullets = survivingBullets;
+
+            foreach (ShellExplosion explosion in explosions)
+            {
+                explosion.Update(gameTime, allEntities);
+            }
+            explosions = explosions.Where(e => e.IsAlive).ToList();
 
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -211,6 +230,10 @@ namespace CncTd
             foreach (Projectile bullet in bullets)
             {
                 bullet.Draw(gameTime, spriteBatch, bulletSprite);
+            }
+            foreach (ShellExplosion explosion in explosions)
+            {
+                explosion.Draw(gameTime, spriteBatch, shellExplosionSprite);
             }
 
             spriteBatch.End();

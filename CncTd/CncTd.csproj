@@ -45,7 +45,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Content\120mm.png" />
+    <Content Include="Content\ftnk.png" />
+    <Content Include="Content\mtnk-body.png" />
+    <Content Include="Content\mtnk-turret.png" />
+    <Content Include="Content\napalm1.png" />
+    <Content Include="Content\napalm2.png" />
+    <Content Include="Content\napalm3.png" />
+    <Content Include="Content\Sounds\flamer2.wav" />
+    <Content Include="Content\Sounds\tnkfire2.wav" />
+    <Content Include="Content\Sounds\tnkfire3.wav" />
+    <Content Include="Content\Sounds\tnkfire4.wav" />
+    <Content Include="Content\Sounds\tnkfire6.wav" />
+    <Content Include="Content\Sounds\xplobig4.wav" />
+    <Content Include="Content\Sounds\xplobig6.wav" />
+    <Content Include="Content\veh-hit1.png" />
+    <Content Include="Content\veh-hit2.png" />
+    <Content Include="Content\veh-hit3.png" />
     <Content Include="Content\whitepixel.png" />
+    <Compile Include="Entities\Explosion.cs" />
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
     <Compile Include="Player.cs" />

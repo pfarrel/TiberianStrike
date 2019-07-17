@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class Projectile
     {
-        private const double MovementSpeed = 180.0d;  // per second
+        private const double MovementSpeed = 400.0d;  // per second
         private const double ExplosionRadius = 15;
         private const int Damage = 10;
 
