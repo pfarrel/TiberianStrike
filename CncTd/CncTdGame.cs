@@ -1,5 +1,6 @@
 ﻿using CncTd.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace CncTd
         private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
         private Texture2D shellExplosionSprite;
+
+        private SoundEffect turretShot;
 
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
@@ -82,6 +85,8 @@ namespace CncTd
             bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
             shellExplosionSprite = Content.Load<Texture2D>("veh-hit3");
+
+            turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
 
             turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
             Color[] data = new Color[turretSprite.Width * turretSprite.Height];
@@ -147,7 +152,7 @@ namespace CncTd
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    turrets.Add(new Turret(this, Player.Two, previousMouseState.Position, gameTime.TotalGameTime));
+                    turrets.Add(new Turret(this, Player.Two, previousMouseState.Position, gameTime.TotalGameTime, turretShot));
                 }
             }
 

@@ -157,6 +157,48 @@
 /processorParam:TextureFormat=Color
 /build:refinery.png
 
+#begin Sounds/flamer2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/flamer2.wav
+
+#begin Sounds/tnkfire2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/tnkfire2.wav
+
+#begin Sounds/tnkfire3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/tnkfire3.wav
+
+#begin Sounds/tnkfire4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/tnkfire4.wav
+
+#begin Sounds/tnkfire6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/tnkfire6.wav
+
+#begin Sounds/xplobig4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/xplobig4.wav
+
+#begin Sounds/xplobig6.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/xplobig6.wav
+
 #begin veh-hit1.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace CncTd.Entities
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
+        private readonly SoundEffect shot;
 
         public Player Player { get; }
         public Point Position { get; }
@@ -28,7 +30,7 @@ namespace CncTd.Entities
         private IPlayerEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
 
-        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated) : base(game)
+        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated, SoundEffect shot) : base(game)
         {
             Player = player;
             Constructing = true;
@@ -36,6 +38,7 @@ namespace CncTd.Entities
             Rotation = 0;
             Target = new Point(0, 0);
             TimeWhenCreated = timeWhenCreated;
+            this.shot = shot;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D constructionSprite, Texture2D mainSprite, Texture2D nodSprite)
@@ -119,6 +122,7 @@ namespace CncTd.Entities
                             Projectile bullet = new Projectile(Game, Player, Position, Target);
                             bullets.Add(bullet);
                             LastShot = gameTime.TotalGameTime;
+                            shot.Play();
                         }
                     }
                     else
