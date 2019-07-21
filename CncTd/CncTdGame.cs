@@ -18,6 +18,7 @@ namespace CncTd
 
         private Camera camera;
 
+        private Texture2D a10Sprite;
         private Texture2D harvesterSprite;
         private Texture2D mapSprite;
         private Texture2D refinerySprite;
@@ -30,6 +31,7 @@ namespace CncTd
 
         private SoundEffect turretShot;
 
+        private A10 a10;
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
@@ -82,6 +84,7 @@ namespace CncTd
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            a10Sprite = Content.Load<Texture2D>("a10");
             harvesterSprite = Content.Load<Texture2D>("harvester");
             mapSprite = Content.Load<Texture2D>("map");
             refinerySprite = Content.Load<Texture2D>("refinery");
@@ -92,6 +95,8 @@ namespace CncTd
             shellExplosionSprite = Content.Load<Texture2D>("veh-hit3");
 
             turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
+
+            a10 = new A10(this, Player.One, new Point(100, 100));
 
             turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
             Color[] data = new Color[turretSprite.Width * turretSprite.Height];
@@ -173,6 +178,15 @@ namespace CncTd
                 if (Keyboard.GetState().IsKeyDown(Keys.Down))
                     movement.Y++;
 
+                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                {
+                    a10.TurnLeft();
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.D))
+                {
+                    a10.TurnRight();
+                }
+
                 camera.Pos += movement * 20;
             }
 
@@ -223,6 +237,8 @@ namespace CncTd
                 explosion.Update(gameTime, allEntities);
             }
             explosions = explosions.Where(e => e.IsAlive).ToList();
+            a10.Update(gameTime, allEntities);
+            camera.Pos = new Vector2(a10.Position.X, a10.Position.Y);
 
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -261,6 +277,7 @@ namespace CncTd
             {
                 explosion.Draw(gameTime, spriteBatch, shellExplosionSprite);
             }
+            a10.Draw(gameTime, spriteBatch, a10Sprite, whitePixelSprite);
 
             spriteBatch.End();
 
