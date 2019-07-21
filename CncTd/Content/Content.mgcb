@@ -181,6 +181,18 @@
 /processorParam:TextureFormat=Color
 /build:orca.png
 
+#begin piffpiff.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:piffpiff.png
+
 #begin refinery.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -198,6 +210,30 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/flamer2.wav
+
+#begin Sounds/flamer2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/flamer2.wav
+
+#begin Sounds/gun8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/gun8.wav
+
+#begin Sounds/mgun11.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/mgun11.wav
+
+#begin Sounds/mgun2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/mgun2.wav
 
 #begin Sounds/tnkfire2.wav
 /importer:WavImporter
@@ -234,6 +270,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/xplobig6.wav
+
+#begin Sounds/xplos.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/xplos.wav
 
 #begin veh-hit1.png
 /importer:TextureImporter

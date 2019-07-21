@@ -8,38 +8,38 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class ShellExplosion
+    abstract class Explosion
     {
-        private const int Width = 19;
-        private const int Height = 13;
-        private const int Frames = 14;
+        private const int FrameRepeat = 2;
 
         public Point Position { get; private set; }
         public bool IsAlive { get; private set; }
         private int FrameNumber { get; set; }
+        private SpriteWrapper Sprite { get; set; }
 
-        public ShellExplosion(Point position)
+        public Explosion(Point position, SpriteWrapper sprite)
         {
             Position = position;
             IsAlive = true;
             FrameNumber = -1;
+            Sprite = sprite;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - (Width / 2));
-            int y = Math.Max(0, Position.Y - (Height / 2));
+            int x = Math.Max(0, Position.X - (Sprite.Width / 2));
+            int y = Math.Max(0, Position.Y - (Sprite.Height / 2));
 
             if (IsAlive)
             {
-                spriteBatch.Draw(sprite, new Rectangle(x, y, Width, Height), new Rectangle(FrameNumber * Width, 0, Width, Height), Color.White);
+                spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), new Rectangle((FrameNumber / FrameRepeat) * Sprite.Width, 0, Sprite.Width, Sprite.Height), Color.White);
             }
         }
 
         public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
         {
             FrameNumber++;
-            if (FrameNumber == Frames)
+            if (FrameNumber == Sprite.Frames * FrameRepeat)
             {
                 IsAlive = false;
             }

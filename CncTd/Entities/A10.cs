@@ -12,6 +12,8 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const double MovementSpeed = 20.0d;  // per second
+        private const double FiringTime = 1.0d;
+        private const float GunRange = 100f;
 
         public Player Player { get; }
         public Point Position
@@ -21,9 +23,11 @@ namespace CncTd.Entities
                 return new Point((int)RealPosition.X, (int)RealPosition.Y);
             }
         }
+        public bool IsFiring { get; private set; }
 
         private Vector2 RealPosition { get; set; }
         private double Rotation { get; set; }
+        private TimeSpan LastFiringTime { get; set; }
 
         public A10(Game game, Player player, Point position) : base(game)
         {
@@ -59,6 +63,13 @@ namespace CncTd.Entities
                 (float)((Math.Sin(Rotation - MathHelper.PiOver2)))
             );
             RealPosition += movement;
+            if (IsFiring)
+            {
+                if (gameTime.TotalGameTime > LastFiringTime + TimeSpan.FromSeconds(FiringTime))
+                {
+                    IsFiring = false;
+                }
+            }
         }
 
         public void TurnLeft()
@@ -76,6 +87,21 @@ namespace CncTd.Entities
         public void Damage(int amount)
         {
             
+        }
+
+        public void Shoot(GameTime gameTime, List<Explosion> explosions, Sprites sprites)
+        {
+            IsFiring = true;
+            LastFiringTime = gameTime.TotalGameTime;
+
+            Vector2 bulletDirection = new Vector2(
+                (float) (Math.Cos(Rotation - MathHelper.PiOver2)),
+                (float) ((Math.Sin(Rotation - MathHelper.PiOver2)))
+            );
+            bulletDirection.Normalize();
+            bulletDirection = GunRange * bulletDirection;
+            Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
+            explosions.Add(new BulletImpact(bulletImpact, sprites));
         }
     }
 }

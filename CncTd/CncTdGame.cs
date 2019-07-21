@@ -27,16 +27,17 @@ namespace CncTd
         private Texture2D turretSpriteNod;
         private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
-        private Texture2D shellExplosionSprite;
+        private Sprites sprites;
 
         private SoundEffect turretShot;
+        private SoundEffect machineGun;
 
         private A10 a10;
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
         private List<Projectile> bullets;
-        private List<ShellExplosion> explosions;
+        private List<Explosion> explosions;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -64,13 +65,15 @@ namespace CncTd
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
             bullets = new List<Projectile>();
-            explosions = new List<ShellExplosion>();
+            explosions = new List<Explosion>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
 
             camera = new Camera(new Viewport(0, 0, 1280, 720), 2000, 2000);
             camera.Pos = new Vector2(200, 200);
+
+            SoundEffect.MasterVolume = 0.5f;
 
             base.Initialize();
         }
@@ -92,9 +95,10 @@ namespace CncTd
             turretSprite = Content.Load<Texture2D>("gun-turret");
             bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
-            shellExplosionSprite = Content.Load<Texture2D>("veh-hit3");
+            sprites = Sprites.Load(Content);
 
             turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
+            machineGun = Content.Load<SoundEffect>("Sounds/gun8");
 
             a10 = new A10(this, Player.One, new Point(100, 100));
 
@@ -186,6 +190,14 @@ namespace CncTd
                 {
                     a10.TurnRight();
                 }
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    if (!a10.IsFiring)
+                    {
+                        a10.Shoot(gameTime, explosions, sprites);
+                        machineGun.Play();
+                    }
+                }
 
                 camera.Pos += movement * 20;
             }
@@ -227,12 +239,12 @@ namespace CncTd
                 }
                 else
                 {
-                    explosions.Add(new ShellExplosion(bullet.Position));
+                    explosions.Add(new ShellExplosion(bullet.Position, sprites));
                 }
             }
             bullets = survivingBullets;
 
-            foreach (ShellExplosion explosion in explosions)
+            foreach (Explosion explosion in explosions)
             {
                 explosion.Update(gameTime, allEntities);
             }
@@ -273,9 +285,9 @@ namespace CncTd
             {
                 bullet.Draw(gameTime, spriteBatch, bulletSprite);
             }
-            foreach (ShellExplosion explosion in explosions)
+            foreach (Explosion explosion in explosions)
             {
-                explosion.Draw(gameTime, spriteBatch, shellExplosionSprite);
+                explosion.Draw(gameTime, spriteBatch);
             }
             a10.Draw(gameTime, spriteBatch, a10Sprite, whitePixelSprite);
 
