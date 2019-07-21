@@ -44,11 +44,15 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\CannonShot.cs" />
+    <Compile Include="Entities\Bomblet.cs" />
+    <Compile Include="Entities\NapalmExplosion.cs" />
     <Compile Include="Sprites.cs" />
     <Compile Include="SpriteWrapper.cs" />
     <Content Include="Content\120mm.png" />
     <Content Include="Content\a10.png" />
     <Content Include="Content\apache.png" />
+    <Content Include="Content\bomblet.png" />
     <Content Include="Content\ftnk.png" />
     <Content Include="Content\mtnk-body.png" />
     <Content Include="Content\mtnk-turret.png" />

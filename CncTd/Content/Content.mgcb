@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:apache.png
 
+#begin bomblet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:bomblet.png
+
 #begin ftnk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -204,12 +216,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:refinery.png
-
-#begin Sounds/flamer2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/flamer2.wav
 
 #begin Sounds/flamer2.wav
 /importer:WavImporter

@@ -29,20 +29,21 @@ namespace CncTd
         private Texture2D whitePixelSprite;
         private Sprites sprites;
 
-        private SoundEffect turretShot;
+        private SoundEffect flameSound;
         private SoundEffect machineGun;
+        private SoundEffect turretShot;
 
         private A10 a10;
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
         private List<Turret> turrets;
-        private List<Projectile> bullets;
+        private List<Projectile> projectiles;
         private List<Explosion> explosions;
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
         private Point target1 = new Point(300, 50);
-        private Point target2 = new Point(300, 500);
+        private Point target2 = new Point(300, 400);
 
         public CncTdGame()
         {
@@ -64,7 +65,7 @@ namespace CncTd
             harvesters = new List<Harvester>() { new Harvester(this, Player.One, target1, target2) };
             refineries = new List<Refinery>();
             turrets = new List<Turret>();
-            bullets = new List<Projectile>();
+            projectiles = new List<Projectile>();
             explosions = new List<Explosion>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
@@ -97,8 +98,9 @@ namespace CncTd
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
             sprites = Sprites.Load(Content);
 
-            turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
+            flameSound = Content.Load<SoundEffect>("Sounds/flamer2");
             machineGun = Content.Load<SoundEffect>("Sounds/gun8");
+            turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
 
             a10 = new A10(this, Player.One, new Point(100, 100));
 
@@ -192,11 +194,11 @@ namespace CncTd
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    if (!a10.IsFiring)
-                    {
-                        a10.Shoot(gameTime, explosions, sprites);
-                        machineGun.Play();
-                    }
+                    a10.Shoot(gameTime, explosions, sprites, machineGun);
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.B))
+                {
+                    a10.Bomb(this, gameTime, projectiles, sprites);
                 }
 
                 camera.Pos += movement * 20;
@@ -227,10 +229,10 @@ namespace CncTd
             }
             foreach (Turret turret in turrets)
             {
-                turret.Update(gameTime, allEntities, bullets);
+                turret.Update(gameTime, allEntities, projectiles, sprites);
             }
             List<Projectile> survivingBullets = new List<Projectile>();
-            foreach (Projectile bullet in bullets)
+            foreach (Projectile bullet in projectiles)
             {
                 bullet.Update(gameTime, allEntities);
                 if (bullet.Alive)
@@ -239,10 +241,18 @@ namespace CncTd
                 }
                 else
                 {
-                    explosions.Add(new ShellExplosion(bullet.Position, sprites));
+                    if (bullet is CannonShot)
+                    {
+                        explosions.Add(new ShellExplosion(bullet.Position, sprites));
+                    }
+                    else if (bullet is Bomblet)
+                    {
+                        explosions.Add(new NapalmExplosion(bullet.Position, sprites));
+                        flameSound.Play();
+                    }
                 }
             }
-            bullets = survivingBullets;
+            projectiles = survivingBullets;
 
             foreach (Explosion explosion in explosions)
             {
@@ -281,9 +291,9 @@ namespace CncTd
             {
                 turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite, turretSpriteNod);
             }
-            foreach (Projectile bullet in bullets)
+            foreach (Projectile bullet in projectiles)
             {
-                bullet.Draw(gameTime, spriteBatch, bulletSprite);
+                bullet.Draw(gameTime, spriteBatch);
             }
             foreach (Explosion explosion in explosions)
             {

@@ -75,7 +75,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(spriteToUse, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets, Sprites sprites)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -119,7 +119,7 @@ namespace CncTd.Entities
                         Rotation = targetRotation;
                         if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
                         {
-                            Projectile bullet = new Projectile(Game, Player, Position, Target);
+                            Projectile bullet = new CannonShot(Game, Player, Position, Target, sprites);
                             bullets.Add(bullet);
                             LastShot = gameTime.TotalGameTime;
                             shot.Play();
