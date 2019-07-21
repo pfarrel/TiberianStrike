@@ -16,6 +16,8 @@ namespace CncTd
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Camera camera;
+
         private Texture2D harvesterSprite;
         private Texture2D mapSprite;
         private Texture2D refinerySprite;
@@ -42,8 +44,8 @@ namespace CncTd
         public CncTdGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
 
             Content.RootDirectory = "Content";
         }
@@ -64,6 +66,9 @@ namespace CncTd
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
+
+            camera = new Camera(new Viewport(0, 0, 1280, 720), 2000, 2000);
+            camera.Pos = new Vector2(200, 200);
 
             base.Initialize();
         }
@@ -129,31 +134,46 @@ namespace CncTd
 
             if (IsActive)
             {
+                Matrix inverse = Matrix.Invert(camera.GetTransformation());
+                Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
+                Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
                 if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
-                    harvesters.Add(new Harvester(this, Player.One, previousMouseState.Position, target1));
+                    harvesters.Add(new Harvester(this, Player.One, mousePositionPoint, target1));
                 }
 
                 if (previousMouseState.RightButton == ButtonState.Pressed && Mouse.GetState().RightButton == ButtonState.Released)
                 {
                     foreach (Harvester harvester in harvesters)
                     {
-                        harvester.Target = previousMouseState.Position;
+                        harvester.Target = mousePositionPoint;
                     }
                     foreach (Turret turret in turrets)
                     {
-                        turret.Target = previousMouseState.Position;
+                        turret.Target = mousePositionPoint;
                     }
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    refineries.Add(new Refinery(this, Player.One, previousMouseState.Position, gameTime.TotalGameTime));
+                    refineries.Add(new Refinery(this, Player.One, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    turrets.Add(new Turret(this, Player.Two, previousMouseState.Position, gameTime.TotalGameTime, turretShot));
+                    turrets.Add(new Turret(this, Player.Two, mousePositionPoint, gameTime.TotalGameTime, turretShot));
                 }
+
+                Vector2 movement = Vector2.Zero;
+                if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                    movement.X--;
+                if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                    movement.X++;
+                if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                    movement.Y--;
+                if (Keyboard.GetState().IsKeyDown(Keys.Down))
+                    movement.Y++;
+
+                camera.Pos += movement * 20;
             }
 
 
@@ -217,7 +237,8 @@ namespace CncTd
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+            
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation());
 
             spriteBatch.Draw(mapSprite, new Rectangle(0, 0, 744, 744), Color.White);
             foreach (Harvester harvester in harvesters)

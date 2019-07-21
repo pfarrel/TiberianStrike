@@ -62,6 +62,7 @@
     <Content Include="Content\veh-hit2.png" />
     <Content Include="Content\veh-hit3.png" />
     <Content Include="Content\whitepixel.png" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Entities\Explosion.cs" />
     <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
