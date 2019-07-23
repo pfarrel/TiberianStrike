@@ -64,6 +64,7 @@
     <Content Include="Content\napalm3.png" />
     <Content Include="Content\orca.png" />
     <Content Include="Content\piffpiff.png" />
+    <Content Include="Content\shadow.png" />
     <Content Include="Content\Sounds\flamer2.wav" />
     <Content Include="Content\Sounds\gun8.wav" />
     <Content Include="Content\Sounds\mgun11.wav" />

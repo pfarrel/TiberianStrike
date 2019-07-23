@@ -20,6 +20,7 @@ namespace CncTd
         public static SpriteWrapper Napalm2 { get; private set; }
         public static SpriteWrapper Napalm3 { get; private set; }
         public static SpriteWrapper None { get; private set; }
+        public static SpriteWrapper Shadow { get; private set; }
 
         public static void Load(ContentManager content)
         {
@@ -33,6 +34,7 @@ namespace CncTd
             Napalm2 = new SpriteWrapper(content.Load<Texture2D>("napalm2"), 41, 40, 14);
             Napalm3 = new SpriteWrapper(content.Load<Texture2D>("napalm3"), 72, 72, 14);
             None = new SpriteWrapper(content.Load<Texture2D>("whitepixel"), 0, 0, 1);
+            Shadow = new SpriteWrapper(content.Load<Texture2D>("shadow"), 48, 48, 1);
         }
     }
 }

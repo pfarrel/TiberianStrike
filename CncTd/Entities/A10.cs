@@ -11,7 +11,7 @@ namespace CncTd.Entities
 {
     class A10 : DrawableGameComponent, IPlayerEntity
     {
-        private const int Sprites = 32;
+        private const int Frames = 32;
         private const double MovementSpeed = 20.0d;  // per second
         private const double FiringTime = 0.5d;
         private const double BombingTime = 0.2d;
@@ -44,10 +44,10 @@ namespace CncTd.Entities
             int y = Math.Max(0, Position.Y - 24 - 30);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
+            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Frames);
             spriteNumber -= 1;
-            spriteNumber = (Sprites - 1) - spriteNumber;
-            spriteNumber %= Sprites;
+            spriteNumber = (Frames - 1) - spriteNumber;
+            spriteNumber %= Frames;
 
             //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
@@ -55,6 +55,7 @@ namespace CncTd.Entities
                 throw new Exception("Bad sprite index");
             }
 
+            spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + 30, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
             spriteBatch.Draw(sprite, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);
         }
 
@@ -69,13 +70,13 @@ namespace CncTd.Entities
 
         public void TurnLeft()
         {
-            Rotation -= 0.1f;
+            Rotation -= 0.05f;
             Rotation %= MathHelper.TwoPi;
         }
 
         public void TurnRight()
         {
-            Rotation += 0.1f;
+            Rotation += 0.05f;
             Rotation %= MathHelper.TwoPi;
         }
 
@@ -102,7 +103,7 @@ namespace CncTd.Entities
             Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
             Bullet bullet = new Bullet(Game, Player.One, Position, bulletImpact);
             projectiles.Add(bullet);
-            Sounds.HeavyMachineGun.Play();
+            Sounds.HeavyMachineGun.Play(0.5f, 0, 0);
         }
 
         public void Bomb(Game game, GameTime gameTime, List<Projectile> projectiles)
