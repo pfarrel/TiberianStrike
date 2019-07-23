@@ -27,11 +27,6 @@ namespace CncTd
         private Texture2D turretSpriteNod;
         private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
-        private Sprites sprites;
-
-        private SoundEffect flameSound;
-        private SoundEffect machineGun;
-        private SoundEffect turretShot;
 
         private A10 a10;
         private List<Harvester> harvesters;
@@ -96,17 +91,14 @@ namespace CncTd
             turretSprite = Content.Load<Texture2D>("gun-turret");
             bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
-            sprites = Sprites.Load(Content);
-
-            flameSound = Content.Load<SoundEffect>("Sounds/flamer2");
-            machineGun = Content.Load<SoundEffect>("Sounds/gun8");
-            turretShot = Content.Load<SoundEffect>("Sounds/tnkfire4");
+            Sprites.Load(Content);
+            Sounds.Load(Content);
 
             a10 = new A10(this, Player.One, new Point(100, 100));
 
             turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
-            Color[] data = new Color[turretSprite.Width * turretSprite.Height];
-            turretSpriteNod.GetData(data);
+            Color[] data = new Color[refinerySprite.Width * refinerySprite.Height];
+            refinerySprite.GetData(data);
             Color source = new Color(246, 214, 121);
             Color source2 = new Color(222, 190, 105);
             Color source3 = new Color(178, 149, 80);
@@ -121,7 +113,7 @@ namespace CncTd
                     data[i] = Color.Red;
                 }
             }
-            turretSpriteNod.SetData(data);
+            refinerySprite.SetData(data);
         }
 
         /// <summary>
@@ -171,7 +163,7 @@ namespace CncTd
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    turrets.Add(new Turret(this, Player.Two, mousePositionPoint, gameTime.TotalGameTime, turretShot));
+                    turrets.Add(new Turret(this, Player.Two, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
                 Vector2 movement = Vector2.Zero;
@@ -194,11 +186,11 @@ namespace CncTd
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    a10.Shoot(gameTime, explosions, sprites, machineGun);
+                    a10.Shoot(gameTime, projectiles);
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.B))
                 {
-                    a10.Bomb(this, gameTime, projectiles, sprites);
+                    a10.Bomb(this, gameTime, projectiles);
                 }
 
                 camera.Pos += movement * 20;
@@ -221,15 +213,17 @@ namespace CncTd
                         harvester.Target = target1;
                     }
                 }
-                harvester.Update(gameTime, allEntities);
+                harvester.Update(gameTime, allEntities, explosions);
             }
+            harvesters = harvesters.Where(h => h.IsAlive).ToList();
+
             foreach (Refinery refinery in refineries)
             {
                 refinery.Update(gameTime, allEntities);
             }
             foreach (Turret turret in turrets)
             {
-                turret.Update(gameTime, allEntities, projectiles, sprites);
+                turret.Update(gameTime, allEntities, projectiles);
             }
             List<Projectile> survivingBullets = new List<Projectile>();
             foreach (Projectile bullet in projectiles)
@@ -243,12 +237,16 @@ namespace CncTd
                 {
                     if (bullet is CannonShot)
                     {
-                        explosions.Add(new ShellExplosion(bullet.Position, sprites));
+                        explosions.Add(new ShellExplosion(bullet.Position));
                     }
                     else if (bullet is Bomblet)
                     {
-                        explosions.Add(new NapalmExplosion(bullet.Position, sprites));
-                        flameSound.Play();
+                        explosions.Add(new NapalmExplosion(bullet.Position));
+                        Sounds.FireExplosion.Play();
+                    }
+                    else if (bullet is Bullet)
+                    {
+                        explosions.Add(new BulletImpact(bullet.Position));
                     }
                 }
             }

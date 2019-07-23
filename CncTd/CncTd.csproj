@@ -44,9 +44,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\CannonShot.cs" />
     <Compile Include="Entities\Bomblet.cs" />
     <Compile Include="Entities\NapalmExplosion.cs" />
+    <Compile Include="Entities\ExplosionBig.cs" />
+    <Compile Include="Sounds.cs" />
     <Compile Include="Sprites.cs" />
     <Compile Include="SpriteWrapper.cs" />
     <Content Include="Content\120mm.png" />

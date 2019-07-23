@@ -18,7 +18,6 @@ namespace CncTd.Entities
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
-        private readonly SoundEffect shot;
 
         public Player Player { get; }
         public Point Position { get; }
@@ -30,7 +29,7 @@ namespace CncTd.Entities
         private IPlayerEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
 
-        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated, SoundEffect shot) : base(game)
+        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated) : base(game)
         {
             Player = player;
             Constructing = true;
@@ -38,7 +37,6 @@ namespace CncTd.Entities
             Rotation = 0;
             Target = new Point(0, 0);
             TimeWhenCreated = timeWhenCreated;
-            this.shot = shot;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D constructionSprite, Texture2D mainSprite, Texture2D nodSprite)
@@ -75,7 +73,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(spriteToUse, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets, Sprites sprites)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -119,10 +117,10 @@ namespace CncTd.Entities
                         Rotation = targetRotation;
                         if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
                         {
-                            Projectile bullet = new CannonShot(Game, Player, Position, Target, sprites);
+                            Projectile bullet = new CannonShot(Game, Player, Position, Target);
                             bullets.Add(bullet);
                             LastShot = gameTime.TotalGameTime;
-                            shot.Play();
+                            Sounds.CannonShot.Play();
                         }
                     }
                     else

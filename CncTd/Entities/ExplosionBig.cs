@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class CannonShot : Projectile
+    class ExplosionBig : Explosion
     {
-        public CannonShot(Game game, Player player, Point position, Point target) : base(game, player, position, target, Sprites.CannonShot120mm, 250f)
+        public ExplosionBig(Point position) : base(position, Sprites.ExplosionBig)
         {
         }
     }

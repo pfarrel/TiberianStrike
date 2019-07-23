@@ -13,7 +13,7 @@ namespace CncTd.Entities
     {
         private const int Sprites = 32;
         private const double MovementSpeed = 20.0d;  // per second
-        private const double FiringTime = 1.0d;
+        private const double FiringTime = 0.5d;
         private const double BombingTime = 0.2d;
         private const float GunRange = 100f;
 
@@ -84,7 +84,7 @@ namespace CncTd.Entities
             
         }
 
-        public void Shoot(GameTime gameTime, List<Explosion> explosions, Sprites sprites, SoundEffect machineGun)
+        public void Shoot(GameTime gameTime, List<Projectile> projectiles)
         {
             if (gameTime.TotalGameTime < LastFiringTime + TimeSpan.FromSeconds(FiringTime))
             {
@@ -100,11 +100,12 @@ namespace CncTd.Entities
             bulletDirection.Normalize();
             bulletDirection = GunRange * bulletDirection;
             Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
-            explosions.Add(new BulletImpact(bulletImpact, sprites));
-            machineGun.Play();
+            Bullet bullet = new Bullet(Game, Player.One, Position, bulletImpact);
+            projectiles.Add(bullet);
+            Sounds.HeavyMachineGun.Play();
         }
 
-        public void Bomb(Game game, GameTime gameTime, List<Projectile> projectiles, Sprites sprites)
+        public void Bomb(Game game, GameTime gameTime, List<Projectile> projectiles)
         {
             if (gameTime.TotalGameTime < LastBombingTime + TimeSpan.FromSeconds(BombingTime))
             {
@@ -117,7 +118,7 @@ namespace CncTd.Entities
             Point start = Position;
             start.Y -= 30;
 
-            projectiles.Add(new Bomblet(game, Player, start, target, sprites));
+            projectiles.Add(new Bomblet(game, Player, start, target));
         }
     }
 }

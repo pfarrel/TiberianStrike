@@ -13,7 +13,7 @@ namespace CncTd.Entities
         private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
         private const double MovementSpeed = 20.0d;  // per second
-        private const int MaxHealth = 100;
+        private const int MaxHealth = 25;
 
         public Player Player { get; }
         public Point Position
@@ -28,6 +28,7 @@ namespace CncTd.Entities
 
         private Vector2 RealPosition { get; set; }
         private double Rotation { get; set; }
+        public Boolean IsAlive { get; private set; }
 
         public Harvester(Game game, Player player, Point position, Point target) : base(game)
         {
@@ -36,6 +37,7 @@ namespace CncTd.Entities
             Target = target;
             Rotation = 0;
             Health = MaxHealth;
+            IsAlive = true;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite, Texture2D whitePixelSprite)
@@ -68,8 +70,17 @@ namespace CncTd.Entities
             base.Draw(gameTime);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Explosion> explosions)
         {
+            if (IsAlive)
+            {
+                if (Health == 0)
+                {
+                    IsAlive = false;
+                    explosions.Add(new ExplosionBig(Position));
+                    Sounds.HarvesterExplosion.Play();
+                }
+            }
             if (Position != Target)
             {
                 Point diff = Target - Position;

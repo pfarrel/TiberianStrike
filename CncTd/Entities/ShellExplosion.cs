@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class ShellExplosion : Explosion
     {
-        public ShellExplosion(Point position, Sprites sprites) : base(position, sprites.CannonImpact)
+        public ShellExplosion(Point position) : base(position, Sprites.ExplosionSmall)
         {
         }
     }
