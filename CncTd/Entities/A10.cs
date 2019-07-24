@@ -16,6 +16,7 @@ namespace CncTd.Entities
         private const double FiringTime = 0.5d;
         private const double BombingTime = 0.2d;
         private const float GunRange = 100f;
+        private float _rotation;
 
         public Player Player { get; }
         public Point Position
@@ -27,7 +28,17 @@ namespace CncTd.Entities
         }
 
         private Vector2 RealPosition { get; set; }
-        private double Rotation { get; set; }
+        private float Rotation
+        {
+            get
+            {
+                return (float) (Math.Round(_rotation / (Math.PI * 2 / 32)) * (Math.PI * 2 / 32));
+            }
+            set
+            {
+                _rotation = value;
+            }
+        }
         private TimeSpan LastBombingTime { get; set; }
         private TimeSpan LastFiringTime { get; set; }
 
@@ -70,14 +81,14 @@ namespace CncTd.Entities
 
         public void TurnLeft()
         {
-            Rotation -= 0.05f;
-            Rotation %= MathHelper.TwoPi;
+            _rotation -= 0.05f;
+            _rotation %= MathHelper.TwoPi;
         }
 
         public void TurnRight()
         {
-            Rotation += 0.05f;
-            Rotation %= MathHelper.TwoPi;
+            _rotation += 0.05f;
+            _rotation %= MathHelper.TwoPi;
         }
 
         public void Damage(int amount)
