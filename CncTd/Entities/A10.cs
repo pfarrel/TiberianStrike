@@ -56,7 +56,7 @@ namespace CncTd.Entities
             int y = Math.Max(0, Position.Y - 24 - 30);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Frames);
+            int spriteNumber = (int) Math.Round(((adjustedRotation / (Math.PI * 2)) * Frames));
             spriteNumber -= 1;
             spriteNumber = (Frames - 1) - spriteNumber;
             spriteNumber %= Frames;
