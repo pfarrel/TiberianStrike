@@ -32,7 +32,8 @@ namespace CncTd.Entities
         {
             get
             {
-                return (float) (Math.Round(_rotation / (Math.PI * 2 / 32)) * (Math.PI * 2 / 32));
+                return _rotation;
+                //return (float) (Math.Round(_rotation / (Math.PI * 2 / 32)) * (Math.PI * 2 / 32));
             }
             set
             {
