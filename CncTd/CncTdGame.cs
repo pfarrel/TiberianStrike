@@ -72,10 +72,6 @@ namespace CncTd
 
             Sprites.Load(Content);
             Sounds.Load(Content);
-
-            
-
-
         }
 
         /// <summary>

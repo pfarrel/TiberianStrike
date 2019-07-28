@@ -44,6 +44,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Bullet.cs" />
     <Compile Include="Entities\CannonShot.cs" />
     <Compile Include="Entities\Bomblet.cs" />
