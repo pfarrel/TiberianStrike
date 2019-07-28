@@ -12,6 +12,7 @@ namespace CncTd.Entities
     {
         private const float TimeToBuild = 5000;
 
+        public bool IsAlive { get { return true; } }
         public Player Player { get; }
         public Point Position { get; private set; }
         private TimeSpan TimeWhenCreated { get; set; }

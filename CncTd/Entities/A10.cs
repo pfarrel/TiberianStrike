@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class A10 : DrawableGameComponent, IPlayerEntity
+    class A10 : IPlayerEntity
     {
         private const int FlyingHeight = 30;
         private const double MovementSpeed = 20.0d;  // per second
@@ -18,6 +17,9 @@ namespace CncTd.Entities
         private const float GunRange = 100f;
         private float _rotation;
 
+        public bool IsAlive { get { return true; } }
+
+        private World World { get; }
         public Player Player { get; }
         public Point Position
         {
@@ -43,8 +45,9 @@ namespace CncTd.Entities
         private TimeSpan LastBombingTime { get; set; }
         private TimeSpan LastFiringTime { get; set; }
 
-        public A10(Game game, Player player, Point position) : base(game)
+        public A10(World world, Player player, Point position)
         {
+            World = world;
             Player = player;
             RealPosition = new Vector2(position.X, position.Y);
             Rotation = MathHelper.ToRadians(90);
@@ -71,7 +74,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(Sprites.A10.SpriteSheet, new Rectangle(x, y, Sprites.A10.Width, Sprites.A10.Height), new Rectangle(Sprites.A10.Width * spriteNumber, 0, Sprites.A10.Width, Sprites.A10.Height), Color.White);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime)
         {
             Vector2 movement = new Vector2(
                 (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
@@ -97,7 +100,7 @@ namespace CncTd.Entities
             
         }
 
-        public void Shoot(GameTime gameTime, List<Projectile> projectiles)
+        public void Shoot(GameTime gameTime)
         {
             if (gameTime.TotalGameTime < LastFiringTime + TimeSpan.FromSeconds(FiringTime))
             {
@@ -113,12 +116,12 @@ namespace CncTd.Entities
             bulletDirection.Normalize();
             bulletDirection = GunRange * bulletDirection;
             Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
-            Bullet bullet = new Bullet(Game, Player.One, Position, bulletImpact);
-            projectiles.Add(bullet);
+            Bullet bullet = new Bullet(World, Player.One, Position, bulletImpact);
+            World.AddProjectile(bullet);
             Sounds.HeavyMachineGun.Play(0.5f, 0, 0);
         }
 
-        public void Bomb(Game game, GameTime gameTime, List<Projectile> projectiles)
+        public void Bomb(GameTime gameTime)
         {
             if (gameTime.TotalGameTime < LastBombingTime + TimeSpan.FromSeconds(BombingTime))
             {
@@ -129,9 +132,9 @@ namespace CncTd.Entities
 
             Point target = Position;
             Point start = Position;
-            start.Y -= 30;
+            start.Y -= FlyingHeight;
 
-            projectiles.Add(new Bomblet(game, Player, start, target));
+            World.AddProjectile(new Bomblet(World, Player, start, target));
         }
     }
 }

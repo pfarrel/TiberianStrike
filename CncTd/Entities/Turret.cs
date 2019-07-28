@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Turret : DrawableGameComponent, IPlayerEntity
+    class Turret : IPlayerEntity
     {
         private const double RotationSpeed = (Math.PI * 2) / 25;  // per second
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
 
+        public bool IsAlive { get { return true; } }
+
+        private World World { get; }
         public Player Player { get; }
         public Point Position { get; }
         public Point Target { get; set; }
@@ -26,8 +29,9 @@ namespace CncTd.Entities
         private IPlayerEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
 
-        public Turret(Game game, Player player, Point position, TimeSpan timeWhenCreated) : base(game)
+        public Turret(World world, Player player, Point position, TimeSpan timeWhenCreated)
         {
+            World = world;
             Player = player;
             Constructing = true;
             Position = position;
@@ -45,7 +49,7 @@ namespace CncTd.Entities
             int spriteNumber;
             if (Constructing)
             {
-                spriteToUse = Sprites.Turret;
+                spriteToUse = Sprites.TurretConstructing;
 
                 double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
                 spriteNumber = (int)(fraction * (spriteToUse.Frames - 1));
@@ -70,7 +74,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(spriteToUse.SpriteSheet, new Rectangle(x, y, spriteToUse.Width, spriteToUse.Height), new Rectangle(spriteToUse.Width * spriteNumber, 0, spriteToUse.Width, spriteToUse.Height), Color.White);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets)
+        public void Update(GameTime gameTime)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -82,20 +86,23 @@ namespace CncTd.Entities
                 if (TargetEntity != null)
                 {
                     float distance = Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(TargetEntity.Position.X, TargetEntity.Position.Y));
-                    if (distance > Range)
+                    if (distance > Range || !TargetEntity.IsAlive)
                     {
                         TargetEntity = null;
                     }
                 }
                 if (TargetEntity == null)
                 {
-                    IPlayerEntity nearestEnemyHarvester = playerEntities.Where(e => e.Player != Player && e is Harvester)
+                    IPlayerEntity nearestEnemyHarvester = World.Entities.Where(e => e.Player != Player && e is Harvester)
                         .OrderBy(e => Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(e.Position.X, e.Position.Y)))
                         .FirstOrDefault();
-                    float distance = Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(nearestEnemyHarvester.Position.X, nearestEnemyHarvester.Position.Y));
-                    if (distance < Range)
+                    if (nearestEnemyHarvester != null)
                     {
-                        TargetEntity = nearestEnemyHarvester;
+                        float distance = Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(nearestEnemyHarvester.Position.X, nearestEnemyHarvester.Position.Y));
+                        if (distance < Range)
+                        {
+                            TargetEntity = nearestEnemyHarvester;
+                        }
                     }
                 }
 
@@ -114,8 +121,8 @@ namespace CncTd.Entities
                         Rotation = targetRotation;
                         if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
                         {
-                            Projectile bullet = new CannonShot(Game, Player, Position, Target);
-                            bullets.Add(bullet);
+                            Projectile bullet = new CannonShot(World, Player, Position, Target);
+                            World.AddProjectile(bullet);
                             LastShot = gameTime.TotalGameTime;
                             Sounds.CannonShot.Play();
                         }

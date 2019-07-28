@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class Bullet : Projectile
     {
-        public Bullet(Game game, Player player, Point position, Point target) : base(game, player, position, target, Sprites.None, 500f)
+        public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.None, 500f)
         {
         }
     }

@@ -1,16 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace CncTd.Entities
 {
     interface IPlayerEntity
     {
+        bool IsAlive { get; }
         Player Player { get; }
         Point Position { get; }
         void Damage(int amount);
+        void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        void Update(GameTime gameTime);
     }
 }

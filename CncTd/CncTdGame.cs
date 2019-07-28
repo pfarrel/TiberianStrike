@@ -17,13 +17,9 @@ namespace CncTd
         SpriteBatch spriteBatch;
 
         private Camera camera;
-
+        private World world;
         private A10 a10;
-        private List<Harvester> harvesters;
-        private List<Refinery> refineries;
-        private List<Turret> turrets;
-        private List<Projectile> projectiles;
-        private List<Explosion> explosions;
+
         private MouseState previousMouseState;
         private KeyboardState previousKeyboardState;
 
@@ -47,17 +43,18 @@ namespace CncTd
         /// </summary>
         protected override void Initialize()
         {
-            harvesters = new List<Harvester>() { new Harvester(this, Player.One, target1, target2) };
-            refineries = new List<Refinery>();
-            turrets = new List<Turret>();
-            projectiles = new List<Projectile>();
-            explosions = new List<Explosion>();
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
 
-            camera = new Camera(new Viewport(0, 0, 1280, 720), 2000, 2000);
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), 2000, 2000);
             camera.Pos = new Vector2(200, 200);
+
+            world = new World();
+            world.AddEntity(new Harvester(world, Player.One, target1, target2));
+
+            a10 = new A10(world, Player.One, new Point(100, 100));
+            world.AddEntity(a10);
 
             SoundEffect.MasterVolume = 0.5f;
 
@@ -76,7 +73,7 @@ namespace CncTd
             Sprites.Load(Content);
             Sounds.Load(Content);
 
-            a10 = new A10(this, Player.One, new Point(100, 100));
+            
 
 
         }
@@ -107,28 +104,16 @@ namespace CncTd
                 Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
                 if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
-                    harvesters.Add(new Harvester(this, Player.One, mousePositionPoint, target1));
-                }
-
-                if (previousMouseState.RightButton == ButtonState.Pressed && Mouse.GetState().RightButton == ButtonState.Released)
-                {
-                    foreach (Harvester harvester in harvesters)
-                    {
-                        harvester.Target = mousePositionPoint;
-                    }
-                    foreach (Turret turret in turrets)
-                    {
-                        turret.Target = mousePositionPoint;
-                    }
+                    world.AddEntity(new Harvester(world, Player.One, mousePositionPoint, target1));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    refineries.Add(new Refinery(this, Player.One, mousePositionPoint, gameTime.TotalGameTime));
+                    world.AddEntity(new Refinery(this, Player.One, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    turrets.Add(new Turret(this, Player.Two, mousePositionPoint, gameTime.TotalGameTime));
+                    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
                 Vector2 movement = Vector2.Zero;
@@ -151,23 +136,17 @@ namespace CncTd
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    a10.Shoot(gameTime, projectiles);
+                    a10.Shoot(gameTime);
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.B))
                 {
-                    a10.Bomb(this, gameTime, projectiles);
+                    a10.Bomb(gameTime);
                 }
 
                 camera.Pos += movement * 20;
             }
 
-
-            List<IPlayerEntity> allEntities = new List<IPlayerEntity>();
-            allEntities.AddRange(harvesters);
-            allEntities.AddRange(refineries);
-            allEntities.AddRange(turrets);
-
-            foreach (Harvester harvester in harvesters) {
+            foreach (Harvester harvester in world.GetEntities<Harvester>()) {
                 if (harvester.Position == harvester.Target)
                 {
                     if (harvester.Target == target1)
@@ -178,22 +157,17 @@ namespace CncTd
                         harvester.Target = target1;
                     }
                 }
-                harvester.Update(gameTime, allEntities, explosions);
             }
-            harvesters = harvesters.Where(h => h.IsAlive).ToList();
 
-            foreach (Refinery refinery in refineries)
+            foreach (IPlayerEntity entity in world.Entities)
             {
-                refinery.Update(gameTime, allEntities);
+                entity.Update(gameTime);
             }
-            foreach (Turret turret in turrets)
-            {
-                turret.Update(gameTime, allEntities, projectiles);
-            }
+
             List<Projectile> survivingBullets = new List<Projectile>();
-            foreach (Projectile bullet in projectiles)
+            foreach (Projectile bullet in world.Projectiles)
             {
-                bullet.Update(gameTime, allEntities);
+                bullet.Update(gameTime);
                 if (bullet.Alive)
                 {
                     survivingBullets.Add(bullet);
@@ -202,27 +176,28 @@ namespace CncTd
                 {
                     if (bullet is CannonShot)
                     {
-                        explosions.Add(new ShellExplosion(bullet.Position));
+                        world.AddExplosion(new ShellExplosion(bullet.Position));
                     }
                     else if (bullet is Bomblet)
                     {
-                        explosions.Add(new NapalmExplosion(bullet.Position));
+                        world.AddExplosion(new NapalmExplosion(bullet.Position));
                         Sounds.FireExplosion.Play();
                     }
                     else if (bullet is Bullet)
                     {
-                        explosions.Add(new BulletImpact(bullet.Position));
+                        world.AddExplosion(new BulletImpact(bullet.Position));
                     }
                 }
             }
-            projectiles = survivingBullets;
+            world.Projectiles = survivingBullets;
 
-            foreach (Explosion explosion in explosions)
+            foreach (Explosion explosion in world.Explosions)
             {
-                explosion.Update(gameTime, allEntities);
+                explosion.Update(gameTime, world.Entities) ;
             }
-            explosions = explosions.Where(e => e.IsAlive).ToList();
-            a10.Update(gameTime, allEntities);
+            world.Explosions = world.Explosions.Where(e => e.IsAlive).ToList();
+            world.Entities = world.Entities.Where(e => e.IsAlive).ToList();
+
             camera.Pos = new Vector2(a10.Position.X, a10.Position.Y);
 
             previousMouseState = Mouse.GetState();
@@ -242,27 +217,19 @@ namespace CncTd
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation());
 
             spriteBatch.Draw(Sprites.Map.SpriteSheet, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
-            foreach (Harvester harvester in harvesters)
+
+            foreach (IPlayerEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
             {
-                harvester.Draw(gameTime, spriteBatch);
+                entity.Draw(gameTime, spriteBatch);
             }
-            foreach (Refinery refinery in refineries)
-            {
-                refinery.Draw(gameTime, spriteBatch);
-            }
-            foreach (Turret turret in turrets)
-            {
-                turret.Draw(gameTime, spriteBatch);
-            }
-            foreach (Projectile bullet in projectiles)
+            foreach (Projectile bullet in world.Projectiles)
             {
                 bullet.Draw(gameTime, spriteBatch);
             }
-            foreach (Explosion explosion in explosions)
+            foreach (Explosion explosion in world.Explosions)
             {
                 explosion.Draw(gameTime, spriteBatch);
             }
-            a10.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 

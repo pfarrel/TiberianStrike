@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class Bomblet : Projectile
     {
-        public Bomblet(Game game, Player player, Point position, Point target) : base(game, player, position, target, Sprites.Bomblet, 20f)
+        public Bomblet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Bomblet, 20f)
         {
         }
     }

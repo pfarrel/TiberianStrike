@@ -24,14 +24,16 @@ namespace CncTd.Entities
         }
         public Point Target { get; set; }
         public bool Alive { get; private set; }
+        private World World { get; }
 
         private Vector2 RealPosition { get; set; }
         private float MovementSpeed { get; set; }
         private int FrameNumber { get; set; }
 
 
-        public Projectile(Game game, Player player, Point position, Point target, SpriteWrapper sprite, float speed)
+        public Projectile(World world, Player player, Point position, Point target, SpriteWrapper sprite, float speed)
         {
+            World = world;
             Player = player;
             RealPosition = new Vector2(position.X, position.Y);
             Target = target;
@@ -48,7 +50,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(sprite.SpriteSheet, new Rectangle(x, y, sprite.Width, sprite.Height), new Rectangle((FrameNumber / 2) * sprite.Width, 0, sprite.Width, sprite.Height), Color.White);
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime)
         {
             Vector2 targetVector = new Vector2(Target.X, Target.Y);
             float distanceToTarget = Vector2.Distance(RealPosition, targetVector);
@@ -56,7 +58,7 @@ namespace CncTd.Entities
             if (Target == Position)
             {
                 Alive = false;
-                List<IPlayerEntity> inRadius = playerEntities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
+                List<IPlayerEntity> inRadius = World.Entities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
                     .ToList();
                 foreach (IPlayerEntity entity in inRadius)
                 {
