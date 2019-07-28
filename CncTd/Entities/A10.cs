@@ -10,7 +10,6 @@ namespace CncTd.Entities
 {
     class A10 : BaseEntity
     {
-        private const int MaxHealthConst = 100;
         private const int FlyingHeight = 30;
         private const double MovementSpeed = 20.0d;  // per second
         private const double FiringTime = 0.5d;
@@ -33,7 +32,9 @@ namespace CncTd.Entities
         private TimeSpan LastBombingTime { get; set; }
         private TimeSpan LastFiringTime { get; set; }
 
-        public A10(World world, Player player, Point position) : base(world, player, position, MaxHealthConst)
+        public override int MaxHealth => 100;
+
+        public A10(World world, Player player, Point position) : base(world, player, position)
         {
             Rotation = MathHelper.ToRadians(90);
         }

@@ -9,38 +9,32 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Turret : IPlayerEntity
+    class Turret : BaseEntity
     {
         private const double RotationSpeed = (Math.PI * 2) / 25;  // per second
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
 
-        public bool IsAlive { get { return true; } }
-
-        private World World { get; }
-        public Player Player { get; }
-        public Point Position { get; }
         public Point Target { get; set; }
 
         private double Rotation { get; set; }
         private Boolean Constructing { get; set; }
         private TimeSpan TimeWhenCreated { get; }
-        private IPlayerEntity TargetEntity { get; set; }
+        private IEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
 
-        public Turret(World world, Player player, Point position, TimeSpan timeWhenCreated)
+        public override int MaxHealth => 200;
+
+        public Turret(World world, Player player, Point position, TimeSpan timeWhenCreated) : base(world, player, position)
         {
-            World = world;
-            Player = player;
             Constructing = true;
-            Position = position;
             Rotation = 0;
             Target = new Point(0, 0);
             TimeWhenCreated = timeWhenCreated;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             int x = Math.Max(0, Position.X - Sprites.Turret.Width / 2);
             int y = Math.Max(0, Position.Y - Sprites.Turret.Height / 2);
@@ -74,7 +68,7 @@ namespace CncTd.Entities
             spriteBatch.Draw(spriteToUse.SpriteSheet, new Rectangle(x, y, spriteToUse.Width, spriteToUse.Height), new Rectangle(spriteToUse.Width * spriteNumber, 0, spriteToUse.Width, spriteToUse.Height), Color.White);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
@@ -93,7 +87,7 @@ namespace CncTd.Entities
                 }
                 if (TargetEntity == null)
                 {
-                    IPlayerEntity nearestEnemyHarvester = World.Entities.Where(e => e.Player != Player && e is Harvester)
+                    IEntity nearestEnemyHarvester = World.Entities.Where(e => e.Player != Player && e is Harvester)
                         .OrderBy(e => Vector2.Distance(new Vector2(Position.X, Position.Y), new Vector2(e.Position.X, e.Position.Y)))
                         .FirstOrDefault();
                     if (nearestEnemyHarvester != null)
@@ -121,6 +115,10 @@ namespace CncTd.Entities
                         Rotation = targetRotation;
                         if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
                         {
+                            int x = Math.Max(0, Position.X - Sprites.Turret.Width / 2);
+                            int y = Math.Max(0, Position.Y - Sprites.Turret.Height / 2);
+
+
                             Projectile bullet = new CannonShot(World, Player, Position, Target);
                             World.AddProjectile(bullet);
                             LastShot = gameTime.TotalGameTime;
@@ -134,7 +132,5 @@ namespace CncTd.Entities
                 }
             }
         }
-
-        public void Damage(int amount) { }
     }
 }

@@ -9,18 +9,18 @@ namespace CncTd
 {
     class World
     {
-        public List<IPlayerEntity> Entities { get; set; }
+        public List<IEntity> Entities { get; set; }
         public List<Projectile> Projectiles { get; set; }
         public List<Explosion> Explosions { get; set; }
 
         public World()
         {
-            Entities = new List<IPlayerEntity>();
+            Entities = new List<IEntity>();
             Projectiles = new List<Projectile>();
             Explosions = new List<Explosion>();
         }
 
-        public void AddEntity(IPlayerEntity entity)
+        public void AddEntity(IEntity entity)
         {
             Entities.Add(entity);
         }
@@ -35,7 +35,7 @@ namespace CncTd
             Projectiles.Add(projectile);
         }
 
-        public List<TPlayerEntity> GetEntities<TPlayerEntity>() where TPlayerEntity : IPlayerEntity
+        public List<TPlayerEntity> GetEntities<TPlayerEntity>() where TPlayerEntity : IEntity
         {
             return Entities
                 .Where(entity => entity is TPlayerEntity)

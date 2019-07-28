@@ -36,7 +36,7 @@ namespace CncTd.Entities
             }
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime, List<IEntity> playerEntities)
         {
             FrameNumber++;
             if (FrameNumber == Sprite.Frames * FrameRepeat)

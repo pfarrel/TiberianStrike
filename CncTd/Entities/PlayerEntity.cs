@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CncTd.Entities
 {
-    interface IPlayerEntity
+    interface IEntity
     {
         bool IsAlive { get; }
         Player Player { get; }

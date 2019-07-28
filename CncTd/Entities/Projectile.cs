@@ -44,8 +44,8 @@ namespace CncTd.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - sprite.Width);
-            int y = Math.Max(0, Position.Y - sprite.Height);
+            int x = Math.Max(0, Position.X - sprite.Width / 2);
+            int y = Math.Max(0, Position.Y - sprite.Height / 2);
 
             spriteBatch.Draw(sprite.SpriteSheet, new Rectangle(x, y, sprite.Width, sprite.Height), new Rectangle((FrameNumber / 2) * sprite.Width, 0, sprite.Width, sprite.Height), Color.White);
         }
@@ -58,9 +58,9 @@ namespace CncTd.Entities
             if (Target == Position)
             {
                 Alive = false;
-                List<IPlayerEntity> inRadius = World.Entities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
+                List<IEntity> inRadius = World.Entities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
                     .ToList();
-                foreach (IPlayerEntity entity in inRadius)
+                foreach (IEntity entity in inRadius)
                 {
                     float distance = Vector2.Distance(new Vector2(entity.Position.X, entity.Position.Y), targetVector);
                     int damage = (int)(Damage * (distance / ExplosionRadius));

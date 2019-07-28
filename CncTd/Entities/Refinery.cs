@@ -7,26 +7,20 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Refinery : IPlayerEntity
+    class Refinery : BaseEntity
     {
         private const float TimeToBuild = 5000;
 
-        public bool IsAlive { get { return true; } }
-
-        private World World { get; }
-        public Player Player { get; }
-        public Point Position { get; private set; }
         private TimeSpan TimeWhenCreated { get; set; }
 
-        public Refinery(World world, Player player, Point position, TimeSpan elapsedWhenCreated)
+        public override int MaxHealth => 100;
+
+        public Refinery(World world, Player player, Point position, TimeSpan elapsedWhenCreated) : base(world, player, position)
         {
-            World = world;
-            Player = player;
-            Position = position;
             TimeWhenCreated = elapsedWhenCreated;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             int x = Math.Max(0, Position.X - 36);
             int y = Math.Max(0, Position.Y - 36);
@@ -54,10 +48,6 @@ namespace CncTd.Entities
             );
         }
 
-        public void Update(GameTime gameTime)
-        {
-        }
-
-        public void Damage(int amount) { }
+        public override void Update(GameTime gameTime) { }
     }
 }

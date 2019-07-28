@@ -155,7 +155,7 @@ namespace CncTd
                 }
             }
 
-            foreach (IPlayerEntity entity in world.Entities)
+            foreach (IEntity entity in world.Entities)
             {
                 entity.Update(gameTime);
             }
@@ -214,7 +214,7 @@ namespace CncTd
 
             spriteBatch.Draw(Sprites.Map.SpriteSheet, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
 
-            foreach (IPlayerEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
+            foreach (IEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
             {
                 entity.Draw(gameTime, spriteBatch);
             }
