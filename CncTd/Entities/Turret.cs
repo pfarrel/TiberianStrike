@@ -29,7 +29,7 @@ namespace CncTd.Entities
         public Turret(World world, Player player, Point position, TimeSpan timeWhenCreated) : base(world, player, position)
         {
             Constructing = true;
-            Rotation = 0;
+            Rotation = Rotation = MathHelper.ToRadians(290);
             Target = new Point(0, 0);
             TimeWhenCreated = timeWhenCreated;
         }
