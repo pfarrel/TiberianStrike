@@ -53,6 +53,7 @@
     <Compile Include="Sounds.cs" />
     <Compile Include="SpriteHelper.cs" />
     <Compile Include="Sprites.cs" />
+    <Compile Include="SpriteFrame.cs" />
     <Compile Include="SpriteWrapper.cs" />
     <Compile Include="World.cs" />
     <Content Include="Content\120mm.png" />

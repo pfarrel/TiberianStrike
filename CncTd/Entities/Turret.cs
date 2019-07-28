@@ -11,14 +11,14 @@ namespace CncTd.Entities
 {
     class Turret : BaseEntity
     {
-        private const double RotationSpeed = (Math.PI * 2) / 25;  // per second
+        private const float RotationSpeed = (float) (Math.PI * 2) / 25;  // per second
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
 
         public Point Target { get; set; }
 
-        private double Rotation { get; set; }
+        private float Rotation { get; set; }
         private Boolean Constructing { get; set; }
         private TimeSpan TimeWhenCreated { get; }
         private IEntity TargetEntity { get; set; }
@@ -32,40 +32,6 @@ namespace CncTd.Entities
             Rotation = 0;
             Target = new Point(0, 0);
             TimeWhenCreated = timeWhenCreated;
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            int x = Math.Max(0, Position.X - Sprites.Turret.Width / 2);
-            int y = Math.Max(0, Position.Y - Sprites.Turret.Height / 2);
-
-            SpriteWrapper spriteToUse;
-            int spriteNumber;
-            if (Constructing)
-            {
-                spriteToUse = Sprites.TurretConstructing;
-
-                double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                spriteNumber = (int)(fraction * (spriteToUse.Frames - 1));
-            }
-            else
-            {
-                spriteToUse = Player == Player.One ? Sprites.Turret : Sprites.Turret; // no nod support
-
-                double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-                spriteNumber = (int)((adjustedRotation / (Math.PI * 2)) * spriteToUse.Frames);
-                spriteNumber -= 1;
-                spriteNumber = (spriteToUse.Frames - 1) - spriteNumber;
-                spriteNumber %= spriteToUse.Frames;
-
-                //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
-                if (spriteNumber >= spriteToUse.Frames || spriteNumber < 0)
-                {
-                    throw new Exception("Bad sprite index");
-                }
-            }
-
-            spriteBatch.Draw(spriteToUse.SpriteSheet, new Rectangle(x, y, spriteToUse.Width, spriteToUse.Height), new Rectangle(spriteToUse.Width * spriteNumber, 0, spriteToUse.Width, spriteToUse.Height), Color.White);
         }
 
         public override void Update(GameTime gameTime)
@@ -106,9 +72,9 @@ namespace CncTd.Entities
                     Point diff = Target - Position;
                     Vector2 diffV = new Vector2(diff.X, diff.Y);
                     diffV.Normalize();
-                    double targetRotation = Math.Atan2(diffV.X, -diffV.Y);
-                    double rotationDiff = targetRotation - Rotation;
-                    double rotationPerFrame = RotationSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0d);
+                    float targetRotation = (float) Math.Atan2(diffV.X, -diffV.Y);
+                    float rotationDiff = targetRotation - Rotation;
+                    float rotationPerFrame = (float) (RotationSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0d));
                     //Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);
                     if (rotationDiff < rotationPerFrame)
                     {
@@ -130,6 +96,20 @@ namespace CncTd.Entities
                         Rotation+= rotationPerFrame;
                     }
                 }
+            }
+        }
+
+        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        {
+            if (Constructing)
+            {
+                double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
+                int spriteNumber = Convert.ToInt32(fraction * (Sprites.TurretConstructing.Frames - 1));
+                return Sprites.TurretConstructing.GetFrameForAnimation(spriteNumber);
+            }
+            else
+            {
+                return Sprites.Turret.GetFrameForRotation(Rotation);
             }
         }
     }

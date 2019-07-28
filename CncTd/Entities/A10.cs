@@ -41,23 +41,17 @@ namespace CncTd.Entities
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - Sprites.A10.Width / 2);
-            int y = Math.Max(0, Position.Y - Sprites.A10.Height / 2 - FlyingHeight);
-
-            double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            int spriteNumber = (int) Math.Round(((adjustedRotation / (Math.PI * 2)) * Sprites.A10.Frames));
-            spriteNumber -= 1;
-            spriteNumber = (Sprites.A10.Frames - 1) - spriteNumber;
-            spriteNumber %= Sprites.A10.Frames;
-
-            //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
-            if (spriteNumber >= Sprites.A10.Frames || spriteNumber < 0)
-            {
-                throw new Exception("Bad sprite index");
-            }
+            int x = Position.X - Sprites.A10.Width / 2;
+            int y = Position.Y - Sprites.A10.Height / 2;
 
             spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
-            spriteBatch.Draw(Sprites.A10.SpriteSheet, new Rectangle(x, y, Sprites.A10.Width, Sprites.A10.Height), new Rectangle(Sprites.A10.Width * spriteNumber, 0, Sprites.A10.Width, Sprites.A10.Height), Color.White);
+
+            base.Draw(gameTime, spriteBatch);
+        }
+
+        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        {
+            return Sprites.A10.GetFrameForRotation(Rotation);
         }
 
         public override void Update(GameTime gameTime)
@@ -97,6 +91,7 @@ namespace CncTd.Entities
             bulletDirection.Normalize();
             bulletDirection = GunRange * bulletDirection;
             Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
+            bulletImpact.Y += FlyingHeight;
             Bullet bullet = new Bullet(World, Player.One, Position, bulletImpact);
             World.AddProjectile(bullet);
             Sounds.HeavyMachineGun.Play(0.5f, 0, 0);
@@ -113,7 +108,7 @@ namespace CncTd.Entities
 
             Point target = Position;
             Point start = Position;
-            start.Y -= FlyingHeight;
+            target.Y += FlyingHeight;
 
             World.AddProjectile(new Bomblet(World, Player, start, target));
         }

@@ -20,34 +20,19 @@ namespace CncTd.Entities
             TimeWhenCreated = elapsedWhenCreated;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
         {
-            int x = Math.Max(0, Position.X - 36);
-            int y = Math.Max(0, Position.Y - 36);
-
             int spriteNumber;
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
                 spriteNumber = Sprites.Refinery.Frames - 1;
-            } else
+            }
+            else
             {
                 double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                spriteNumber = (int) (fraction * (Sprites.Refinery.Frames - 1));
+                spriteNumber = (int)(fraction * (Sprites.Refinery.Frames - 1));
             }
-
-            if (spriteNumber >= Sprites.Refinery.Frames || spriteNumber < 0)
-            {
-                throw new Exception("Bad sprite index");
-            }
-
-            spriteBatch.Draw(
-                Sprites.Refinery.SpriteSheet,
-                new Rectangle(x, y, Sprites.Refinery.Width, Sprites.Refinery.Height),
-                new Rectangle(Sprites.Refinery.Width * spriteNumber, 0, Sprites.Refinery.Width, Sprites.Refinery.Height),
-                Color.White
-            );
+            return Sprites.Refinery.GetFrameForAnimation(spriteNumber);
         }
-
-        public override void Update(GameTime gameTime) { }
     }
 }
