@@ -3,22 +3,24 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Refinery : DrawableGameComponent, IPlayerEntity
+    class Refinery : IPlayerEntity
     {
         private const float TimeToBuild = 5000;
 
         public bool IsAlive { get { return true; } }
+
+        private World World { get; }
         public Player Player { get; }
         public Point Position { get; private set; }
         private TimeSpan TimeWhenCreated { get; set; }
 
-        public Refinery(Game game, Player player, Point position, TimeSpan elapsedWhenCreated) : base(game)
+        public Refinery(World world, Player player, Point position, TimeSpan elapsedWhenCreated)
         {
+            World = world;
             Player = player;
             Position = position;
             TimeWhenCreated = elapsedWhenCreated;
@@ -52,7 +54,7 @@ namespace CncTd.Entities
             );
         }
 
-        public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
+        public void Update(GameTime gameTime)
         {
         }
 

@@ -108,7 +108,7 @@ namespace CncTd
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    world.AddEntity(new Refinery(this, Player.One, mousePositionPoint, gameTime.TotalGameTime));
+                    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
