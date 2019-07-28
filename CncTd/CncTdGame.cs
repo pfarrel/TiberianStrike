@@ -25,7 +25,6 @@ namespace CncTd
         private Texture2D turretConstructingSprite;
         private Texture2D turretSprite;
         private Texture2D turretSpriteNod;
-        private Texture2D bulletSprite;
         private Texture2D whitePixelSprite;
 
         private A10 a10;
@@ -89,7 +88,6 @@ namespace CncTd
             refinerySprite = Content.Load<Texture2D>("refinery");
             turretConstructingSprite = Content.Load<Texture2D>("gun-turret-build");
             turretSprite = Content.Load<Texture2D>("gun-turret");
-            bulletSprite = Content.Load<Texture2D>("120mm");
             whitePixelSprite = Content.Load<Texture2D>("whitepixel");
             Sprites.Load(Content);
             Sounds.Load(Content);
