@@ -10,7 +10,6 @@ namespace CncTd.Entities
 {
     class Harvester : DrawableGameComponent, IPlayerEntity
     {
-        private const int Sprites = 32;
         private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
         private const double MovementSpeed = 20.0d;  // per second
         private const int MaxHealth = 25;
@@ -40,16 +39,16 @@ namespace CncTd.Entities
             IsAlive = true;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite, Texture2D whitePixelSprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             int x = Math.Max(0, Position.X - 24);
             int y = Math.Max(0, Position.Y - 24);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Sprites);
+            int spriteNumber = (int) ((adjustedRotation / (Math.PI * 2)) * Sprites.Harvester.Frames);
             spriteNumber -= 1;
-            spriteNumber = (Sprites - 1) - spriteNumber;
-            spriteNumber %= Sprites;
+            spriteNumber = (Sprites.Harvester.Frames - 1) - spriteNumber;
+            spriteNumber %= Sprites.Harvester.Frames;
 
             //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
             if (spriteNumber >= 32 || spriteNumber < 0)
@@ -57,15 +56,15 @@ namespace CncTd.Entities
                 throw new Exception("Bad sprite index");
             }
 
-            spriteBatch.Draw(sprite, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);
+            spriteBatch.Draw(Sprites.Harvester.SpriteSheet, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);
 
             int maxHealthBarWidth = 24;
             float healthFraction = (float) Health / MaxHealth;
             int healthBarWidth = (int)(healthFraction * (maxHealthBarWidth - 2));
             Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
 
-            spriteBatch.Draw(whitePixelSprite, new Rectangle(x + 12, y + 2, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
-            spriteBatch.Draw(whitePixelSprite, new Rectangle(x + 12 + 1, y + 3, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
+            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + 12, y + 2, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
+            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + 12 + 1, y + 3, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
 
             base.Draw(gameTime);
         }

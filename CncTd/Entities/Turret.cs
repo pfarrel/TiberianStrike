@@ -11,10 +11,7 @@ namespace CncTd.Entities
 {
     class Turret : DrawableGameComponent, IPlayerEntity
     {
-        private const int Sprites = 32;
-        private const int ConstructionSprites = 20;
         private const double RotationSpeed = (Math.PI * 2) / 25;  // per second
-        private const int Size = 24;
         private const float TimeToBuild = 5000;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
@@ -39,38 +36,38 @@ namespace CncTd.Entities
             TimeWhenCreated = timeWhenCreated;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D constructionSprite, Texture2D mainSprite, Texture2D nodSprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - Size / 2);
-            int y = Math.Max(0, Position.Y - Size / 2);
+            int x = Math.Max(0, Position.X - Sprites.Turret.Width / 2);
+            int y = Math.Max(0, Position.Y - Sprites.Turret.Height / 2);
 
-            Texture2D spriteToUse;
+            SpriteWrapper spriteToUse;
             int spriteNumber;
             if (Constructing)
             {
-                spriteToUse = constructionSprite;
+                spriteToUse = Sprites.Turret;
 
                 double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                spriteNumber = (int)(fraction * (ConstructionSprites - 1));
+                spriteNumber = (int)(fraction * (spriteToUse.Frames - 1));
             }
             else
             {
-                spriteToUse = Player == Player.One ? mainSprite : nodSprite;
+                spriteToUse = Player == Player.One ? Sprites.Turret : Sprites.Turret; // no nod support
 
                 double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-                spriteNumber = (int)((adjustedRotation / (Math.PI * 2)) * Sprites);
+                spriteNumber = (int)((adjustedRotation / (Math.PI * 2)) * spriteToUse.Frames);
                 spriteNumber -= 1;
-                spriteNumber = (Sprites - 1) - spriteNumber;
-                spriteNumber %= Sprites;
+                spriteNumber = (spriteToUse.Frames - 1) - spriteNumber;
+                spriteNumber %= spriteToUse.Frames;
 
                 //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
-                if (spriteNumber >= Sprites || spriteNumber < 0)
+                if (spriteNumber >= spriteToUse.Frames || spriteNumber < 0)
                 {
                     throw new Exception("Bad sprite index");
                 }
             }
 
-            spriteBatch.Draw(spriteToUse, new Rectangle(x, y, Size, Size), new Rectangle(Size * spriteNumber, 0, Size, Size), Color.White);
+            spriteBatch.Draw(spriteToUse.SpriteSheet, new Rectangle(x, y, spriteToUse.Width, spriteToUse.Height), new Rectangle(spriteToUse.Width * spriteNumber, 0, spriteToUse.Width, spriteToUse.Height), Color.White);
         }
 
         public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities, List<Projectile> bullets)

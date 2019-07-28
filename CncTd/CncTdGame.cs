@@ -18,15 +18,6 @@ namespace CncTd
 
         private Camera camera;
 
-        private Texture2D a10Sprite;
-        private Texture2D harvesterSprite;
-        private Texture2D mapSprite;
-        private Texture2D refinerySprite;
-        private Texture2D turretConstructingSprite;
-        private Texture2D turretSprite;
-        private Texture2D turretSpriteNod;
-        private Texture2D whitePixelSprite;
-
         private A10 a10;
         private List<Harvester> harvesters;
         private List<Refinery> refineries;
@@ -82,36 +73,12 @@ namespace CncTd
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            a10Sprite = Content.Load<Texture2D>("a10");
-            harvesterSprite = Content.Load<Texture2D>("harvester");
-            mapSprite = Content.Load<Texture2D>("map");
-            refinerySprite = Content.Load<Texture2D>("refinery");
-            turretConstructingSprite = Content.Load<Texture2D>("gun-turret-build");
-            turretSprite = Content.Load<Texture2D>("gun-turret");
-            whitePixelSprite = Content.Load<Texture2D>("whitepixel");
             Sprites.Load(Content);
             Sounds.Load(Content);
 
             a10 = new A10(this, Player.One, new Point(100, 100));
 
-            turretSpriteNod = turretSprite = Content.Load<Texture2D>("gun-turret");
-            Color[] data = new Color[refinerySprite.Width * refinerySprite.Height];
-            refinerySprite.GetData(data);
-            Color source = new Color(246, 214, 121);
-            Color source2 = new Color(222, 190, 105);
-            Color source3 = new Color(178, 149, 80);
-            Color source4 = new Color(170, 153, 85);
-            Color source5 = new Color(194, 174, 97);
-            Color source6 = new Color(198, 170, 93);
-            Color source7 = new Color(145, 137, 76);
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (data[i] == source || data[i] == source2 || data[i] == source3 || data[i] == source4 || data[i] == source5 || data[i] == source6 || data[i] == source7)
-                {
-                    data[i] = Color.Red;
-                }
-            }
-            refinerySprite.SetData(data);
+
         }
 
         /// <summary>
@@ -274,18 +241,18 @@ namespace CncTd
             
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation());
 
-            spriteBatch.Draw(mapSprite, new Rectangle(0, 0, 744, 744), Color.White);
+            spriteBatch.Draw(Sprites.Map.SpriteSheet, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
             foreach (Harvester harvester in harvesters)
             {
-                harvester.Draw(gameTime, spriteBatch, harvesterSprite, whitePixelSprite);
+                harvester.Draw(gameTime, spriteBatch);
             }
             foreach (Refinery refinery in refineries)
             {
-                refinery.Draw(gameTime, spriteBatch, refinerySprite);
+                refinery.Draw(gameTime, spriteBatch);
             }
             foreach (Turret turret in turrets)
             {
-                turret.Draw(gameTime, spriteBatch, turretConstructingSprite, turretSprite, turretSpriteNod);
+                turret.Draw(gameTime, spriteBatch);
             }
             foreach (Projectile bullet in projectiles)
             {
@@ -295,7 +262,7 @@ namespace CncTd
             {
                 explosion.Draw(gameTime, spriteBatch);
             }
-            a10.Draw(gameTime, spriteBatch, a10Sprite, whitePixelSprite);
+            a10.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 

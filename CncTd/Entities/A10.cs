@@ -11,7 +11,7 @@ namespace CncTd.Entities
 {
     class A10 : DrawableGameComponent, IPlayerEntity
     {
-        private const int Frames = 32;
+        private const int FlyingHeight = 30;
         private const double MovementSpeed = 20.0d;  // per second
         private const double FiringTime = 0.5d;
         private const double BombingTime = 0.2d;
@@ -50,25 +50,25 @@ namespace CncTd.Entities
             Rotation = MathHelper.ToRadians(90);
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Texture2D sprite, Texture2D whitePixelSprite)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - 24);
-            int y = Math.Max(0, Position.Y - 24 - 30);
+            int x = Math.Max(0, Position.X - Sprites.A10.Width / 2);
+            int y = Math.Max(0, Position.Y - Sprites.A10.Height / 2 - FlyingHeight);
 
             double adjustedRotation = Rotation < 0 ? Rotation + Math.PI * 2 : Rotation;
-            int spriteNumber = (int) Math.Round(((adjustedRotation / (Math.PI * 2)) * Frames));
+            int spriteNumber = (int) Math.Round(((adjustedRotation / (Math.PI * 2)) * Sprites.A10.Frames));
             spriteNumber -= 1;
-            spriteNumber = (Frames - 1) - spriteNumber;
-            spriteNumber %= Frames;
+            spriteNumber = (Sprites.A10.Frames - 1) - spriteNumber;
+            spriteNumber %= Sprites.A10.Frames;
 
             //Console.WriteLine("Rotation: {0}, AdjustedRotation: {1}, SpriteNumber: {2}", Rotation, adjustedRotation, spriteNumber);
-            if (spriteNumber >= 32 || spriteNumber < 0)
+            if (spriteNumber >= Sprites.A10.Frames || spriteNumber < 0)
             {
                 throw new Exception("Bad sprite index");
             }
 
-            spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + 30, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
-            spriteBatch.Draw(sprite, new Rectangle(x, y, 48, 48), new Rectangle(48 * spriteNumber, 0, 48, 48), Color.White);
+            spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
+            spriteBatch.Draw(Sprites.A10.SpriteSheet, new Rectangle(x, y, Sprites.A10.Width, Sprites.A10.Height), new Rectangle(Sprites.A10.Width * spriteNumber, 0, Sprites.A10.Width, Sprites.A10.Height), Color.White);
         }
 
         public void Update(GameTime gameTime, List<IPlayerEntity> playerEntities)
