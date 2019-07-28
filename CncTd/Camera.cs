@@ -30,7 +30,7 @@ namespace CncTd
 
         public float Zoom
         {
-            get { return 2.0f; }
+            get { return 3.0f; }
         }
 
         public void Move(Vector2 amount)

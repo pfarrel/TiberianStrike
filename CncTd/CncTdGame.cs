@@ -43,8 +43,8 @@ namespace CncTd
         public CncTdGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
 
             Content.RootDirectory = "Content";
         }
