@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace CncTd.Entities
         private const int Damage = 10;
         private readonly SpriteWrapper sprite;
 
+        protected abstract Type ExplosionType { get; }
+        protected abstract SoundEffect ExplosionSound { get; }
         public Player Player { get; }
         public Point Position
         {
@@ -23,7 +26,7 @@ namespace CncTd.Entities
             }
         }
         public Point Target { get; set; }
-        public bool Alive { get; private set; }
+        public bool IsAlive { get; private set; }
         private World World { get; }
 
         private Vector2 RealPosition { get; set; }
@@ -37,7 +40,7 @@ namespace CncTd.Entities
             Player = player;
             RealPosition = new Vector2(position.X, position.Y);
             Target = target;
-            Alive = true;
+            IsAlive = true;
             this.sprite = sprite;
             MovementSpeed = speed;
         }
@@ -57,8 +60,9 @@ namespace CncTd.Entities
             double speedPerFrame = MovementSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
             if (Target == Position)
             {
-                Alive = false;
-                List<IEntity> inRadius = World.Entities.Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
+                IsAlive = false;
+                List<IEntity> inRadius = World.Entities
+                    .Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
                     .ToList();
                 foreach (IEntity entity in inRadius)
                 {
@@ -66,6 +70,7 @@ namespace CncTd.Entities
                     int damage = (int)(Damage * (distance / ExplosionRadius));
                     entity.Damage(damage);
                 }
+                Explode(gameTime);
             }
             else if (distanceToTarget < speedPerFrame)
             {
@@ -78,8 +83,23 @@ namespace CncTd.Entities
                 RealPosition += Vector2.Multiply(diff, (float) speedPerFrame);
             }
 
+
+
             FrameNumber++;
             FrameNumber %= sprite.Frames * 2;
+        }
+
+        protected virtual void Explode(GameTime gameTime)
+        {
+            if (ExplosionType != null)
+            {
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { Position });
+                World.AddExplosion(explosion);
+            }
+            if (ExplosionSound != null)
+            {
+                ExplosionSound.Play();
+            }
         }
     }
 }

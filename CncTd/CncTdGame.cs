@@ -158,32 +158,11 @@ namespace CncTd
                 entity.Update(gameTime);
             }
 
-            List<Projectile> survivingBullets = new List<Projectile>();
             foreach (Projectile bullet in world.Projectiles)
             {
                 bullet.Update(gameTime);
-                if (bullet.Alive)
-                {
-                    survivingBullets.Add(bullet);
-                }
-                else
-                {
-                    if (bullet is CannonShot)
-                    {
-                        world.AddExplosion(new ShellExplosion(bullet.Position));
-                    }
-                    else if (bullet is Bomblet)
-                    {
-                        world.AddExplosion(new NapalmExplosion(bullet.Position));
-                        Sounds.FireExplosion.Play();
-                    }
-                    else if (bullet is Bullet)
-                    {
-                        world.AddExplosion(new BulletImpact(bullet.Position));
-                    }
-                }
             }
-            world.Projectiles = survivingBullets;
+            world.Projectiles = world.Projectiles.Where(p => p.IsAlive).ToList();
 
             foreach (Explosion explosion in world.Explosions)
             {

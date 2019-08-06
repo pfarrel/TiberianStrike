@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,9 @@ namespace CncTd.Entities
         public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.None, 500f)
         {
         }
+
+        protected override Type ExplosionType => typeof(BulletImpact);
+
+        protected override SoundEffect ExplosionSound => null;
     }
 }
