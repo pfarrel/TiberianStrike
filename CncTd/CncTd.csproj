@@ -45,11 +45,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Entities\Bullet.cs" />
-    <Compile Include="Entities\CannonShot.cs" />
-    <Compile Include="Entities\Bomblet.cs" />
-    <Compile Include="Entities\NapalmExplosion.cs" />
-    <Compile Include="Entities\ExplosionBig.cs" />
+    <Compile Include="Entities\Projectiles\Bullet.cs" />
+    <Compile Include="Entities\Projectiles\CannonShot.cs" />
+    <Compile Include="Entities\Projectiles\Bomblet.cs" />
+    <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
+    <Compile Include="Entities\Explosions\ExplosionBig.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="SpriteHelper.cs" />
@@ -87,11 +87,11 @@
     <Content Include="Content\veh-hit3.png" />
     <Content Include="Content\whitepixel.png" />
     <Compile Include="Camera.cs" />
-    <Compile Include="Entities\BulletImpact.cs" />
-    <Compile Include="Entities\Explosion.cs" />
-    <Compile Include="Entities\ShellExplosion.cs" />
+    <Compile Include="Entities\Explosions\BulletImpact.cs" />
+    <Compile Include="Entities\Explosions\Explosion.cs" />
+    <Compile Include="Entities\Explosions\ShellExplosion.cs" />
     <Compile Include="Entities\A10.cs" />
-    <Compile Include="Entities\Projectile.cs" />
+    <Compile Include="Entities\Projectiles\Projectile.cs" />
     <Compile Include="Entities\PlayerEntity.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="CncTdGame.cs" />

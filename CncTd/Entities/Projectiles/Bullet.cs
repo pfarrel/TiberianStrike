@@ -16,7 +16,5 @@ namespace CncTd.Entities
         }
 
         protected override Type ExplosionType => typeof(BulletImpact);
-
-        protected override SoundEffect ExplosionSound => null;
     }
 }

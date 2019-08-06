@@ -15,8 +15,8 @@ namespace CncTd.Entities
         private const int Damage = 10;
         private readonly SpriteWrapper sprite;
 
-        protected abstract Type ExplosionType { get; }
-        protected abstract SoundEffect ExplosionSound { get; }
+        protected virtual Type ExplosionType { get { return null; } }
+        protected virtual SoundEffect ExplosionSound { get { return null; } }
         public Player Player { get; }
         public Point Position
         {

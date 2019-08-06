@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ namespace CncTd.Entities
 
         public override int MaxHealth => 25;
 
+        protected override Type ExplosionType => typeof(ExplosionBig);
+
+        protected override SoundEffect ExplosionSound => Sounds.HarvesterExplosion;
+
         public Harvester(World world, Player player, Point position, Point target) : base(world, player, position)
         {
             Target = target;
@@ -24,13 +29,6 @@ namespace CncTd.Entities
 
         public override void Update(GameTime gameTime)
         {
-            if (Health == 0)
-            {
-                World.AddExplosion(new ExplosionBig(Position));
-                Sounds.HarvesterExplosion.Play();
-                return;
-            }
-
             if (Position != Target)
             {
                 Point diff = Target - Position;

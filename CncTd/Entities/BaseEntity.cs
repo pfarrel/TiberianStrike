@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CncTd.Entities
@@ -17,6 +18,8 @@ namespace CncTd.Entities
         public Point Position { get { return new Point(Convert.ToInt32(PositionVector.X), Convert.ToInt32(PositionVector.Y)); } }
         public Vector2 PositionVector { get; protected set; }
         protected World World { get; }
+        protected virtual Type ExplosionType { get { return null; } }
+        protected virtual SoundEffect ExplosionSound { get { return null; } }
 
         protected BaseEntity(World world, Player player, Point position)
         {
@@ -33,6 +36,7 @@ namespace CncTd.Entities
                 if (Health - amount <= 0)
                 {
                     Health = 0;
+                    Die();
                 }
                 else
                 {
@@ -61,5 +65,18 @@ namespace CncTd.Entities
         public virtual void Update(GameTime gameTime) { }
 
         protected abstract SpriteFrame GetSpriteFrame(GameTime gameTime);
+
+        protected virtual void Die()
+        {
+            if (ExplosionType != null)
+            {
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { Position });
+                World.AddExplosion(explosion);
+            }
+            if (ExplosionSound != null)
+            {
+                ExplosionSound.Play();
+            }
+        }
     }
 }

@@ -16,7 +16,5 @@ namespace CncTd.Entities
         }
 
         protected override Type ExplosionType => typeof(ShellExplosion);
-
-        protected override SoundEffect ExplosionSound => null;
     }
 }
