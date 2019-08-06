@@ -19,7 +19,7 @@ namespace CncTd.Entities
         public Point Target { get; set; }
 
         private float Rotation { get; set; }
-        private Boolean Constructing { get; set; }
+        private bool Constructing { get; set; }
         private TimeSpan TimeWhenCreated { get; }
         private IEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
@@ -93,7 +93,7 @@ namespace CncTd.Entities
                     }
                     else
                     {
-                        Rotation+= rotationPerFrame;
+                        Rotation += rotationPerFrame;
                     }
                 }
             }
