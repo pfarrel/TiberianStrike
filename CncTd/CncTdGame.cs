@@ -17,6 +17,7 @@ namespace CncTd
         SpriteBatch spriteBatch;
 
         private Camera camera;
+        private GameState gameState;
         private World world;
         private A10 a10;
 
@@ -51,10 +52,12 @@ namespace CncTd
             camera.Pos = new Vector2(200, 200);
 
             world = new World();
-            world.AddEntity(new Harvester(world, Player.One, target1, target2));
+            world.AddEntity(new Harvester(world, Player.Two, target1, target2));
 
             a10 = new A10(world, Player.One, new Point(100, 100));
             world.AddEntity(a10);
+
+            gameState = GameState.Playing;
 
             SoundEffect.MasterVolume = 0.5f;
 
@@ -94,6 +97,9 @@ namespace CncTd
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (gameState != GameState.Playing)
+                return;
+
             if (IsActive)
             {
                 Matrix inverse = Matrix.Invert(camera.GetTransformation());
@@ -101,7 +107,7 @@ namespace CncTd
                 Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
                 if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
                 {
-                    world.AddEntity(new Harvester(world, Player.One, mousePositionPoint, target1));
+                    world.AddEntity(new Harvester(world, Player.Two, mousePositionPoint, target1));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
@@ -149,7 +155,8 @@ namespace CncTd
                     if (harvester.Target == target1)
                     {
                         harvester.Target = target2;
-                    } else
+                    }
+                    else
                     {
                         harvester.Target = target1;
                     }
@@ -197,6 +204,19 @@ namespace CncTd
 
             camera.Pos = new Vector2(a10.Position.X, a10.Position.Y);
 
+            if (!a10.IsAlive)
+            {
+                gameState = GameState.Lost;
+            }
+            else if (!world.Entities.Any(entity => entity.Player == Player.Two))
+            {
+                gameState = GameState.Won;
+            }
+            else
+            {
+                gameState = GameState.Playing;
+            }
+
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
 
@@ -232,7 +252,8 @@ namespace CncTd
 
             spriteBatch.Begin();
             spriteBatch.DrawString(Fonts.Font, "SCORE: 100", new Vector2(20, 20), Color.LawnGreen);
-            spriteBatch.DrawString(Fonts.Font, "ENEMIES REMAINING: 1", new Vector2(1500, 20), Color.LawnGreen);
+            spriteBatch.DrawString(Fonts.Font, gameState.ToString(), new Vector2(20, 60), Color.LawnGreen);
+            spriteBatch.DrawString(Fonts.Font, "ENEMIES REMAINING: " + world.Entities.Where(entity => entity.Player == Player.Two).Count(), new Vector2(1500, 20), Color.LawnGreen);
             spriteBatch.End();
 
             base.Draw(gameTime);

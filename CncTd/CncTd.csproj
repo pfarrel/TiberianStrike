@@ -50,8 +50,10 @@
     <Compile Include="Entities\Bomblet.cs" />
     <Compile Include="Entities\NapalmExplosion.cs" />
     <Compile Include="Entities\ExplosionBig.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="SpriteHelper.cs" />
+    <Compile Include="Fonts.cs" />
     <Compile Include="Sprites.cs" />
     <Compile Include="SpriteFrame.cs" />
     <Compile Include="SpriteWrapper.cs" />
