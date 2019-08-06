@@ -116,6 +116,20 @@
 /processorParam:TextureFormat=Color
 /build:harvester.png
 
+#begin LogoFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:LogoFont.spritefont
+
+#begin LogoFontLarger.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:LogoFontLarger.spritefont
+
 #begin map.jpeg
 /importer:TextureImporter
 /processor:TextureProcessor

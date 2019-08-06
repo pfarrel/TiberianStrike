@@ -119,6 +119,18 @@ namespace CncTd
                     world.AddEntity(new Turret(world, Player.Two, mousePositionPoint, gameTime.TotalGameTime));
                 }
 
+                if (previousKeyboardState.IsKeyDown(Keys.M) && Keyboard.GetState().IsKeyUp(Keys.M))
+                {
+                    foreach (Harvester harvester in world.GetEntities<Harvester>())
+                    {
+                        harvester.Damage(1000);
+                    }
+                }
+                if (previousKeyboardState.IsKeyDown(Keys.N) && Keyboard.GetState().IsKeyUp(Keys.N))
+                {
+                    a10.Damage(1000);
+                }
+
                 Vector2 movement = Vector2.Zero;
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                     movement.X--;
@@ -252,11 +264,48 @@ namespace CncTd
 
             spriteBatch.Begin();
             spriteBatch.DrawString(Fonts.Font, "SCORE: 100", new Vector2(20, 20), Color.LawnGreen);
-            spriteBatch.DrawString(Fonts.Font, gameState.ToString(), new Vector2(20, 60), Color.LawnGreen);
             spriteBatch.DrawString(Fonts.Font, "ENEMIES REMAINING: " + world.Entities.Where(entity => entity.Player == Player.Two).Count(), new Vector2(1500, 20), Color.LawnGreen);
+
+            List<string> messages = new List<string>();
+            if (gameState == GameState.Won)
+            {
+                messages.Add("MISSION");
+                messages.Add("ACCOMPLISHED");
+            }
+            else if (gameState == GameState.Lost)
+            {
+                messages.Add("MISSION");
+                messages.Add("FAILED");
+            }
+
+            if (messages.Count > 0)
+            {
+                DrawCenteredString(messages, Fonts.LogoFont, Color.Black, new Vector2(-4, -4));
+                DrawCenteredString(messages, Fonts.LogoFont, Color.WhiteSmoke, Vector2.Zero);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void DrawCenteredString(List<string> message, SpriteFont font, Color color, Vector2 offset)
+        {
+            if (message.Count > 0)
+            {
+                Vector2 size = font.MeasureString(message[0]);
+                float centerX = graphics.PreferredBackBufferWidth / 2;
+                float centerY = graphics.PreferredBackBufferHeight / 2;
+                float totalLines = message.Count * 2 - 1;
+                float y = centerY - (totalLines * size.Y / 2);
+                foreach (string line in message)
+                {
+                    size = font.MeasureString(line);
+                    float x = centerX - size.X / 2;
+                    spriteBatch.DrawString(font, line, new Vector2(x, y) + offset, color);
+                    y += size.Y;
+                }
+            }
         }
     }
 }
