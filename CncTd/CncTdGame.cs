@@ -229,6 +229,11 @@ namespace CncTd
 
             spriteBatch.End();
 
+            spriteBatch.Begin();
+            spriteBatch.DrawString(Content.Load<SpriteFont>("Font"), "SCORE: 100", new Vector2(20, 20), Color.LawnGreen);
+            spriteBatch.DrawString(Content.Load<SpriteFont>("Font"), "ENEMIES REMAINING: 1", new Vector2(1500, 20), Color.LawnGreen);
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
