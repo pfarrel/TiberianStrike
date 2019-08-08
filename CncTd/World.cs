@@ -12,12 +12,14 @@ namespace CncTd
         public List<IEntity> Entities { get; set; }
         public List<Projectile> Projectiles { get; set; }
         public List<Explosion> Explosions { get; set; }
+        public int Ticks { get; private set; }
 
         public World()
         {
             Entities = new List<IEntity>();
             Projectiles = new List<Projectile>();
             Explosions = new List<Explosion>();
+            Ticks = 0;
         }
 
         public void AddEntity(IEntity entity)
@@ -41,6 +43,11 @@ namespace CncTd
                 .Where(entity => entity is TPlayerEntity)
                 .Select(entity => (TPlayerEntity) entity)
                 .ToList();
+        }
+
+        public void Tick()
+        {
+            Ticks++;
         }
     }
 }

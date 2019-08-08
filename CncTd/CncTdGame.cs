@@ -78,6 +78,8 @@ namespace CncTd
             if (gameState != GameState.Playing)
                 return;
 
+            world.Tick();
+
             if (IsActive)
             {
                 Matrix inverse = Matrix.Invert(camera.GetTransformation());

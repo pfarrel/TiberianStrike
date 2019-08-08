@@ -22,17 +22,17 @@ namespace CncTd.Entities
 
         protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
         {
-            int spriteNumber;
             if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
             {
-                spriteNumber = Sprites.Refinery.Frames - 1;
+                int spriteNumber = (World.Ticks / 16) % Sprites.Refinery.Frames;
+                return Sprites.Refinery.GetFrameForAnimation(spriteNumber);
             }
             else
             {
                 double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                spriteNumber = (int)(fraction * (Sprites.Refinery.Frames - 1));
+                int spriteNumber = (int)(fraction * (Sprites.RefineryConstructing.Frames - 1));
+                return Sprites.RefineryConstructing.GetFrameForAnimation(spriteNumber);
             }
-            return Sprites.Refinery.GetFrameForAnimation(spriteNumber);
         }
     }
 }

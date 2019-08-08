@@ -10,6 +10,8 @@ namespace CncTd
         public int Width { get; }
         public int Height { get; }
         public int Frames { get; }
+        public int SheetWidth { get; }
+        public int Stride { get; }
 
         private SpriteWrapper(Texture2D spriteSheet, int width, int height, int frames)
         {
@@ -17,6 +19,8 @@ namespace CncTd
             Width = width;
             Height = height;
             Frames = frames;
+            SheetWidth = spriteSheet.Width;
+            Stride = height;
         }
 
         public static SpriteWrapper Animation(Texture2D spriteSheet, int width, int height, int frames)
@@ -45,7 +49,7 @@ namespace CncTd
                 throw new Exception("Bad sprite index");
             }
 
-            return new SpriteFrame(SpriteSheet, new Rectangle(spriteNumber * Width, 0, Width, Height));
+            return GetFrame(spriteNumber);
         }
 
         public SpriteFrame GetFrameForAnimation(int frame)
@@ -55,7 +59,16 @@ namespace CncTd
                 throw new Exception("Bad sprite index");
             }
 
-            return new SpriteFrame(SpriteSheet, new Rectangle(frame * Width, 0, Width, Height));
+            return GetFrame(frame);
+        }
+
+        private SpriteFrame GetFrame(int frame)
+        {
+            int framesPerRow = SheetWidth / Width;
+            int row = frame / framesPerRow;
+            int rowIndex = frame % framesPerRow;
+
+            return new SpriteFrame(SpriteSheet, new Rectangle(rowIndex * Width, row * Height, Width, Height));
         }
     }
 }
