@@ -9,29 +9,29 @@ namespace CncTd.Entities
 {
     class Refinery : BaseEntity
     {
-        private const float TimeToBuild = 5000;
+        private const int TicksToBuild = 16 * 20;
 
-        private TimeSpan TimeWhenCreated { get; set; }
+        private int CreatedTicks { get; set; }
 
         public override int MaxHealth => 100;
 
-        public Refinery(World world, Player player, Point position, TimeSpan elapsedWhenCreated) : base(world, player, position)
+        public Refinery(World world, Player player, Point position) : base(world, player, position)
         {
-            TimeWhenCreated = elapsedWhenCreated;
+            CreatedTicks = world.Ticks;
         }
 
         protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
+            if (World.Ticks >= CreatedTicks + TicksToBuild)
             {
                 int spriteNumber = (World.Ticks / 16) % Sprites.Refinery.Frames;
                 return Sprites.Refinery.GetFrameForAnimation(spriteNumber);
             }
             else
             {
-                double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                int spriteNumber = (int)(fraction * (Sprites.RefineryConstructing.Frames - 1));
-                return Sprites.RefineryConstructing.GetFrameForAnimation(spriteNumber);
+                int ticksSinceChange = World.Ticks - CreatedTicks;
+                int frame = ticksSinceChange / 16;
+                return Sprites.RefineryConstructing.GetFrameForAnimation(frame);
             }
         }
     }

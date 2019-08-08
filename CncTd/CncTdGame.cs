@@ -45,8 +45,11 @@ namespace CncTd
             world = new World();
             world.AddEntity(new Harvester(world, Player.Two, target1, target2));
 
-            a10 = new A10(world, Player.One, new Point(100, 100));
+            a10 = new A10(world, Player.One, new Point(0, 100));
             world.AddEntity(a10);
+
+            Refinery refinery = new Refinery(world, Player.Two, new Point(400, 50));
+            world.AddEntity(refinery);
 
             gameState = GameState.Playing;
 
@@ -91,7 +94,7 @@ namespace CncTd
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint, gameTime.TotalGameTime));
+                    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
