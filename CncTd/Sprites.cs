@@ -25,6 +25,7 @@ namespace CncTd
         public static SpriteWrapper None { get; private set; }
         public static SpriteWrapper Refinery { get; private set; }
         public static SpriteWrapper RefineryConstructing { get; private set; }
+        public static SpriteWrapper Sam { get; private set; }
         public static SpriteWrapper Shadow { get; private set; }
         public static SpriteWrapper Turret { get; private set; }
         public static SpriteWrapper TurretConstructing { get; private set; }
@@ -47,6 +48,18 @@ namespace CncTd
             None = SpriteWrapper.Static(content.Load<Texture2D>("whitepixel"), 0, 0);
             Refinery = SpriteWrapper.Animation(content.Load<Texture2D>("refinery"), 72, 72, 12);
             RefineryConstructing = SpriteWrapper.Animation(content.Load<Texture2D>("refinery-build"), 72, 72, 20);
+            Sam = SpriteWrapper.Complex(content.Load<Texture2D>("sam"), 48, 24, new List<SpriteFrameSet>()
+                {
+                    new SpriteFrameSet("closed", 0, 1),
+                    new SpriteFrameSet("opening", 1, 16),
+                    new SpriteFrameSet("open", 17, 32),
+                    new SpriteFrameSet("closing", 50, 14),
+                    new SpriteFrameSet("damaged-closed", 64, 1),
+                    new SpriteFrameSet("damaged-opening", 65, 16),
+                    new SpriteFrameSet("damaged-open", 81, 32),
+                    new SpriteFrameSet("damaged-closing", 114, 14),
+                }
+            ); ; ;
             Shadow = SpriteWrapper.Static(content.Load<Texture2D>("shadow"), 48, 48);
             Turret = SpriteWrapper.Unit(content.Load<Texture2D>("gun-turret"), 24, 24, 32);
             TurretConstructing = SpriteWrapper.Animation(content.Load<Texture2D>("gun-turret-build"), 24, 24, 20);

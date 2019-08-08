@@ -20,6 +20,7 @@ namespace CncTd.Entities
         protected World World { get; }
         protected virtual Type ExplosionType { get { return null; } }
         protected virtual SoundEffect ExplosionSound { get { return null; } }
+        protected virtual int HealthBarOffset { get { return 2; } }
 
         protected BaseEntity(World world, Player player, Point position)
         {
@@ -58,8 +59,8 @@ namespace CncTd.Entities
             int healthBarWidth = (int)(healthFraction * (maxHealthBarWidth - 2));
             Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
 
-            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2, y + 2, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
-            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + 3, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
+            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
+            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
         }
 
         public virtual void Update(GameTime gameTime) { }

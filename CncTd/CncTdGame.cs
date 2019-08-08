@@ -51,6 +51,9 @@ namespace CncTd
             Refinery refinery = new Refinery(world, Player.Two, new Point(400, 50));
             world.AddEntity(refinery);
 
+            Sam sam = new Sam(world, Player.Two, new Point(400, 200));
+            world.AddEntity(sam);
+
             gameState = GameState.Playing;
 
             SoundEffect.MasterVolume = 0.5f;
