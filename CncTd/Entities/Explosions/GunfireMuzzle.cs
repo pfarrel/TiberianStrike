@@ -10,6 +10,7 @@ namespace CncTd.Entities
 {
     class GunfireMuzzle : Muzzle
     {
+        public GunfireMuzzle(World world, IEntity source, float rotation) : base(world, source, rotation, Sprites.MuzzleFlash, -15.0f)
         {
         }
     }

@@ -10,6 +10,7 @@ namespace CncTd.Entities
 {
     class SamMuzzle : Muzzle
     {
+        public SamMuzzle(World world, IEntity source, float rotation) : base(world, source, rotation, Sprites.SamFire, 4f)
         {
         }
     }
