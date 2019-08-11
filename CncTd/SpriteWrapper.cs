@@ -77,12 +77,12 @@ namespace CncTd
             return GetFrame(spriteNumber);
         }
 
-        public SpriteFrame GetFrameForAnimationAndRotation(string name, float rotation, int ticks)
+        public SpriteFrame GetFrameForAnimationAndRotation(string name, float rotation, int ticks, int frameRepeat = 8)
         {
             SpriteFrameSet spriteFrameSet = SpriteFrameSet.Where(s => s.Name == name).First();
             int facing = getFacing(spriteFrameSet, rotation);
             int startOfAnimation = spriteFrameSet.Start + (facing * spriteFrameSet.Length);
-            int animationOffset = (ticks / 8) % spriteFrameSet.Length;
+            int animationOffset = (ticks / frameRepeat) % spriteFrameSet.Length;
             int frame = startOfAnimation + animationOffset;
             return GetFrame(frame);
         }

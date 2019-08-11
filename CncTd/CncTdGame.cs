@@ -174,7 +174,7 @@ namespace CncTd
 
             foreach (Explosion explosion in world.Explosions)
             {
-                explosion.Update(gameTime, world.Entities) ;
+                explosion.Update(gameTime) ;
             }
             world.Explosions = world.Explosions.Where(e => e.IsAlive).ToList();
             world.Entities = world.Entities.Where(e => e.IsAlive).ToList();

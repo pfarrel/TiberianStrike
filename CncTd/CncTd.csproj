@@ -45,12 +45,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
     <Compile Include="Entities\Projectiles\Bullet.cs" />
     <Compile Include="Entities\Projectiles\Patriot.cs" />
     <Compile Include="Entities\Projectiles\SmallMissile.cs" />
     <Compile Include="Entities\Projectiles\CannonShot.cs" />
     <Compile Include="Entities\Projectiles\Bomblet.cs" />
-    <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
+    <Compile Include="Entities\Explosions\SamMuzzle.cs" />
     <Compile Include="Entities\Explosions\ExplosionBig.cs" />
     <Compile Include="Entities\Sam.cs" />
     <Compile Include="GameState.cs" />

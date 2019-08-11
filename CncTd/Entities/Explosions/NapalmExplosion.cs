@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class NapalmExplosion : Explosion
     {
-        public NapalmExplosion(Point position) : base(position, Sprites.Napalm2)
+        public NapalmExplosion(World world, Point position) : base(world, position, Sprites.Napalm2)
         {
         }
     }

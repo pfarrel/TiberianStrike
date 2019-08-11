@@ -71,7 +71,7 @@ namespace CncTd.Entities
         {
             if (ExplosionType != null)
             {
-                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { Position });
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position });
                 World.AddExplosion(explosion);
             }
             if (ExplosionSound != null)

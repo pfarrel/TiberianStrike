@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class BulletImpact : Explosion
     {
-        public BulletImpact(Point position) : base(position, Sprites.BulletImpact)
+        public BulletImpact(World world, Point position) : base(world, position, Sprites.BulletImpact)
         {
         }
     }

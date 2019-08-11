@@ -10,19 +10,23 @@ namespace CncTd.Entities
 {
     abstract class Explosion
     {
-        private const int FrameRepeat = 2;
+        protected const int FrameRepeat = 2;
+        protected readonly int ExplosionLength;
 
         public Point Position { get; private set; }
         public bool IsAlive { get; private set; }
-        private int FrameNumber { get; set; }
-        private SpriteWrapper Sprite { get; set; }
+        protected World World { get; }
+        protected SpriteWrapper Sprite { get; set; }
+        protected int CreatedTicks { get; set; }
 
-        public Explosion(Point position, SpriteWrapper sprite)
+        public Explosion(World world, Point position, SpriteWrapper sprite)
         {
+            World = world;
             Position = position;
             IsAlive = true;
-            FrameNumber = -1;
             Sprite = sprite;
+            CreatedTicks = world.Ticks;
+            ExplosionLength = sprite.SpriteFrameSet.First().Length * FrameRepeat;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -32,17 +36,24 @@ namespace CncTd.Entities
 
             if (IsAlive)
             {
-                spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), new Rectangle((FrameNumber / FrameRepeat) * Sprite.Width, 0, Sprite.Width, Sprite.Height), Color.White);
+                SpriteFrame spriteFrame = GetSpriteFrame();
+                spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White);
             }
         }
 
-        public void Update(GameTime gameTime, List<IEntity> playerEntities)
+        public void Update(GameTime gameTime)
         {
-            FrameNumber++;
-            if (FrameNumber == Sprite.Frames * FrameRepeat)
+            if (World.Ticks >= CreatedTicks + ExplosionLength)
             {
                 IsAlive = false;
             }
+        }
+
+        protected virtual SpriteFrame GetSpriteFrame()
+        {
+            int ticksSinceCreated = World.Ticks - CreatedTicks;
+            int frame = ticksSinceCreated / FrameRepeat;
+            return Sprite.GetFrameForAnimation(frame);
         }
     }
 }

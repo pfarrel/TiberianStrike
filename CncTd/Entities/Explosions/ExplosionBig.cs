@@ -10,7 +10,7 @@ namespace CncTd.Entities
 {
     class ExplosionBig : Explosion
     {
-        public ExplosionBig(Point position) : base(position, Sprites.ExplosionBig)
+        public ExplosionBig(World world, Point position) : base(world, position, Sprites.ExplosionBig)
         {
         }
     }
