@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class Bullet : Projectile
+    class Patriot : Projectile
     {
-        public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.None, 2000f)
+        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Patriot, 200f)
         {
         }
 
-        protected override Type ExplosionType => typeof(BulletImpact);
+        protected override Type ExplosionType => typeof(ShellExplosion);
     }
 }

@@ -31,6 +31,8 @@ namespace CncTd
             HarvesterExplosion = content.Load<SoundEffect>("Sounds/xplobig4");
             HeavyMachineGun = content.Load<SoundEffect>("Sounds/gun8");
             CannonShot = content.Load<SoundEffect>("Sounds/tnkfire4");
+            Rocket1 = content.Load<SoundEffect>("Sounds/rocket1");
+            Rocket2 = content.Load<SoundEffect>("Sounds/rocket2");
 
             InfantryDeath1 = content.Load<SoundEffect>("Sounds/nuyell1");
             InfantryDeath2 = content.Load<SoundEffect>("Sounds/nuyell3");

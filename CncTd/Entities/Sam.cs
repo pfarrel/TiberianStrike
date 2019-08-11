@@ -13,10 +13,12 @@ namespace CncTd.Entities
         private const float Range = 200;
         private const int TicksToClose = 16 * 14;
         private const int TicksToOpen = 16 * 16;
+        private const float TicksBetweenShots = 60;
 
-        private int CreatedTicks { get; set; }
         private SamState State { get; set; }
+        private int CreatedTicks { get; set; }
         private int StateChangedTicks { get; set; }
+        private int LastShotTicks { get; set; }
         public override int MaxHealth => 100;
         private float Rotation { get; set; }
         protected override int HealthBarOffset => -5;
@@ -61,6 +63,13 @@ namespace CncTd.Entities
                     {
                         Rotation = 0;
                     }
+
+                    if (World.Ticks - LastShotTicks > TicksBetweenShots)
+                    {
+                        World.AddProjectile(new Patriot(World, Player.Two, Position, a10.Position));
+                        Sounds.Rocket1.Play();
+                        LastShotTicks = World.Ticks;
+                    }
                 }
                 else
                 {
@@ -90,7 +99,7 @@ namespace CncTd.Entities
             String namePrefix = Health < MaxHealth / 2 ? "damaged-" : "";
             if (State == SamState.Closed)
             {
-                return Sprites.Sam.GetFrameForAnimation(namePrefix + "closed", 0);
+                return Sprites.Sam.GetFrameForAnimation(namePrefix + "closed-idle", 0);
             }
             else if (State == SamState.Opening)
             {
@@ -100,7 +109,7 @@ namespace CncTd.Entities
             }
             else if (State == SamState.Open)
             {
-                return Sprites.Sam.GetFrameForRotation(namePrefix + "open", Rotation);
+                return Sprites.Sam.GetFrameForRotation(namePrefix + "idle", Rotation);
             }
             else if (State == SamState.Closing)
             {

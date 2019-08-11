@@ -31,8 +31,8 @@ namespace CncTd.Entities
 
         private Vector2 RealPosition { get; set; }
         private float MovementSpeed { get; set; }
-        private int FrameNumber { get; set; }
-
+        private float Rotation { get; set; }
+        private int CreatedTicks { get; set; }
 
         public Projectile(World world, Player player, Point position, Point target, SpriteWrapper sprite, float speed)
         {
@@ -43,6 +43,13 @@ namespace CncTd.Entities
             IsAlive = true;
             this.sprite = sprite;
             MovementSpeed = speed;
+            CreatedTicks = world.Ticks;
+
+            Point diff = Target - Position;
+            Vector2 diffV = new Vector2(diff.X, diff.Y);
+            diffV.Normalize();
+            float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
+            Rotation = targetRotation;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -50,7 +57,14 @@ namespace CncTd.Entities
             int x = Math.Max(0, Position.X - sprite.Width / 2);
             int y = Math.Max(0, Position.Y - sprite.Height / 2);
 
-            spriteBatch.Draw(sprite.SpriteSheet, new Rectangle(x, y, sprite.Width, sprite.Height), new Rectangle((FrameNumber / 2) * sprite.Width, 0, sprite.Width, sprite.Height), Color.White);
+            SpriteFrame frame = GetSpriteFrame(gameTime);
+
+            spriteBatch.Draw(sprite.SpriteSheet, new Rectangle(x, y, sprite.Width, sprite.Height), frame.Coordinates, Color.White);
+        }
+
+        protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)
+        {
+            return sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks);
         }
 
         public void Update(GameTime gameTime)
@@ -82,11 +96,6 @@ namespace CncTd.Entities
                 diff.Normalize();
                 RealPosition += Vector2.Multiply(diff, (float) speedPerFrame);
             }
-
-
-
-            FrameNumber++;
-            FrameNumber %= sprite.Frames * 2;
         }
 
         protected virtual void Explode(GameTime gameTime)

@@ -8,14 +8,16 @@ namespace CncTd
     class SpriteFrameSet
     {
         public string Name { get; }
-        public int Offset { get; }
-        public int Count { get; }
+        public int Start { get; }
+        public int Length { get; set; }
+        public int Facings { get; set; }
 
-        public SpriteFrameSet(string name, int offset, int count)
+        public SpriteFrameSet(string name, int offset)
         {
             Name = name;
-            Offset = offset;
-            Count = count;
+            Start = offset;
+            Length = 1;
+            Facings = 1;
         }
     }
 }
