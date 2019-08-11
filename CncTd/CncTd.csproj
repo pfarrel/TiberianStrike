@@ -64,6 +64,9 @@
     <Content Include="Content\a10.png" />
     <Content Include="Content\apache.png" />
     <Content Include="Content\bomblet.png" />
+    <Content Include="Content\dragon.png" />
+    <Content Include="Content\e3.png" />
+    <Content Include="Content\e3rot.png" />
     <Content Include="Content\ftnk.png" />
     <Content Include="Content\mtnk-body.png" />
     <Content Include="Content\mtnk-turret.png" />
