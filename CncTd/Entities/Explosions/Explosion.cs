@@ -13,7 +13,7 @@ namespace CncTd.Entities
         protected const int FrameRepeat = 2;
         protected readonly int ExplosionLength;
 
-        public Point Position { get; private set; }
+        public virtual Point Position { get; private set; }
         public bool IsAlive { get; private set; }
         protected World World { get; }
         protected SpriteWrapper Sprite { get; set; }

@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
+    <Compile Include="Entities\Explosions\Muzzle.cs" />
+    <Compile Include="Entities\Explosions\GunfireMuzzle.cs" />
     <Compile Include="Entities\Projectiles\Bullet.cs" />
     <Compile Include="Entities\Projectiles\Patriot.cs" />
     <Compile Include="Entities\Projectiles\SmallMissile.cs" />
@@ -71,6 +73,7 @@
     <Content Include="Content\e3.png" />
     <Content Include="Content\e3rot.png" />
     <Content Include="Content\ftnk.png" />
+    <Content Include="Content\minigun.png" />
     <Content Include="Content\mtnk-body.png" />
     <Content Include="Content\mtnk-turret.png" />
     <Content Include="Content\napalm1.png" />

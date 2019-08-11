@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CncTd.Entities
 {
-    class SamMuzzle : Muzzle
+    class GunfireMuzzle : Muzzle
     {
         {
         }

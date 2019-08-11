@@ -95,6 +95,7 @@ namespace CncTd.Entities
             Bullet bullet = new Bullet(World, Player.One, Position, bulletImpact);
             World.AddProjectile(bullet);
             Sounds.HeavyMachineGun.Play(0.5f, 0, 0);
+            World.AddExplosion(new GunfireMuzzle(World, this, Rotation));
         }
 
         public void Bomb(GameTime gameTime)

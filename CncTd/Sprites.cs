@@ -20,6 +20,7 @@ namespace CncTd
         public static SpriteWrapper ExplosionSmall { get; private set; }
         public static SpriteWrapper Harvester { get; private set; }
         public static SpriteWrapper Map { get; private set; }
+        public static SpriteWrapper MuzzleFlash { get; private set; }
         public static SpriteWrapper Napalm1 { get; private set; }
         public static SpriteWrapper Napalm2 { get; private set; }
         public static SpriteWrapper Napalm3 { get; private set; }
@@ -48,6 +49,9 @@ namespace CncTd
             ExplosionSmall = SpriteWrapper.Animation(content.Load<Texture2D>("veh-hit3"), 19, 13, 14);
             Harvester = SpriteWrapper.Unit(content.Load<Texture2D>("harvester"), 48, 48, 32);
             Map = SpriteWrapper.Static(content.Load<Texture2D>("map"), 744, 744);
+            MuzzleFlash = SpriteWrapper.Complex(content.Load<Texture2D>("minigun"), 18, 17,
+                new SpriteFrameSet("default", 0) { Facings = 8, Length = 6 }
+            );
             Napalm1 = SpriteWrapper.Animation(content.Load<Texture2D>("napalm1"), 22, 18, 14);
             Napalm2 = SpriteWrapper.Animation(content.Load<Texture2D>("napalm2"), 41, 40, 14);
             Napalm3 = SpriteWrapper.Animation(content.Load<Texture2D>("napalm3"), 72, 72, 14);

@@ -67,7 +67,7 @@ namespace CncTd.Entities
                     if (World.Ticks - LastShotTicks > TicksBetweenShots)
                     {
                         World.AddProjectile(new Patriot(World, Player.Two, Position, a10.Position));
-                        World.AddExplosion(new SamMuzzle(World, Position, Rotation));
+                        World.AddExplosion(new SamMuzzle(World, this, Rotation));
                         Sounds.Rocket1.Play();
                         LastShotTicks = World.Ticks;
                     }
