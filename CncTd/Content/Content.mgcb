@@ -358,6 +358,12 @@
 /processorParam:TextureFormat=Color
 /build:shadow.png
 
+#begin Sounds/bazook1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/bazook1.wav
+
 #begin Sounds/flamer2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -381,6 +387,42 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/mgun2.wav
+
+#begin Sounds/nuyell1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/nuyell1.wav
+
+#begin Sounds/nuyell3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/nuyell3.wav
+
+#begin Sounds/nuyell4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/nuyell4.wav
+
+#begin Sounds/nuyell5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/nuyell5.wav
+
+#begin Sounds/rocket1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/rocket1.wav
+
+#begin Sounds/rocket2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/rocket2.wav
 
 #begin Sounds/tnkfire2.wav
 /importer:WavImporter
