@@ -56,7 +56,25 @@ namespace CncTd
 
             RocketInfantry rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 150));
             world.AddEntity(rocketInfantry);
-           
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 180));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 180));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 180));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 180));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 180));
+            world.AddEntity(rocketInfantry);
+
             gameState = GameState.Playing;
 
             SoundEffect.MasterVolume = 0.5f;

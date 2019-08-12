@@ -17,16 +17,18 @@ namespace CncTd.Entities
         public bool IsAlive { get; private set; }
         protected World World { get; }
         protected SpriteWrapper Sprite { get; set; }
+        public string SpriteFrameSetName { get; }
         protected int CreatedTicks { get; set; }
 
-        public Explosion(World world, Point position, SpriteWrapper sprite)
+        public Explosion(World world, Point position, SpriteWrapper sprite, string name = "default")
         {
             World = world;
             Position = position;
             IsAlive = true;
             Sprite = sprite;
+            SpriteFrameSetName = name;
             CreatedTicks = world.Ticks;
-            ExplosionLength = sprite.SpriteFrameSet.First().Length * FrameRepeat;
+            ExplosionLength = sprite.SpriteFrameSet.Where(s => s.Name == name).First().Length * FrameRepeat;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -52,8 +54,7 @@ namespace CncTd.Entities
         protected virtual SpriteFrame GetSpriteFrame()
         {
             int ticksSinceCreated = World.Ticks - CreatedTicks;
-            int frame = ticksSinceCreated / FrameRepeat;
-            return Sprite.GetFrameForAnimation(frame);
+            return Sprite.GetFrameForAnimationAndRotation(SpriteFrameSetName, 0, ticksSinceCreated);
         }
     }
 }

@@ -13,13 +13,15 @@ namespace CncTd.Entities
         private const double ChaseRange = 200;
         private const double ShootRange = 100;
         private const int TicksBetweenShots = 128;
+        private static readonly List<string> Deaths = new List<string>() { "die1", "die2", "die3", "die4", "die5" };
+        private List<SoundEffect> DeathSounds;
 
         private float Rotation { get; set; }
         private InfantryState State { get; set; }
         private int EnteredStateTicks { get; set; }
         private int LastShotTicks { get; set; }
 
-        public override int MaxHealth => 25;
+        public override int MaxHealth => 1;
 
         protected override Type ExplosionType => typeof(ExplosionBig);
 
@@ -105,6 +107,17 @@ namespace CncTd.Entities
             }
             string name = stateForSprite.ToString().ToLower();
             return Sprites.RocketInfantry.GetFrameForAnimationAndRotation(name, Rotation, EnteredStateTicks - World.Ticks, 8);
+        }
+
+        protected override void Die()
+        {
+            string death = Deaths[new Random().Next(Deaths.Count - 1)];
+            Explosion explosion = new InfantryDeath(World, Position, Sprites.RocketInfantry, death);
+            World.AddExplosion(explosion);
+
+            DeathSounds = new List<SoundEffect>() { Sounds.InfantryDeath1, Sounds.InfantryDeath2, Sounds.InfantryDeath3, Sounds.InfantryDeath4 };
+            SoundEffect deathSound = DeathSounds[new Random().Next(DeathSounds.Count - 1)];
+            deathSound.Play();
         }
     }
 }
