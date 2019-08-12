@@ -46,9 +46,9 @@ namespace CncTd.Entities
             }
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            SpriteFrame spriteFrame = GetSpriteFrame(gameTime);
+            SpriteFrame spriteFrame = GetSpriteFrame();
             int x = Position.X - spriteFrame.Coordinates.Width / 2;
             int y = Position.Y - spriteFrame.Coordinates.Height / 2;
 
@@ -65,7 +65,7 @@ namespace CncTd.Entities
 
         public virtual void Update(GameTime gameTime) { }
 
-        protected abstract SpriteFrame GetSpriteFrame(GameTime gameTime);
+        protected abstract SpriteFrame GetSpriteFrame();
 
         protected virtual void Die()
         {

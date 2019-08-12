@@ -39,17 +39,17 @@ namespace CncTd.Entities
             Rotation = MathHelper.ToRadians(90);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             int x = Position.X - Sprites.A10.Width / 2;
             int y = Position.Y - Sprites.A10.Height / 2;
 
             spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
 
-            base.Draw(gameTime, spriteBatch);
+            base.Draw(spriteBatch);
         }
 
-        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected override SpriteFrame GetSpriteFrame()
         {
             return Sprites.A10.GetFrameForRotation(Rotation);
         }

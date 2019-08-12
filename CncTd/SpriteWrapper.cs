@@ -77,6 +77,11 @@ namespace CncTd
             return GetFrame(spriteNumber);
         }
 
+        public SpriteFrame GetFrameForAnimationAndRotation(float rotation, int ticks, int frameRepeat = 8)
+        {
+            return GetFrameForAnimationAndRotation("default", rotation, ticks, frameRepeat);
+        }
+
         public SpriteFrame GetFrameForAnimationAndRotation(string name, float rotation, int ticks, int frameRepeat = 8)
         {
             SpriteFrameSet spriteFrameSet = SpriteFrameSet.Where(s => s.Name == name).First();

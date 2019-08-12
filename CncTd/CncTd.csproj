@@ -48,6 +48,8 @@
     <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
     <Compile Include="Entities\Explosions\Muzzle.cs" />
     <Compile Include="Entities\Explosions\GunfireMuzzle.cs" />
+    <Compile Include="Entities\InfantryState.cs" />
+    <Compile Include="Entities\RocketInfantry.cs" />
     <Compile Include="Entities\Projectiles\Bullet.cs" />
     <Compile Include="Entities\Projectiles\Patriot.cs" />
     <Compile Include="Entities\Projectiles\SmallMissile.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="SpriteFrame.cs" />
     <Compile Include="SpriteFrameSet.cs" />
     <Compile Include="SpriteWrapper.cs" />
+    <Compile Include="VectorHelpers.cs" />
     <Compile Include="World.cs" />
     <Content Include="Content\120mm.png" />
     <Content Include="Content\a10.png" />

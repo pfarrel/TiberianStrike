@@ -95,7 +95,7 @@ namespace CncTd.Entities
             base.Update(gameTime);
         }
 
-        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected override SpriteFrame GetSpriteFrame()
         {
             String namePrefix = Health < MaxHealth / 2 ? "damaged-" : "";
             if (State == SamState.Closed)

@@ -51,9 +51,12 @@ namespace CncTd
             Refinery refinery = new Refinery(world, Player.Two, new Point(400, 50));
             world.AddEntity(refinery);
 
-            Sam sam = new Sam(world, Player.Two, new Point(400, 200));
+            Sam sam = new Sam(world, Player.Two, new Point(400, 300));
             world.AddEntity(sam);
 
+            RocketInfantry rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 150));
+            world.AddEntity(rocketInfantry);
+           
             gameState = GameState.Playing;
 
             SoundEffect.MasterVolume = 0.5f;
@@ -102,7 +105,7 @@ namespace CncTd
 
                 if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
                 {
-                    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint, gameTime.TotalGameTime));
+                    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint));
                 }
 
                 if (previousKeyboardState.IsKeyDown(Keys.M) && Keyboard.GetState().IsKeyUp(Keys.M))
@@ -210,7 +213,7 @@ namespace CncTd
 
             foreach (IEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
             {
-                entity.Draw(gameTime, spriteBatch);
+                entity.Draw(spriteBatch);
             }
             foreach (Projectile bullet in world.Projectiles)
             {

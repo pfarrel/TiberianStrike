@@ -43,7 +43,7 @@ namespace CncTd
             Bomblet = SpriteWrapper.Animation(content.Load<Texture2D>("bomblet"), 7, 7, 7);
             BulletImpact = SpriteWrapper.Animation(content.Load<Texture2D>("piffpiff"), 15, 15, 8);
             CannonShot120mm = SpriteWrapper.Static(content.Load<Texture2D>("120mm"), 24, 24);
-            Dragon = SpriteWrapper.Unit(content.Load<Texture2D>("dragon"), 24, 24, 32);
+            Dragon = SpriteWrapper.Unit(content.Load<Texture2D>("dragon"), 15, 15, 32);
             ExplosionBig = SpriteWrapper.Animation(content.Load<Texture2D>("veh-hit1"), 30, 17, 14);
             ExplosionMedium = SpriteWrapper.Animation(content.Load<Texture2D>("veh-hit2"), 21, 17, 22);
             ExplosionSmall = SpriteWrapper.Animation(content.Load<Texture2D>("veh-hit3"), 19, 13, 14);

@@ -20,7 +20,7 @@ namespace CncTd.Entities
             CreatedTicks = world.Ticks;
         }
 
-        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected override SpriteFrame GetSpriteFrame()
         {
             if (World.Ticks >= CreatedTicks + TicksToBuild)
             {

@@ -12,7 +12,7 @@ namespace CncTd.Entities
     class Turret : BaseEntity
     {
         private const float RotationSpeed = (float) (Math.PI * 2) / 25;  // per second
-        private const float TimeToBuild = 5000;
+        private const int TicksToBuild = 60 * 3;
         private const int Range = 200;
         private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
 
@@ -20,23 +20,23 @@ namespace CncTd.Entities
 
         private float Rotation { get; set; }
         private bool Constructing { get; set; }
-        private TimeSpan TimeWhenCreated { get; }
+        private int CreatedTicks { get; }
         private IEntity TargetEntity { get; set; }
         private TimeSpan LastShot { get; set;}
 
         public override int MaxHealth => 200;
 
-        public Turret(World world, Player player, Point position, TimeSpan timeWhenCreated) : base(world, player, position)
+        public Turret(World world, Player player, Point position) : base(world, player, position)
         {
             Constructing = true;
             Rotation = Rotation = MathHelper.ToRadians(290);
             Target = new Point(0, 0);
-            TimeWhenCreated = timeWhenCreated;
+            CreatedTicks = world.Ticks;
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime.TotalMilliseconds > TimeWhenCreated.TotalMilliseconds + TimeToBuild)
+            if (World.Ticks >= CreatedTicks + TicksToBuild)
             {
                 Constructing = false;
             }
@@ -99,13 +99,11 @@ namespace CncTd.Entities
             }
         }
 
-        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected override SpriteFrame GetSpriteFrame()
         {
             if (Constructing)
             {
-                double fraction = (gameTime.TotalGameTime.TotalMilliseconds - TimeWhenCreated.TotalMilliseconds) / TimeToBuild;
-                int spriteNumber = Convert.ToInt32(fraction * (Sprites.TurretConstructing.Frames - 1));
-                return Sprites.TurretConstructing.GetFrameForAnimation(spriteNumber);
+                return Sprites.TurretConstructing.GetFrameForAnimationAndRotation(0, CreatedTicks - World.Ticks);
             }
             else
             {

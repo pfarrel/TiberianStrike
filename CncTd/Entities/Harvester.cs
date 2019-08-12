@@ -35,7 +35,6 @@ namespace CncTd.Entities
                 Vector2 diffV = new Vector2(diff.X, diff.Y);
                 diffV.Normalize();
                 float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
-                //Console.WriteLine("Source: {0}, Target: {1}, TargetVector: {2} TargetRotation: {3}", Position, Target, diffV, targetRotation);
                 if (Rotation == targetRotation)
                 {
                     PositionVector += Vector2.Multiply(diffV, (float)(MovementSpeed * (gameTime.ElapsedGameTime.TotalSeconds)));
@@ -44,7 +43,7 @@ namespace CncTd.Entities
             }
         }
 
-        protected override SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected override SpriteFrame GetSpriteFrame()
         {
             return Sprites.Harvester.GetFrameForRotation(Rotation);
         }
