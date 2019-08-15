@@ -9,7 +9,7 @@ namespace TiberianStrike.Entities
 {
     class Refinery : BaseEntity
     {
-        private const int TicksToBuild = 16 * 20;
+        private const int TicksToBuild = 8 * 20;
 
         private int CreatedTicks { get; set; }
 
@@ -24,14 +24,11 @@ namespace TiberianStrike.Entities
         {
             if (World.Ticks >= CreatedTicks + TicksToBuild)
             {
-                int spriteNumber = (World.Ticks / 16) % Sprites.Refinery.Frames;
-                return Sprites.Refinery.GetFrameForAnimation(spriteNumber);
+                return Sprites.Refinery.GetFrameForAnimation(World.Ticks - CreatedTicks);
             }
             else
             {
-                int ticksSinceChange = World.Ticks - CreatedTicks;
-                int frame = ticksSinceChange / 16;
-                return Sprites.RefineryConstructing.GetFrameForAnimation(frame);
+                return Sprites.RefineryConstructing.GetFrameForAnimation(World.Ticks - CreatedTicks);
             }
         }
     }
