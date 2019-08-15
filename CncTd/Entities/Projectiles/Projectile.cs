@@ -11,10 +11,10 @@ namespace TiberianStrike.Entities
 {
     abstract class Projectile
     {
-        private const int FrameRepeat = 3;
-        private const double ExplosionRadius = 15;
-        private const int Damage = 10;
-        private readonly SpriteWrapper sprite;
+        protected const int FrameRepeat = 3;
+        protected const double ExplosionRadius = 15;
+        protected const int Damage = 10;
+        protected readonly SpriteWrapper Sprite;
 
         protected virtual Type ExplosionType { get { return null; } }
         protected virtual SoundEffect ExplosionSound { get { return null; } }
@@ -23,26 +23,26 @@ namespace TiberianStrike.Entities
         {
             get
             {
-                return new Point((int)RealPosition.X, (int)RealPosition.Y);
+                return new Point((int)PositionVector.X, (int)PositionVector.Y);
             }
         }
         public Point Target { get; set; }
         public bool IsAlive { get; private set; }
-        private World World { get; }
+        protected World World { get; }
 
-        private Vector2 RealPosition { get; set; }
-        private float MovementSpeed { get; set; }
-        private float Rotation { get; set; }
-        private int CreatedTicks { get; set; }
+        protected Vector2 PositionVector { get; set; }
+        protected float Rotation { get; set; }
+        protected float MovementSpeed { get; set; }
+        protected int CreatedTicks { get; set; }
 
         public Projectile(World world, Player player, Point position, Point target, SpriteWrapper sprite, float speed)
         {
             World = world;
             Player = player;
-            RealPosition = new Vector2(position.X, position.Y);
+            PositionVector = new Vector2(position.X, position.Y);
             Target = target;
             IsAlive = true;
-            this.sprite = sprite;
+            Sprite = sprite;
             MovementSpeed = speed;
             CreatedTicks = world.Ticks;
 
@@ -55,51 +55,56 @@ namespace TiberianStrike.Entities
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - sprite.Width / 2);
-            int y = Math.Max(0, Position.Y - sprite.Height / 2);
+            int x = Math.Max(0, Position.X - Sprite.Width / 2);
+            int y = Math.Max(0, Position.Y - Sprite.Height / 2);
 
             SpriteFrame frame = GetSpriteFrame(gameTime);
 
-            spriteBatch.Draw(sprite.SpriteSheet, new Rectangle(x, y, sprite.Width, sprite.Height), frame.Coordinates, Color.White);
+            spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White);
         }
 
         protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)
         {
-            return sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks, 3);
+            return Sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks, 3);
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             Vector2 targetVector = new Vector2(Target.X, Target.Y);
-            float distanceToTarget = Vector2.Distance(RealPosition, targetVector);
+            float distanceToTarget = Vector2.Distance(PositionVector, targetVector);
             double speedPerFrame = MovementSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
             if (Target == Position)
             {
-                IsAlive = false;
-                List<IEntity> inRadius = World.Entities
-                    .Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), targetVector) < ExplosionRadius)
-                    .ToList();
-                foreach (IEntity entity in inRadius)
-                {
-                    float distance = Vector2.Distance(new Vector2(entity.Position.X, entity.Position.Y), targetVector);
-                    int damage = (int)(Damage * (distance / ExplosionRadius));
-                    entity.Damage(damage);
-                }
-                Explode(gameTime);
+                Explode();
             }
             else if (distanceToTarget < speedPerFrame)
             {
-                RealPosition = new Vector2(Target.X, Target.Y);
+                PositionVector = new Vector2(Target.X, Target.Y);
             }
             else
             {
-                Vector2 diff = targetVector - RealPosition;
+                Vector2 diff = targetVector - PositionVector;
                 diff.Normalize();
-                RealPosition += Vector2.Multiply(diff, (float) speedPerFrame);
+                PositionVector += Vector2.Multiply(diff, (float) speedPerFrame);
             }
         }
 
-        protected virtual void Explode(GameTime gameTime)
+        protected virtual void Explode()
+        {
+            IsAlive = false;
+            List<IEntity> inRadius = World.Entities
+                .Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), PositionVector) < ExplosionRadius)
+                .ToList();
+            foreach (IEntity entity in inRadius)
+            {
+                float distance = Vector2.Distance(new Vector2(entity.Position.X, entity.Position.Y), PositionVector);
+                int damage = (int)(Damage * (distance / ExplosionRadius));
+                entity.Damage(damage);
+            }
+            MakeExplosion();
+        }
+
+        protected virtual void MakeExplosion()
         {
             if (ExplosionType != null)
             {
