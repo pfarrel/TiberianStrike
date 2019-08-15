@@ -9,8 +9,8 @@
     <ProjectGuid>{699FC87E-1378-4B50-8FA4-A8D13BD78171}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CncTd</RootNamespace>
-    <AssemblyName>CncTd</AssemblyName>
+    <RootNamespace>TiberianStrike</RootNamespace>
+    <AssemblyName>TiberianStrike</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
