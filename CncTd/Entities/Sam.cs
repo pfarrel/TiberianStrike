@@ -9,10 +9,11 @@ namespace TiberianStrike.Entities
 {
     class Sam : BaseEntity
     {
+        private const int FrameRepeat = 6;
         private const float TimeToBuild = 5000;
         private const float Range = 200;
-        private readonly int TicksToClose = Sprites.Sam.SpriteFrameSet.Where(s => s.Name == "closing").First().DurationTicks;
-        private readonly int TicksToOpen = Sprites.Sam.SpriteFrameSet.Where(s => s.Name == "opening").First().DurationTicks;
+        private readonly int TicksToClose = 14 * FrameRepeat;
+        private readonly int TicksToOpen = 16 * FrameRepeat;
         private const float TicksBetweenShots = 60;
 
         private SamState State { get; set; }
@@ -122,7 +123,7 @@ namespace TiberianStrike.Entities
                 throw new Exception("what");
             }
 
-            return Sprites.Sam.GetFrameForAnimationAndRotation(name, Rotation, ticksSinceChange);
+            return Sprites.Sam.GetFrameForAnimationAndRotation(name, Rotation, ticksSinceChange, FrameRepeat);
         }
 
         enum SamState
