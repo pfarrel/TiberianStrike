@@ -10,7 +10,7 @@ namespace TiberianStrike.Entities
 {
     abstract class Explosion
     {
-        protected const int FrameRepeat = 2;
+        protected const int FrameRepeat = 3;
         protected readonly int ExplosionLength;
 
         public virtual Point Position { get; private set; }
@@ -54,7 +54,7 @@ namespace TiberianStrike.Entities
         protected virtual SpriteFrame GetSpriteFrame()
         {
             int ticksSinceCreated = World.Ticks - CreatedTicks;
-            return Sprite.GetFrameForAnimationAndRotation(SpriteFrameSetName, 0, ticksSinceCreated);
+            return Sprite.GetFrameForAnimationAndRotation(SpriteFrameSetName, 0, ticksSinceCreated, FrameRepeat);
         }
     }
 }

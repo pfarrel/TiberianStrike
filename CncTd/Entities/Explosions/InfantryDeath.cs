@@ -10,7 +10,6 @@ namespace TiberianStrike.Entities
 {
     class InfantryDeath : Explosion
     {
-
         public InfantryDeath(World world, Point position, SpriteWrapper sprite, string spriteFrameSetName) : base(world, position, sprite, spriteFrameSetName)
         {
         }

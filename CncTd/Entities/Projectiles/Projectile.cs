@@ -11,6 +11,7 @@ namespace TiberianStrike.Entities
 {
     abstract class Projectile
     {
+        private const int FrameRepeat = 3;
         private const double ExplosionRadius = 15;
         private const int Damage = 10;
         private readonly SpriteWrapper sprite;
@@ -64,7 +65,7 @@ namespace TiberianStrike.Entities
 
         protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)
         {
-            return sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks);
+            return sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks, 3);
         }
 
         public void Update(GameTime gameTime)
