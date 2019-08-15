@@ -49,18 +49,6 @@
 /processorParam:TextureFormat=Color
 /build:apache.png
 
-#begin apache.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:apache.png
-
 #begin bomblet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -274,18 +262,6 @@
 /processorParam:TextureFormat=Color
 /build:orca.png
 
-#begin orca.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:orca.png
-
 #begin patriot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -370,11 +346,23 @@
 /processorParam:TextureFormat=Color
 /build:shadow.png
 
+#begin Sounds/accom1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/accom1.wav
+
 #begin Sounds/bazook1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/bazook1.wav
+
+#begin Sounds/fail1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/fail1.wav
 
 #begin Sounds/flamer2.wav
 /importer:WavImporter

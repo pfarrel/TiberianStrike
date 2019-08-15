@@ -90,7 +90,9 @@
     <Content Include="Content\sam.png" />
     <Content Include="Content\samfire.png" />
     <Content Include="Content\shadow.png" />
+    <Content Include="Content\Sounds\accom1.wav" />
     <Content Include="Content\Sounds\bazook1.wav" />
+    <Content Include="Content\Sounds\fail1.wav" />
     <Content Include="Content\Sounds\flamer2.wav" />
     <Content Include="Content\Sounds\gun8.wav" />
     <Content Include="Content\Sounds\mgun11.wav" />

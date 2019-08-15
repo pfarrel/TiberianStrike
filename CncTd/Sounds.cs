@@ -25,6 +25,9 @@ namespace TiberianStrike
         public static SoundEffect InfantryDeath3 { get; private set; }
         public static SoundEffect InfantryDeath4 { get; private set; }
 
+        public static SoundEffect MissionAccomplished { get; private set; }
+        public static SoundEffect MissionFailed { get; private set; }
+
         public static void Load(ContentManager content)
         {
             Bazooka = content.Load<SoundEffect>("Sounds/bazook1");
@@ -40,6 +43,9 @@ namespace TiberianStrike
             InfantryDeath2 = content.Load<SoundEffect>("Sounds/nuyell3");
             InfantryDeath3 = content.Load<SoundEffect>("Sounds/nuyell4");
             InfantryDeath4 = content.Load<SoundEffect>("Sounds/nuyell5");
+
+            MissionAccomplished = content.Load<SoundEffect>("Sounds/accom1");
+            MissionFailed = content.Load<SoundEffect>("Sounds/fail1");
         }
     }
 }

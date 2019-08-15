@@ -205,10 +205,12 @@ namespace TiberianStrike
             if (!a10.IsAlive)
             {
                 gameState = GameState.Lost;
+                Sounds.MissionFailed.Play();
             }
             else if (!world.Entities.Any(entity => entity.Player == Player.Two))
             {
                 gameState = GameState.Won;
+                Sounds.MissionAccomplished.Play();
             }
             else
             {
