@@ -35,6 +35,8 @@ namespace TiberianStrike
 
         protected override void Initialize()
         {
+            base.Initialize();
+
             IsMouseVisible = true;
             previousMouseState = Mouse.GetState();
             previousKeyboardState = Keyboard.GetState();
@@ -78,8 +80,6 @@ namespace TiberianStrike
             gameState = GameState.Playing;
 
             SoundEffect.MasterVolume = 0.5f;
-
-            base.Initialize();
         }
 
         protected override void LoadContent()
