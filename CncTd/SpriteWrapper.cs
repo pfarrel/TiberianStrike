@@ -60,21 +60,14 @@ namespace TiberianStrike
             return GetFrame(frame);
         }
 
-        public SpriteFrame GetFrameForAnimation(int frame)
+        public SpriteFrame GetFrameForAnimation(int ticks, int frameRepeat = 8)
         {
-            return GetFrameForAnimation("default", frame);
+            return GetFrameForAnimation("default", ticks, frameRepeat);
         }
 
-        public SpriteFrame GetFrameForAnimation(string name, int spriteNumber)
+        public SpriteFrame GetFrameForAnimation(string name, int ticks, int frameRepeat = 8)
         {
-            SpriteFrameSet spriteFrameSet = SpriteFrameSet.Where(s => s.Name == name).First();
-            if (spriteNumber < 0 || spriteNumber >= spriteFrameSet.Length)
-            {
-                throw new Exception("Bad sprite index");
-            }
-
-            spriteNumber = spriteNumber + spriteFrameSet.Start;
-            return GetFrame(spriteNumber);
+            return GetFrameForAnimationAndRotation(name, 0, ticks, frameRepeat);
         }
 
         public SpriteFrame GetFrameForAnimationAndRotation(float rotation, int ticks, int frameRepeat = 8)
