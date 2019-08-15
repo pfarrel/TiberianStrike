@@ -111,12 +111,12 @@ namespace TiberianStrike.Entities
 
         protected override void Die()
         {
-            string death = Deaths[new Random().Next(Deaths.Count - 1)];
+            string death = Deaths[new Random().Next(Deaths.Count)];
             Explosion explosion = new InfantryDeath(World, Position, Sprites.RocketInfantry, death);
             World.AddExplosion(explosion);
 
             DeathSounds = new List<SoundEffect>() { Sounds.InfantryDeath1, Sounds.InfantryDeath2, Sounds.InfantryDeath3, Sounds.InfantryDeath4 };
-            SoundEffect deathSound = DeathSounds[new Random().Next(DeathSounds.Count - 1)];
+            SoundEffect deathSound = DeathSounds[new Random().Next(DeathSounds.Count)];
             deathSound.Play();
         }
     }
