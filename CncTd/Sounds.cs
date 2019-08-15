@@ -12,6 +12,7 @@ namespace TiberianStrike
     class Sounds
     {
         public static SoundEffect Bazooka { get; private set; }
+        public static SoundEffect Explosion { get; private set; }
         public static SoundEffect FireExplosion { get; private set; }
         public static SoundEffect HarvesterExplosion { get; private set; }
         public static SoundEffect HeavyMachineGun { get; private set; }
@@ -27,6 +28,7 @@ namespace TiberianStrike
         public static void Load(ContentManager content)
         {
             Bazooka = content.Load<SoundEffect>("Sounds/bazook1");
+            Explosion = content.Load<SoundEffect>("Sounds/xplos");
             FireExplosion = content.Load<SoundEffect>("Sounds/flamer2");
             HarvesterExplosion = content.Load<SoundEffect>("Sounds/xplobig4");
             HeavyMachineGun = content.Load<SoundEffect>("Sounds/gun8");

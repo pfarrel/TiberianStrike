@@ -11,10 +11,12 @@ namespace TiberianStrike.Entities
 {
     class SmallMissile : Projectile
     {
-        private const float TurnRate = 0.05f;
+        protected const float TurnRate = 0.02f;
         protected IEntity TargetEntity { get; }
+        protected float DistanceTravelled { get; set; }
 
         protected override Type ExplosionType => typeof(ShellExplosion);
+        protected override SoundEffect ExplosionSound => Sounds.Explosion;
 
         public SmallMissile(World world, Player player, Point position, Point target, IEntity targetEntity) : base(world, player, position, target, Sprites.Dragon, 100f)
         {
@@ -23,18 +25,19 @@ namespace TiberianStrike.Entities
 
         public override void Update(GameTime gameTime)
         {
-            if (Vector2.Distance(TargetEntity.PositionVector, PositionVector) < ExplosionRadius)
-            {
-                Explode();
-                return;
-            }
-
             float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector);
             float rotationDiff = targetRotation - Rotation;
             float amountToTurn = Math.Min(TurnRate, rotationDiff);
             Rotation += amountToTurn;
 
-            PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, MovementSpeed * ((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000));
+            float distanceToTarget = Vector2.Distance(TargetEntity.PositionVector, PositionVector);
+            float distanceToFly = Math.Min(distanceToTarget, MovementSpeed * ((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000));
+            PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, distanceToFly);
+
+            if (Vector2.Distance(TargetEntity.PositionVector, PositionVector) < ExplosionRadius)
+            {
+                Explode();
+            }
         }
     }
 }

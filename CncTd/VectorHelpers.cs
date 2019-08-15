@@ -23,14 +23,19 @@ namespace TiberianStrike
             return rotation;
         }
 
-        public static Vector2 MoveInDirection(Vector2 source, float rotation, float distancePerTick)
+        public static Vector2 GetVectorInDirection(float rotation, float distancePerTick)
         {
             Vector2 movement = new Vector2(
                 (float)(Math.Cos(rotation - MathHelper.PiOver2)),
                 (float)((Math.Sin(rotation - MathHelper.PiOver2)))
             );
             movement.Normalize();
-            return source + movement * distancePerTick;
+            return movement * distancePerTick;
+        }
+
+        public static Vector2 MoveInDirection(Vector2 source, float rotation, float distancePerTick)
+        {
+            return source + GetVectorInDirection(rotation, distancePerTick);
         }
     }
 }
