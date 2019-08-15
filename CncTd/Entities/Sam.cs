@@ -11,8 +11,8 @@ namespace TiberianStrike.Entities
     {
         private const float TimeToBuild = 5000;
         private const float Range = 200;
-        private const int TicksToClose = 16 * 14;
-        private const int TicksToOpen = 16 * 16;
+        private readonly int TicksToClose = Sprites.Sam.SpriteFrameSet.Where(s => s.Name == "closing").First().DurationTicks;
+        private readonly int TicksToOpen = Sprites.Sam.SpriteFrameSet.Where(s => s.Name == "opening").First().DurationTicks;
         private const float TicksBetweenShots = 60;
 
         private SamState State { get; set; }
@@ -98,30 +98,31 @@ namespace TiberianStrike.Entities
         protected override SpriteFrame GetSpriteFrame()
         {
             String namePrefix = Health < MaxHealth / 2 ? "damaged-" : "";
+            int ticksSinceChange = World.Ticks - StateChangedTicks;
+            string name;
+
             if (State == SamState.Closed)
             {
-                return Sprites.Sam.GetFrameForAnimation(namePrefix + "closed-idle", 0);
+                name = namePrefix + "closed-idle";
             }
             else if (State == SamState.Opening)
             {
-                int ticksSinceChange = World.Ticks - StateChangedTicks;
-                int frame = ticksSinceChange / 16;
-                return Sprites.Sam.GetFrameForAnimation(namePrefix + "opening", frame);
+                name = namePrefix + "opening";
             }
             else if (State == SamState.Open)
             {
-                return Sprites.Sam.GetFrameForRotation(namePrefix + "idle", Rotation);
+                name = namePrefix + "idle";
             }
             else if (State == SamState.Closing)
             {
-                int ticksSinceChange = World.Ticks - StateChangedTicks;
-                int frame = ticksSinceChange / 16;
-                return Sprites.Sam.GetFrameForAnimation(namePrefix + "closing", frame);
+                name = namePrefix + "closing";
             }
             else
             {
                 throw new Exception("what");
             }
+
+            return Sprites.Sam.GetFrameForAnimationAndRotation(name, Rotation, ticksSinceChange);
         }
 
         enum SamState
