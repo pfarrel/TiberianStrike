@@ -24,7 +24,7 @@ namespace TiberianStrike
             SheetWidth = spriteSheet.Width;
             Stride = height;
             SpriteFrameSet = spriteFrameSet;
-            Frames = spriteFrameSet.Select(s => s.Length * s.Facings).Sum();
+            Frames = spriteFrameSet.Select(s => s.Start + s.Length * s.Facings).Max();
         }
 
         public static SpriteWrapper Animation(Texture2D spriteSheet, int width, int height, int frames)
