@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CncTd
+namespace TiberianStrike
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace CncTd
         [STAThread]
         static void Main()
         {
-            using (var game = new CncTdGame())
+            using (var game = new TiberianStrikeGame())
 
                 game.Run();
         }

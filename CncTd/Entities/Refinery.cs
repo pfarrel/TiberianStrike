@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CncTd.Entities
+namespace TiberianStrike.Entities
 {
     class Refinery : BaseEntity
     {

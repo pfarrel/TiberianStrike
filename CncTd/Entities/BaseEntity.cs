@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace CncTd.Entities
+namespace TiberianStrike.Entities
 {
     abstract class BaseEntity : IEntity
     {

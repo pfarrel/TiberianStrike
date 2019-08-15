@@ -1,4 +1,4 @@
-﻿using CncTd.Entities;
+﻿using TiberianStrike.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CncTd
+namespace TiberianStrike
 {
-    public class CncTdGame : Game
+    public class TiberianStrikeGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -24,7 +24,7 @@ namespace CncTd
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
 
-        public CncTdGame()
+        public TiberianStrikeGame()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
