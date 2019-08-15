@@ -14,7 +14,7 @@ namespace TiberianStrike.Entities
         private const float Range = 200;
         private readonly int TicksToClose = 14 * FrameRepeat;
         private readonly int TicksToOpen = 16 * FrameRepeat;
-        private const float TicksBetweenShots = 60;
+        private const float TicksBetweenShots = 180;
 
         private SamState State { get; set; }
         private int CreatedTicks { get; set; }
