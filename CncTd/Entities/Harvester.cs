@@ -15,7 +15,7 @@ namespace TiberianStrike.Entities
         public Point Target { get; set; }
         private float Rotation { get; set; }
 
-        public override int MaxHealth => 25;
+        public override int MaxHealth => 10;
 
         protected override Type ExplosionType => typeof(ExplosionBig);
 

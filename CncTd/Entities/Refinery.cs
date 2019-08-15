@@ -13,7 +13,7 @@ namespace TiberianStrike.Entities
 
         private int CreatedTicks { get; set; }
 
-        public override int MaxHealth => 100;
+        public override int MaxHealth => 20;
 
         public Refinery(World world, Player player, Point position) : base(world, player, position)
         {

@@ -20,7 +20,7 @@ namespace TiberianStrike.Entities
         private int CreatedTicks { get; set; }
         private int StateChangedTicks { get; set; }
         private int LastShotTicks { get; set; }
-        public override int MaxHealth => 100;
+        public override int MaxHealth => 10;
         private float Rotation { get; set; }
         protected override int HealthBarOffset => -5;
 

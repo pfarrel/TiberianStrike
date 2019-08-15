@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities
         private const float MovementPerTick = 0.25f;  // per second
         private const double ChaseRange = 200;
         private const double ShootRange = 100;
-        private const int TicksBetweenShots = 128;
+        private const int TicksBetweenShots = 196;
         private static readonly List<string> Deaths = new List<string>() { "die1", "die2", "die3", "die4", "die5" };
         private List<SoundEffect> DeathSounds;
 
