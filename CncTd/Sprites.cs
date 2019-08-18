@@ -85,7 +85,9 @@ namespace TiberianStrike
             );
             Artillery = SpriteSheet.Unit(content.Load<Texture2D>("arty"), 24, 24, 32);
             ArtilleryExplosion = SpriteSheet.Animation(content.Load<Texture2D>("art-exp1"), 41, 35, 22);
+            Bike = SpriteSheet.Unit(content.Load<Texture2D>("bike"), 24, 24, 32);
             Bomblet = SpriteSheet.Animation(content.Load<Texture2D>("bomblet"), 7, 7, 7);
+            Buggy = SpriteSheet.Unit(content.Load<Texture2D>("bggy"), 24, 24, 32);
             BulletImpact = SpriteSheet.Animation(content.Load<Texture2D>("piffpiff"), 15, 15, 8);
             BulletImpactSmall = SpriteSheet.Animation(content.Load<Texture2D>("piff"), 9, 13, 4);
             CannonShot120mm = SpriteSheet.Static(content.Load<Texture2D>("120mm"), 24, 24);

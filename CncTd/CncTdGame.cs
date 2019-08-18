@@ -57,29 +57,36 @@ namespace TiberianStrike
             world.AddEntity(new TempleOfNod(world, Player.Two, new Point(690, 40)));
             world.AddEntity(new Obelisk(world, Player.Two, new Point(350, 100)));
 
+            world.AddEntity(new Apc(world, Player.Two, new Point(400, 100)));
+            world.AddEntity(new Artillery(world, Player.Two, new Point(424, 100)));
+            world.AddEntity(new Bike(world, Player.Two, new Point(448, 100)));
+            world.AddEntity(new Buggy(world, Player.Two, new Point(472, 100)));
+            world.AddEntity(new FlameTank(world, Player.Two, new Point(496, 100)));
+            world.AddEntity(new StealthTank(world, Player.Two, new Point(520, 100)));
+
             Sam sam = new Sam(world, Player.Two, new Point(400, 300));
             world.AddEntity(sam);
 
             RocketInfantry rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 150));
             world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 150));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 150));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 150));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 150));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 180));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 180));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 180));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 180));
-            world.AddEntity(rocketInfantry);
-            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 180));
-            world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 150));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 150));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 150));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 150));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 180));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 180));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 180));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 180));
+            //world.AddEntity(rocketInfantry);
+            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 180));
+            //world.AddEntity(rocketInfantry);
 
             gameState = GameState.Playing;
 

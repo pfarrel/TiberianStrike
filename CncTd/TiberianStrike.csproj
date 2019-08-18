@@ -44,6 +44,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Artillery.cs" />
+    <Compile Include="Entities\Apc.cs" />
+    <Compile Include="Entities\StealthTank.cs" />
+    <Compile Include="Entities\FlameTank.cs" />
+    <Compile Include="Entities\Bike.cs" />
+    <Compile Include="Entities\Buggy.cs" />
+    <Compile Include="Entities\Vehicle.cs" />
     <Compile Include="Entities\Obelisk.cs" />
     <Compile Include="Entities\TempleOfNod.cs" />
     <Compile Include="Entities\ConstructionYard.cs" />
