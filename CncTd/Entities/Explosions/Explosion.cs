@@ -10,7 +10,7 @@ namespace TiberianStrike.Entities
 {
     abstract class Explosion
     {
-        protected const int FrameRepeat = 3;
+        protected virtual int FrameRepeat => 3;
         protected readonly int ExplosionLength;
 
         public virtual Point Position { get; private set; }
