@@ -197,15 +197,9 @@ namespace TiberianStrike
             Obelisk = SpriteSheet.Complex(content.Load<Texture2D>("obli"), 24, 48,
                 new SpriteSequence("default", 0),
                 new SpriteSequence("damaged-default", 4),
-                new SpriteSequence("active", 8) { Length = 4 },
+                new SpriteSequence("active", 0) { Length = 4 },
                 new SpriteSequence("damaged-active", 4) { Length = 4 },
-                new SpriteSequence("dead", 8),
-                new SpriteSequence("stand2", 8) { Facings = 8 },
-                new SpriteSequence("run", 16) { Facings = 8, Length = 6 },
-                new SpriteSequence("shoot", 64) { Facings = 8, Length = 4 },
-                new SpriteSequence("liedown", 96) { Facings = 8, Length = 2 },
-                new SpriteSequence("standup", 144) { Facings = 8, Length = 2 },
-                new SpriteSequence("prone-stand", 112) { Facings = 8 }
+                new SpriteSequence("dead", 8)
             );
             Patriot = SpriteSheet.Unit(content.Load<Texture2D>("patriot"), 26, 15, 32);
             Rambo = SpriteSheet.Complex(content.Load<Texture2D>("rmbo"), 50, 39,

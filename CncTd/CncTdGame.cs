@@ -50,8 +50,12 @@ namespace TiberianStrike
             a10 = new A10(world, Player.One, new Point(0, 100));
             world.AddEntity(a10);
 
-            Refinery refinery = new Refinery(world, Player.Two, new Point(400, 50));
-            world.AddEntity(refinery);
+            world.AddEntity(new Refinery(world, Player.Two, new Point(400, 50)));
+            world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
+            world.AddEntity(new Airfield(world, Player.Two, new Point(530, 50)));
+            world.AddEntity(new ConstructionYard(world, Player.Two, new Point(620, 50)));
+            world.AddEntity(new TempleOfNod(world, Player.Two, new Point(690, 40)));
+            world.AddEntity(new Obelisk(world, Player.Two, new Point(350, 100)));
 
             Sam sam = new Sam(world, Player.Two, new Point(400, 300));
             world.AddEntity(sam);

@@ -56,7 +56,7 @@ namespace TiberianStrike.Entities
 
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;
-            int healthBarWidth = (int)(healthFraction * (maxHealthBarWidth - 2));
+            int healthBarWidth = Math.Max(1, (int)(healthFraction * (maxHealthBarWidth - 2)));
             Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
 
             spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);

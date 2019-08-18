@@ -44,12 +44,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Obelisk.cs" />
+    <Compile Include="Entities\TempleOfNod.cs" />
+    <Compile Include="Entities\ConstructionYard.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Airfield.cs" />
+    <Compile Include="Entities\HandOfNod.cs" />
     <Compile Include="Entities\Explosions\InfantryDeath.cs" />
     <Compile Include="Entities\Explosions\NapalmExplosion.cs" />
     <Compile Include="Entities\Explosions\Muzzle.cs" />
     <Compile Include="Entities\Explosions\GunfireMuzzle.cs" />
     <Compile Include="Entities\InfantryState.cs" />
+    <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\RocketInfantry.cs" />
     <Compile Include="Entities\Projectiles\Bullet.cs" />
     <Compile Include="Entities\Projectiles\Patriot.cs" />
