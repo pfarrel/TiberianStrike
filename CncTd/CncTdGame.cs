@@ -229,7 +229,7 @@ namespace TiberianStrike
             
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation());
 
-            spriteBatch.Draw(Sprites.Map.SpriteSheet, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
+            spriteBatch.Draw(Sprites.Map.Texture, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
 
             foreach (IEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
             {

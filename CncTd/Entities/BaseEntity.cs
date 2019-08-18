@@ -52,15 +52,15 @@ namespace TiberianStrike.Entities
             int x = Position.X - spriteFrame.Coordinates.Width / 2;
             int y = Position.Y - spriteFrame.Coordinates.Height / 2;
 
-            spriteBatch.Draw(spriteFrame.SpriteSheet, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White);
+            spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White);
 
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;
             int healthBarWidth = (int)(healthFraction * (maxHealthBarWidth - 2));
             Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
 
-            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
-            spriteBatch.Draw(Sprites.None.SpriteSheet, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
+            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
+            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
         }
 
         public virtual void Update(GameTime gameTime) { }

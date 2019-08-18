@@ -28,7 +28,7 @@ namespace TiberianStrike.Entities
             }
         }
 
-        public Muzzle(World world, IEntity source, float rotation, SpriteWrapper sprite, float offsetDistance) : base(world, source.Position, sprite)
+        public Muzzle(World world, IEntity source, float rotation, SpriteSheet sprite, float offsetDistance) : base(world, source.Position, sprite)
         {
             Source = source;
             Rotation = rotation;

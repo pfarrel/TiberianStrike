@@ -5,12 +5,12 @@ namespace TiberianStrike
 {
     struct SpriteFrame
     {
-        public Texture2D SpriteSheet { get; }
+        public Texture2D Texture { get; }
         public Rectangle Coordinates { get; }
 
-        public SpriteFrame(Texture2D spriteSheet, Rectangle coordinates)
+        public SpriteFrame(Texture2D texture, Rectangle coordinates)
         {
-            SpriteSheet = spriteSheet;
+            Texture = texture;
             Coordinates = coordinates;
         }
     }

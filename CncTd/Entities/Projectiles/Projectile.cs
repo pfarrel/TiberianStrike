@@ -14,7 +14,7 @@ namespace TiberianStrike.Entities
         protected const int FrameRepeat = 3;
         protected const double ExplosionRadius = 15;
         protected const int Damage = 10;
-        protected readonly SpriteWrapper Sprite;
+        protected readonly SpriteSheet Sprite;
 
         protected virtual Type ExplosionType { get { return null; } }
         protected virtual SoundEffect ExplosionSound { get { return null; } }
@@ -35,7 +35,7 @@ namespace TiberianStrike.Entities
         protected float MovementSpeed { get; set; }
         protected int CreatedTicks { get; set; }
 
-        public Projectile(World world, Player player, Point position, Point target, SpriteWrapper sprite, float speed)
+        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed)
         {
             World = world;
             Player = player;
@@ -60,7 +60,7 @@ namespace TiberianStrike.Entities
 
             SpriteFrame frame = GetSpriteFrame(gameTime);
 
-            spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White);
+            spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White);
         }
 
         protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)

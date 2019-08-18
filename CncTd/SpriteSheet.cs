@@ -6,45 +6,45 @@ using System.Linq;
 
 namespace TiberianStrike
 {
-    class SpriteWrapper
+    class SpriteSheet
     {
-        public Texture2D SpriteSheet { get; }
+        public Texture2D Texture { get; }
         public int Width { get; }
         public int Height { get; }
         public int Frames { get; }
         public int SheetWidth { get; }
         public int Stride { get; }
-        public SpriteFrameSet[] SpriteFrameSet { get; }
+        public SpriteSequence[] SpriteSequences { get; }
 
-        private SpriteWrapper(Texture2D spriteSheet, int width, int height, params SpriteFrameSet[] spriteFrameSet)
+        private SpriteSheet(Texture2D spriteSheet, int width, int height, params SpriteSequence[] spriteSequences)
         {
-            SpriteSheet = spriteSheet;
+            Texture = spriteSheet;
             Width = width;
             Height = height;
             SheetWidth = spriteSheet.Width;
             Stride = height;
-            SpriteFrameSet = spriteFrameSet;
-            Frames = spriteFrameSet.Select(s => s.Start + s.Length * s.Facings).Max();
+            SpriteSequences = spriteSequences;
+            Frames = spriteSequences.Select(s => s.Start + s.Length * s.Facings).Max();
         }
 
-        public static SpriteWrapper Animation(Texture2D spriteSheet, int width, int height, int frames)
+        public static SpriteSheet Animation(Texture2D texture, int width, int height, int frames)
         {
-            return new SpriteWrapper(spriteSheet, width, height, new SpriteFrameSet("default", 0) { Length = frames });
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Length = frames });
         }
 
-        public static SpriteWrapper Static(Texture2D spriteSheet, int width, int height)
+        public static SpriteSheet Static(Texture2D texture, int width, int height)
         {
-            return new SpriteWrapper(spriteSheet, width, height, new SpriteFrameSet("default", 0));
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0));
         }
 
-        public static SpriteWrapper Unit(Texture2D spriteSheet, int width, int height, int directions)
+        public static SpriteSheet Unit(Texture2D texture, int width, int height, int directions)
         {
-            return new SpriteWrapper(spriteSheet, width, height, new SpriteFrameSet("default", 0) { Facings = directions });
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Facings = directions });
         }
 
-        public static SpriteWrapper Complex(Texture2D spriteSheet, int width, int height, params SpriteFrameSet[] spriteFrameSets)
+        public static SpriteSheet Complex(Texture2D texture, int width, int height, params SpriteSequence[] spriteSequences)
         {
-            return new SpriteWrapper(spriteSheet, width, height, spriteFrameSets);
+            return new SpriteSheet(texture, width, height, spriteSequences);
         }
 
         public SpriteFrame GetFrameForRotation(float rotation)
@@ -54,7 +54,7 @@ namespace TiberianStrike
 
         public SpriteFrame GetFrameForRotation(string name, float rotation)
         {
-            SpriteFrameSet spriteFrameSet = SpriteFrameSet.Where(s => s.Name == name).First();
+            SpriteSequence spriteFrameSet = SpriteSequences.Where(s => s.Name == name).First();
             int facing = getFacing(spriteFrameSet, rotation);
             int frame = spriteFrameSet.Start + (facing * spriteFrameSet.Length);
             return GetFrame(frame);
@@ -77,7 +77,7 @@ namespace TiberianStrike
 
         public SpriteFrame GetFrameForAnimationAndRotation(string name, float rotation, int ticks, int frameRepeat = 8)
         {
-            SpriteFrameSet spriteFrameSet = SpriteFrameSet.Where(s => s.Name == name).First();
+            SpriteSequence spriteFrameSet = SpriteSequences.Where(s => s.Name == name).First();
             int facing = getFacing(spriteFrameSet, rotation);
             int startOfAnimation = spriteFrameSet.Start + (facing * spriteFrameSet.Length);
             int animationOffset = (ticks / frameRepeat) % spriteFrameSet.Length;
@@ -85,7 +85,7 @@ namespace TiberianStrike
             return GetFrame(frame);
         }
 
-        private int getFacing(SpriteFrameSet spriteFrameSet, float rotation)
+        private int getFacing(SpriteSequence spriteFrameSet, float rotation)
         {
             double adjustedRotation = rotation < 0 ? rotation + Math.PI * 2 : rotation;
             int spriteNumber = Convert.ToInt32(((adjustedRotation / (Math.PI * 2)) * spriteFrameSet.Facings));
@@ -113,7 +113,7 @@ namespace TiberianStrike
             int row = frame / framesPerRow;
             int rowIndex = frame % framesPerRow;
 
-            return new SpriteFrame(SpriteSheet, new Rectangle(rowIndex * Width, row * Height, Width, Height));
+            return new SpriteFrame(Texture, new Rectangle(rowIndex * Width, row * Height, Width, Height));
         }
     }
 }

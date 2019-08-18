@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace TiberianStrike
 {
-    class SpriteFrameSet
+    class SpriteSequence
     {
         public string Name { get; }
         public int Start { get; }
         public int Length { get; set; }
         public int Facings { get; set; }
 
-        public SpriteFrameSet(string name, int offset)
+        public SpriteSequence(string name, int offset)
         {
             Name = name;
             Start = offset;

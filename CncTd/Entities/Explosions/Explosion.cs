@@ -16,19 +16,19 @@ namespace TiberianStrike.Entities
         public virtual Point Position { get; private set; }
         public bool IsAlive { get; private set; }
         protected World World { get; }
-        protected SpriteWrapper Sprite { get; set; }
-        public string SpriteFrameSetName { get; }
+        protected SpriteSheet Sprite { get; set; }
+        public string SpriteSequenceName { get; }
         protected int CreatedTicks { get; set; }
 
-        public Explosion(World world, Point position, SpriteWrapper sprite, string name = "default")
+        public Explosion(World world, Point position, SpriteSheet sprite, string name = "default")
         {
             World = world;
             Position = position;
             IsAlive = true;
             Sprite = sprite;
-            SpriteFrameSetName = name;
+            SpriteSequenceName = name;
             CreatedTicks = world.Ticks;
-            ExplosionLength = sprite.SpriteFrameSet.Where(s => s.Name == name).First().Length * FrameRepeat;
+            ExplosionLength = sprite.SpriteSequences.Where(s => s.Name == name).First().Length * FrameRepeat;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -39,7 +39,7 @@ namespace TiberianStrike.Entities
             if (IsAlive)
             {
                 SpriteFrame spriteFrame = GetSpriteFrame();
-                spriteBatch.Draw(Sprite.SpriteSheet, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White);
+                spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White);
             }
         }
 
@@ -54,7 +54,7 @@ namespace TiberianStrike.Entities
         protected virtual SpriteFrame GetSpriteFrame()
         {
             int ticksSinceCreated = World.Ticks - CreatedTicks;
-            return Sprite.GetFrameForAnimationAndRotation(SpriteFrameSetName, 0, ticksSinceCreated, FrameRepeat);
+            return Sprite.GetFrameForAnimationAndRotation(SpriteSequenceName, 0, ticksSinceCreated, FrameRepeat);
         }
     }
 }

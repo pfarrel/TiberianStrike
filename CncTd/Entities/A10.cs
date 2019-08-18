@@ -44,7 +44,7 @@ namespace TiberianStrike.Entities
             int x = Position.X - Sprites.A10.Width / 2;
             int y = Position.Y - Sprites.A10.Height / 2;
 
-            spriteBatch.Draw(Sprites.Shadow.SpriteSheet, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
+            spriteBatch.Draw(Sprites.Shadow.Texture, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
 
             base.Draw(spriteBatch);
         }

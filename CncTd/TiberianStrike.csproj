@@ -65,8 +65,8 @@
     <Compile Include="Fonts.cs" />
     <Compile Include="Sprites.cs" />
     <Compile Include="SpriteFrame.cs" />
-    <Compile Include="SpriteFrameSet.cs" />
-    <Compile Include="SpriteWrapper.cs" />
+    <Compile Include="SpriteSequence.cs" />
+    <Compile Include="SpriteSheet.cs" />
     <Compile Include="VectorHelpers.cs" />
     <Compile Include="World.cs" />
     <Content Include="Content\120mm.png" />
