@@ -38,7 +38,7 @@ namespace TiberianStrike.Entities
         {
             A10 a10 = World.GetEntities<A10>().First();
             float a10Distance = Vector2.Distance(a10.PositionVector, PositionVector);
-            float rotationToA10 = VectorHelpers.GetRotationToFace(PositionVector, a10.PositionVector);
+            float rotationToA10 = VectorHelpers.GetRotationToFace(PositionVector, a10.PositionVector) ?? Rotation;
 
             if (a10Distance < ShootRange && State != InfantryState.Shoot && World.Ticks >= LastShotTicks + TicksBetweenShots)
             {

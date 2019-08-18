@@ -25,7 +25,7 @@ namespace TiberianStrike.Entities
 
         public override void Update(GameTime gameTime)
         {
-            float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector);
+            float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector) ?? Rotation;
             float rotationDiff = targetRotation - Rotation;
             float amountToTurn = Math.Min(TurnRate, rotationDiff);
             Rotation += amountToTurn;

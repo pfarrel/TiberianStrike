@@ -55,15 +55,7 @@ namespace TiberianStrike.Entities
             {
                 if (a10Distance < Range)
                 {
-                    Point target = a10.Position;
-                    Point diff = target - Position;
-                    Vector2 diffV = new Vector2(diff.X, diff.Y);
-                    diffV.Normalize();
-                    Rotation = (float)Math.Atan2(diffV.X, -diffV.Y);
-                    if (Rotation == float.NaN)
-                    {
-                        Rotation = 0;
-                    }
+                    Rotation = VectorHelpers.GetRotationToFace(a10.PositionVector, PositionVector) ?? Rotation;
 
                     if (World.Ticks - LastShotTicks > TicksBetweenShots)
                     {

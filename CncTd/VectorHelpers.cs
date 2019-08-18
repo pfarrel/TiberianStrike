@@ -9,15 +9,15 @@ namespace TiberianStrike
 {
     class VectorHelpers
     {
-        public static float GetRotationToFace(Vector2 source, Vector2 target)
+        public static float? GetRotationToFace(Vector2 source, Vector2 target)
         {
             Vector2 diff = target - source;
             Vector2 diffV = new Vector2(diff.X, diff.Y);
             diffV.Normalize();
             float rotation = (float)Math.Atan2(diffV.X, -diffV.Y);
-            if (rotation == float.NaN)
+            if (float.IsNaN(rotation))
             {
-                rotation = 0;
+                return null;
             }
 
             return rotation;
