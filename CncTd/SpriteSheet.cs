@@ -32,6 +32,16 @@ namespace TiberianStrike
             return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Length = frames });
         }
 
+        public static SpriteSheet Building(Texture2D texture, int width, int height)
+        {
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0), new SpriteSequence("damaged", 1), new SpriteSequence("destroyed", 2));
+        }
+
+        public static SpriteSheet Building(Texture2D texture, int width, int height, int defaultState = 0, int damaged = 1, int destroyed = 2)
+        {
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", defaultState), new SpriteSequence("damaged", damaged), new SpriteSequence("dead", destroyed));
+        }
+
         public static SpriteSheet Static(Texture2D texture, int width, int height)
         {
             return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0));
@@ -40,6 +50,11 @@ namespace TiberianStrike
         public static SpriteSheet Unit(Texture2D texture, int width, int height, int directions)
         {
             return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Facings = directions });
+        }
+
+        public static SpriteSheet Wall(Texture2D texture, int width, int height)
+        {
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Length = 16 }, new SpriteSequence("damaged-default", 16) { Length = 16 });
         }
 
         public static SpriteSheet Complex(Texture2D texture, int width, int height, params SpriteSequence[] spriteSequences)
