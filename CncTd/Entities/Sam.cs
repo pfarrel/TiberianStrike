@@ -56,7 +56,7 @@ namespace TiberianStrike.Entities
             {
                 if (a10Distance < Range)
                 {
-                    Rotation = VectorHelpers.GetRotationToFace(a10.PositionVector, PositionVector) ?? Rotation;
+                    Rotation = VectorHelpers.GetRotationToFace(PositionVector, a10.PositionVector) ?? Rotation;
 
                     if (World.Ticks - LastShotTicks > TicksBetweenShots)
                     {
