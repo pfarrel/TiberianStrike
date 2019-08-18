@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiberianStrike.Entities
+namespace TiberianStrike.Entities.Explosions
 {
     class ShellExplosion : Explosion
     {
-        public ShellExplosion(World world, Point position) : base(world, position, Sprites.ExplosionSmall)
+        public ShellExplosion(World world, Point position, ExplosionHeight height) : base(world, position, Sprites.ExplosionSmall, height)
         {
         }
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiberianStrike.Entities
+namespace TiberianStrike.Entities.Explosions
 {
     class SamMuzzle : Muzzle
     {

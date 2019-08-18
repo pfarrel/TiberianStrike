@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities
 {
@@ -33,6 +34,7 @@ namespace TiberianStrike.Entities
         private TimeSpan LastFiringTime { get; set; }
 
         public override int MaxHealth => 100;
+        protected override float EntityZOrder => ZOrder.FlyingUnits;
 
         public A10(World world, Player player, Point position) : base(world, player, position)
         {

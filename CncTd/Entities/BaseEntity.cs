@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities
 {
@@ -21,6 +22,7 @@ namespace TiberianStrike.Entities
         protected virtual Type ExplosionType { get { return null; } }
         protected virtual SoundEffect ExplosionSound { get { return null; } }
         protected virtual int HealthBarOffset { get { return 2; } }
+        protected virtual float EntityZOrder => ZOrder.GroundUnits;
 
         protected BaseEntity(World world, Player player, Point position)
         {
@@ -52,15 +54,15 @@ namespace TiberianStrike.Entities
             int x = Position.X - spriteFrame.Coordinates.Width / 2;
             int y = Position.Y - spriteFrame.Coordinates.Height / 2;
 
-            spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White);
+            spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, EntityZOrder);
 
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;
             int healthBarWidth = Math.Max(1, (int)(healthFraction * (maxHealthBarWidth - 2)));
             Color barColor = healthFraction > 0.5 ? Color.LimeGreen : healthFraction > 0.25 ? Color.Gold : Color.Red;
 
-            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black);
-            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor);
+            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2, y + HealthBarOffset, maxHealthBarWidth, 4), new Rectangle(0, 0, 1, 1), Color.Black, 0, Vector2.Zero, SpriteEffects.None, ZOrder.HealthBarsBackground);
+            spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor, 0, Vector2.Zero, SpriteEffects.None, ZOrder.HealthBars);
         }
 
         public virtual void Update(GameTime gameTime) { }
@@ -71,7 +73,7 @@ namespace TiberianStrike.Entities
         {
             if (ExplosionType != null)
             {
-                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position });
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position, this is A10 ? ExplosionHeight.Air : ExplosionHeight.Ground });
                 World.AddExplosion(explosion);
             }
             if (ExplosionSound != null)

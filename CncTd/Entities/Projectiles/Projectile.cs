@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities
 {
@@ -33,9 +34,10 @@ namespace TiberianStrike.Entities
         protected Vector2 PositionVector { get; set; }
         protected float Rotation { get; set; }
         protected float MovementSpeed { get; set; }
+        protected bool AirTarget { get; }
         protected int CreatedTicks { get; set; }
 
-        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed)
+        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed, Boolean airTarget = false)
         {
             World = world;
             Player = player;
@@ -44,6 +46,7 @@ namespace TiberianStrike.Entities
             IsAlive = true;
             Sprite = sprite;
             MovementSpeed = speed;
+            AirTarget = airTarget;
             CreatedTicks = world.Ticks;
 
             Point diff = Target - Position;
@@ -108,7 +111,7 @@ namespace TiberianStrike.Entities
         {
             if (ExplosionType != null)
             {
-                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position });
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position, AirTarget ? ExplosionHeight.Air : ExplosionHeight.Ground });
                 World.AddExplosion(explosion);
             }
             if (ExplosionSound != null)

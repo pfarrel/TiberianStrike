@@ -44,6 +44,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Explosions\ExplosionLocation.cs" />
+    <Compile Include="ZOrder.cs" />
     <Compile Include="Entities\Artillery.cs" />
     <Compile Include="Entities\Apc.cs" />
     <Compile Include="Entities\StealthTank.cs" />

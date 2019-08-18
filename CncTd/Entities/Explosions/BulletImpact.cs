@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiberianStrike.Entities
+namespace TiberianStrike.Entities.Explosions
 {
     class BulletImpact : Explosion
     {
-        public BulletImpact(World world, Point position) : base(world, position, Sprites.BulletImpact)
+        public BulletImpact(World world, Point position, ExplosionHeight explosionHeight) : base(world, position, Sprites.BulletImpact, explosionHeight)
         {
         }
     }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike
 {
@@ -238,9 +239,9 @@ namespace TiberianStrike
         {
             GraphicsDevice.Clear(Color.Black);
             
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation());
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: camera.GetTransformation(), sortMode: SpriteSortMode.BackToFront);
 
-            spriteBatch.Draw(Sprites.Map.Texture, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), Color.White);
+            spriteBatch.Draw(Sprites.Map.Texture, new Rectangle(0, 0, Sprites.Map.Width, Sprites.Map.Height), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, ZOrder.Map);
 
             foreach (IEntity entity in world.Entities.OrderBy(entity => entity.GetType().Name))
             {

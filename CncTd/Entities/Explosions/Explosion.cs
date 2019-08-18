@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiberianStrike.Entities
+namespace TiberianStrike.Entities.Explosions
 {
     abstract class Explosion
     {
@@ -19,13 +19,15 @@ namespace TiberianStrike.Entities
         protected SpriteSheet Sprite { get; set; }
         public string SpriteSequenceName { get; }
         protected int CreatedTicks { get; set; }
+        protected ExplosionHeight Height { get; set; }
 
-        public Explosion(World world, Point position, SpriteSheet sprite, string name = "default")
+        public Explosion(World world, Point position, SpriteSheet sprite, ExplosionHeight height, string name = "default")
         {
             World = world;
             Position = position;
             IsAlive = true;
             Sprite = sprite;
+            Height = height;
             SpriteSequenceName = name;
             CreatedTicks = world.Ticks;
             ExplosionLength = sprite.SpriteSequences.Where(s => s.Name == name).First().Length * FrameRepeat;
@@ -39,7 +41,7 @@ namespace TiberianStrike.Entities
             if (IsAlive)
             {
                 SpriteFrame spriteFrame = GetSpriteFrame();
-                spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White);
+                spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, Height == ExplosionHeight.Air ? ZOrder.AirExplosion : ZOrder.GroundExplosion);
             }
         }
 

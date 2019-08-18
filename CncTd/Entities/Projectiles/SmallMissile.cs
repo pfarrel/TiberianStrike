@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities
 {
@@ -18,7 +19,7 @@ namespace TiberianStrike.Entities
         protected override Type ExplosionType => typeof(ShellExplosion);
         protected override SoundEffect ExplosionSound => Sounds.Explosion;
 
-        public SmallMissile(World world, Player player, Point position, Point target, IEntity targetEntity) : base(world, player, position, target, Sprites.Dragon, 100f)
+        public SmallMissile(World world, Player player, Point position, Point target, IEntity targetEntity) : base(world, player, position, target, Sprites.Dragon, 100f, targetEntity is A10)
         {
             TargetEntity = targetEntity;
         }
