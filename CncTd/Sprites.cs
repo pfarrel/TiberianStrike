@@ -279,7 +279,7 @@ namespace TiberianStrike
                 new SpriteSequence("opening", 1) { Length = 16 },
                 new SpriteSequence("idle", 17) { Facings = 32 },
                 new SpriteSequence("closing", 50) { Length = 14 },
-                new SpriteSequence("damaged-closed", 64),
+                new SpriteSequence("damaged-closed-idle", 64),
                 new SpriteSequence("damaged-opening", 65) { Length = 16 },
                 new SpriteSequence("damaged-idle", 81) { Facings = 32 },
                 new SpriteSequence("damaged-closing", 114) { Length = 14 }
