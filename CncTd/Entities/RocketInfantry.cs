@@ -15,8 +15,6 @@ namespace TiberianStrike.Entities
         private const double ChaseRange = 200;
         private const double ShootRange = 100;
         private const int TicksBetweenShots = 196;
-        private static readonly List<string> Deaths = new List<string>() { "die1", "die2", "die3", "die4", "die5" };
-        private List<SoundEffect> DeathSounds;
 
         private float Rotation { get; set; }
         private InfantryState State { get; set; }
@@ -111,15 +109,14 @@ namespace TiberianStrike.Entities
             return Sprites.RocketInfantry.GetFrameForAnimationAndRotation(name, Rotation, EnteredStateTicks - World.Ticks, 8);
         }
 
-        protected override void Die()
+        protected override void Die(Warhead warhead)
         {
-            string death = Deaths[new Random().Next(Deaths.Count)];
-            Explosion explosion = new InfantryDeath(World, Position, Sprites.RocketInfantry, death);
+
+            InfantryDeathType infantryDeathType = warhead.GetInfantryDeathType();
+            Explosion explosion = new InfantryDeath(World, Position, Sprites.RocketInfantry, infantryDeathType.GetSpriteName());
             World.AddExplosion(explosion);
 
-            DeathSounds = new List<SoundEffect>() { Sounds.InfantryDeath1, Sounds.InfantryDeath2, Sounds.InfantryDeath3, Sounds.InfantryDeath4 };
-            SoundEffect deathSound = DeathSounds[new Random().Next(DeathSounds.Count)];
-            deathSound.Play();
+            infantryDeathType.GetSoundEffect().Play();
         }
     }
 }

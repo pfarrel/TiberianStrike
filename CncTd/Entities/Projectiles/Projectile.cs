@@ -19,6 +19,7 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected virtual Type ExplosionType { get { return null; } }
         protected virtual SoundEffect ExplosionSound { get { return null; } }
+        protected virtual Warhead Warhead => Warhead.Explosive;
         public Player Player { get; }
         public Point Position
         {
@@ -102,7 +103,7 @@ namespace TiberianStrike.Entities.Projectiles
             {
                 float distance = Vector2.Distance(new Vector2(entity.Position.X, entity.Position.Y), PositionVector);
                 int damage = (int)(Damage * (distance / ExplosionRadius));
-                entity.Damage(damage);
+                entity.Damage(damage, Warhead);
             }
             MakeExplosion();
         }

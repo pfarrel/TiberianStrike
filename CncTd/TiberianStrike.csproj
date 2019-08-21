@@ -45,6 +45,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\Explosions\ExplosionLocation.cs" />
+    <Compile Include="Entities\InfantryDeath.cs" />
+    <Compile Include="Entities\Projectiles\Rocket.cs" />
+    <Compile Include="Entities\Warhead.cs" />
     <Compile Include="ZOrder.cs" />
     <Compile Include="Entities\Artillery.cs" />
     <Compile Include="Entities\Apc.cs" />

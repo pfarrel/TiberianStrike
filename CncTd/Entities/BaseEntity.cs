@@ -32,14 +32,14 @@ namespace TiberianStrike.Entities
             World = world;
         }
 
-        public void Damage(int amount)
+        public void Damage(int amount, Warhead warhead)
         {
             if (IsAlive)
             {
                 if (Health - amount <= 0)
                 {
                     Health = 0;
-                    Die();
+                    Die(warhead);
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace TiberianStrike.Entities
 
         protected abstract SpriteFrame GetSpriteFrame();
 
-        protected virtual void Die()
+        protected virtual void Die(Warhead warhead)
         {
             if (ExplosionType != null)
             {

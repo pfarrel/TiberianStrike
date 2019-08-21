@@ -9,7 +9,7 @@ namespace TiberianStrike.Entities
         Player Player { get; }
         Point Position { get; }
         Vector2 PositionVector { get; }
-        void Damage(int amount);
+        void Damage(int amount, Warhead warhead);
         void Draw(SpriteBatch spriteBatch);
         void Update(GameTime gameTime);
     }

@@ -10,14 +10,13 @@ using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities.Projectiles
 {
-    class Bullet : Projectile
+    class Rocket : Projectile
     {
-        public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.None, 2000f)
+        protected override Type ExplosionType => typeof(ShellExplosion);
+        protected override SoundEffect ExplosionSound => Sounds.Explosion;
+
+        public Rocket(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Dragon, 200f, false)
         {
         }
-
-        protected override Type ExplosionType => typeof(BulletImpact);
-
-        protected override Warhead Warhead => Warhead.Bullet;
     }
 }

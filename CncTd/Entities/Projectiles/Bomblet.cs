@@ -19,5 +19,7 @@ namespace TiberianStrike.Entities.Projectiles
         protected override Type ExplosionType => typeof(NapalmExplosion);
 
         protected override SoundEffect ExplosionSound => Sounds.FireExplosion;
+
+        protected override Warhead Warhead => Warhead.Fire;
     }
 }
