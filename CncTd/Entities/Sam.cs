@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TiberianStrike.Entities.Explosions;
+using TiberianStrike.Entities.Projectiles;
 
 namespace TiberianStrike.Entities
 {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiberianStrike.Entities.Explosions;
 
-namespace TiberianStrike.Entities
+namespace TiberianStrike.Entities.Projectiles
 {
     class Bomblet : Projectile
     {

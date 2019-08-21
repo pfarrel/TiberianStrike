@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 using TiberianStrike.Entities.Explosions;
+using TiberianStrike.Entities.Projectiles;
 
 namespace TiberianStrike
 {
