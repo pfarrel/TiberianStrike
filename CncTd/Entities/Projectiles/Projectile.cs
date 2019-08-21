@@ -64,7 +64,7 @@ namespace TiberianStrike.Entities.Projectiles
 
             SpriteFrame frame = GetSpriteFrame(gameTime);
 
-            spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White);
+            spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, ZOrder.Projectiles);
         }
 
         protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)
