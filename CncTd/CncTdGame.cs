@@ -71,12 +71,12 @@ namespace TiberianStrike
 
             RocketInfantry rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 150));
             world.AddEntity(rocketInfantry);
-            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 150));
-            //world.AddEntity(rocketInfantry);
-            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 150));
-            //world.AddEntity(rocketInfantry);
-            //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 150));
-            //world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(430, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(460, 150));
+            world.AddEntity(rocketInfantry);
+            rocketInfantry = new RocketInfantry(world, Player.Two, new Point(490, 150));
+            world.AddEntity(rocketInfantry);
             //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 150));
             //world.AddEntity(rocketInfantry);
             //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 180));
@@ -125,31 +125,19 @@ namespace TiberianStrike
                 Matrix inverse = Matrix.Invert(camera.GetTransformation());
                 Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
                 Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
-                if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
-                {
-                    world.AddEntity(new Harvester(world, Player.Two, mousePositionPoint, target1));
-                }
+                //if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
+                //{
+                //    world.AddEntity(new Harvester(world, Player.Two, mousePositionPoint, target1));
+                //}
 
-                if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint));
-                }
+                //if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
+                //    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint));
+                //}
 
-                if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
-                {
-                    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint));
-                }
-
-                if (previousKeyboardState.IsKeyDown(Keys.M) && Keyboard.GetState().IsKeyUp(Keys.M))
-                {
-                    foreach (Harvester harvester in world.GetEntities<Harvester>())
-                    {
-                        harvester.Damage(1000);
-                    }
-                }
-                if (previousKeyboardState.IsKeyDown(Keys.N) && Keyboard.GetState().IsKeyUp(Keys.N))
-                {
-                    a10.Damage(1000);
-                }
+                //if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
+                //{
+                //    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint));
+                //}
 
                 Vector2 movement = Vector2.Zero;
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
@@ -176,6 +164,10 @@ namespace TiberianStrike
                 if (Keyboard.GetState().IsKeyDown(Keys.B))
                 {
                     a10.Bomb(gameTime);
+                }
+                if (Keyboard.GetState().IsKeyDown(Keys.R))
+                {
+                    a10.Rocket(gameTime);
                 }
 
                 camera.Pos += movement * 20;

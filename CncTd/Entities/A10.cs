@@ -111,10 +111,34 @@ namespace TiberianStrike.Entities
             LastBombingTime = gameTime.TotalGameTime;
 
             Point target = Position;
-            Point start = Position;
             target.Y += FlyingHeight;
 
-            World.AddProjectile(new Bomblet(World, Player, start, target));
+            World.AddProjectile(new Bomblet(World, Player, Position, target));
+        }
+
+        public void Rocket(GameTime gameTime)
+        {
+            if (gameTime.TotalGameTime < LastBombingTime + TimeSpan.FromSeconds(BombingTime))
+            {
+                return;
+            }
+
+            LastBombingTime = gameTime.TotalGameTime;
+
+            Vector2 rocketDirection = new Vector2(
+                (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
+                (float)((Math.Sin(Rotation - MathHelper.PiOver2)))
+            );
+            rocketDirection.Normalize();
+            rocketDirection = GunRange * 2 * rocketDirection;
+            Point rocketTarget = Position + new Point((int)rocketDirection.X, (int)rocketDirection.Y);
+            rocketTarget.Y += FlyingHeight;
+
+            rocketTarget.X += new Random().Next(15) - 30;
+            rocketTarget.Y += new Random().Next(15) - 30;
+
+            Sounds.Rocket2.Play();
+            World.AddProjectile(new Rocket(World, Player, Position, rocketTarget));
         }
     }
 }
