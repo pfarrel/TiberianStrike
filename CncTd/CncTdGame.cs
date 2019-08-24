@@ -52,12 +52,12 @@ namespace TiberianStrike
             a10 = new A10(world, Player.One, new Point(0, 100));
             world.AddEntity(a10);
 
-            world.AddEntity(new Refinery(world, Player.Two, new Point(400, 50)));
+            //world.AddEntity(new Refinery(world, Player.Two, new Point(400, 50)));
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
             world.AddEntity(new Airfield(world, Player.Two, new Point(530, 50)));
             world.AddEntity(new ConstructionYard(world, Player.Two, new Point(620, 50)));
             world.AddEntity(new TempleOfNod(world, Player.Two, new Point(690, 40)));
-            world.AddEntity(new Obelisk(world, Player.Two, new Point(350, 100)));
+            world.AddEntity(new Obelisk(world, Player.One, new Point(350, 100)));
 
             world.AddEntity(new Apc(world, Player.Two, new Point(400, 100)));
             world.AddEntity(new Artillery(world, Player.Two, new Point(424, 100)));
@@ -90,7 +90,7 @@ namespace TiberianStrike
             //rocketInfantry = new RocketInfantry(world, Player.Two, new Point(520, 180));
             //world.AddEntity(rocketInfantry);
 
-            gameState = GameState.Playing;
+            gameState = GameState.Paused;
 
             SoundEffect.MasterVolume = 0.5f;
         }
@@ -115,13 +115,28 @@ namespace TiberianStrike
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (gameState != GameState.Playing)
+            if (gameState == GameState.Paused)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)) {
+                    gameState = GameState.Playing;
+                }
+
+                previousMouseState = Mouse.GetState();
+                previousKeyboardState = Keyboard.GetState();
+            }
+
+                if (gameState != GameState.Playing)
                 return;
 
             world.Tick();
 
             if (IsActive)
             {
+                if (Keyboard.GetState().IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
+                {
+                    gameState = GameState.Paused;
+                }
+
                 Matrix inverse = Matrix.Invert(camera.GetTransformation());
                 Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
                 Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);

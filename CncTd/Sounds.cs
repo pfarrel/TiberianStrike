@@ -12,11 +12,13 @@ namespace TiberianStrike
     class Sounds
     {
         public static SoundEffect Bazooka { get; private set; }
+        public static SoundEffect CannonShot { get; private set; }
         public static SoundEffect Explosion { get; private set; }
         public static SoundEffect FireExplosion { get; private set; }
         public static SoundEffect HarvesterExplosion { get; private set; }
         public static SoundEffect HeavyMachineGun { get; private set; }
-        public static SoundEffect CannonShot { get; private set; }
+        public static SoundEffect ObeliskCharging { get; private set; }
+        public static SoundEffect ObeliskShot { get; private set; }
         public static SoundEffect Rocket1 { get; private set; }
         public static SoundEffect Rocket2 { get; private set; }
 
@@ -31,11 +33,13 @@ namespace TiberianStrike
         public static void Load(ContentManager content)
         {
             Bazooka = content.Load<SoundEffect>("Sounds/bazook1");
+            CannonShot = content.Load<SoundEffect>("Sounds/tnkfire4");
             Explosion = content.Load<SoundEffect>("Sounds/xplos");
             FireExplosion = content.Load<SoundEffect>("Sounds/flamer2");
             HarvesterExplosion = content.Load<SoundEffect>("Sounds/xplobig4");
             HeavyMachineGun = content.Load<SoundEffect>("Sounds/gun8");
-            CannonShot = content.Load<SoundEffect>("Sounds/tnkfire4");
+            ObeliskCharging = content.Load<SoundEffect>("Sounds/obelpowr");
+            ObeliskShot = content.Load<SoundEffect>("Sounds/obelray1");
             Rocket1 = content.Load<SoundEffect>("Sounds/rocket1");
             Rocket2 = content.Load<SoundEffect>("Sounds/rocket2");
 

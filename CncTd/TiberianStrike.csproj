@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Entities\Explosions\ExplosionLocation.cs" />
     <Compile Include="Entities\InfantryDeath.cs" />
+    <Compile Include="Entities\ObeliskState.cs" />
     <Compile Include="Entities\Projectiles\Rocket.cs" />
     <Compile Include="Entities\Warhead.cs" />
     <Compile Include="ZOrder.cs" />
@@ -148,6 +149,8 @@
     <Content Include="Content\Sounds\nuyell3.wav" />
     <Content Include="Content\Sounds\nuyell4.wav" />
     <Content Include="Content\Sounds\nuyell5.wav" />
+    <Content Include="Content\Sounds\obelpowr.wav" />
+    <Content Include="Content\Sounds\obelray1.wav" />
     <Content Include="Content\Sounds\rocket1.wav" />
     <Content Include="Content\Sounds\rocket2.wav" />
     <Content Include="Content\Sounds\tnkfire2.wav" />

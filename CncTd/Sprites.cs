@@ -201,6 +201,8 @@ namespace TiberianStrike
                 new SpriteSequence("damaged-default", 4),
                 new SpriteSequence("active", 0) { Length = 4 },
                 new SpriteSequence("damaged-active", 4) { Length = 4 },
+                new SpriteSequence("firing", 3),
+                new SpriteSequence("damaged-firing", 7),
                 new SpriteSequence("dead", 8)
             );
             Patriot = SpriteSheet.Unit(content.Load<Texture2D>("patriot"), 26, 15, 32);
@@ -293,6 +295,7 @@ namespace TiberianStrike
             TempleOfNod = SpriteSheet.Building(content.Load<Texture2D>("tmpl"), 72, 72, 0, 6, 11);
             Turret = SpriteSheet.Unit(content.Load<Texture2D>("gun-turret"), 24, 24, 32);
             TurretConstructing = SpriteSheet.Animation(content.Load<Texture2D>("gun-turret-build"), 24, 24, 20);
+            WhitePixel = SpriteSheet.Static(content.Load<Texture2D>("whitepixel"), 1, 1);
         }
     }
 }

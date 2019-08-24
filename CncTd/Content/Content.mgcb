@@ -760,6 +760,18 @@
 /processorParam:Quality=Best
 /build:Sounds/nuyell5.wav
 
+#begin Sounds/obelpowr.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/obelpowr.wav
+
+#begin Sounds/obelray1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/obelray1.wav
+
 #begin Sounds/rocket1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TiberianStrike
+namespace TiberianStrike.Entities
 {
-    enum GameState
+    enum ObeliskState
     {
-        Paused,
-        Lost,
-        Playing,
-        Won
+        Idle,
+        Charging,
+        Firing
     }
 }
