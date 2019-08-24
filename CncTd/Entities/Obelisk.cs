@@ -25,10 +25,8 @@ namespace TiberianStrike.Entities
             StateChangedTicks = world.Ticks;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            base.Update(gameTime);
-
             IEntity nearestEnemy = World.Entities.Where(e => e.Player != Player)
                 .OrderBy(e => Vector2.Distance(PositionVector, e.PositionVector))
                 .FirstOrDefault();

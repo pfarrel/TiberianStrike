@@ -65,7 +65,7 @@ namespace TiberianStrike.Entities
             spriteBatch.Draw(Sprites.None.Texture, new Rectangle(x + maxHealthBarWidth / 2 + 1, y + HealthBarOffset + 1, healthBarWidth, 2), new Rectangle(0, 0, 1, 1), barColor, 0, Vector2.Zero, SpriteEffects.None, ZOrder.HealthBars);
         }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update() { }
 
         protected abstract SpriteFrame GetSpriteFrame();
 

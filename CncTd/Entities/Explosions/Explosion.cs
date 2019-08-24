@@ -33,7 +33,7 @@ namespace TiberianStrike.Entities.Explosions
             ExplosionLength = sprite.SpriteSequences.Where(s => s.Name == name).First().Length * FrameRepeat;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             int x = Math.Max(0, Position.X - (Sprite.Width / 2));
             int y = Math.Max(0, Position.Y - (Sprite.Height / 2));
@@ -45,7 +45,7 @@ namespace TiberianStrike.Entities.Explosions
             }
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             if (World.Ticks >= CreatedTicks + ExplosionLength)
             {

@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class Bomblet : Projectile
     {
-        public Bomblet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Bomblet, 20f)
+        public Bomblet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Bomblet, 20f / 60)
         {
         }
 

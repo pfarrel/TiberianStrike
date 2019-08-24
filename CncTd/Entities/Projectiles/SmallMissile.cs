@@ -19,12 +19,12 @@ namespace TiberianStrike.Entities.Projectiles
         protected override Type ExplosionType => typeof(ShellExplosion);
         protected override SoundEffect ExplosionSound => Sounds.Explosion;
 
-        public SmallMissile(World world, Player player, Point position, Point target, IEntity targetEntity) : base(world, player, position, target, Sprites.Dragon, 100f, targetEntity is A10)
+        public SmallMissile(World world, Player player, Point position, Point target, IEntity targetEntity) : base(world, player, position, target, Sprites.Dragon, 100f / 60, targetEntity is A10)
         {
             TargetEntity = targetEntity;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector) ?? Rotation;
             float rotationDiff = targetRotation - Rotation;
@@ -32,7 +32,7 @@ namespace TiberianStrike.Entities.Projectiles
             Rotation += amountToTurn;
 
             float distanceToTarget = Vector2.Distance(TargetEntity.PositionVector, PositionVector);
-            float distanceToFly = Math.Min(distanceToTarget, MovementSpeed * ((float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000));
+            float distanceToFly = Math.Min(distanceToTarget, MovementSpeed);
             PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, distanceToFly);
 
             if (Vector2.Distance(TargetEntity.PositionVector, PositionVector) < ExplosionRadius)

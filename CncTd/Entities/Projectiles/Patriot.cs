@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class Patriot : Projectile
     {
-        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Patriot, 200f, true)
+        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Patriot, 200f / 60, true)
         {
         }
 

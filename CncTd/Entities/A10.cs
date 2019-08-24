@@ -13,26 +13,14 @@ namespace TiberianStrike.Entities
     class A10 : BaseEntity
     {
         private const int FlyingHeight = 30;
-        private const double MovementSpeed = 20.0d;  // per second
-        private const double FiringTime = 0.5d;
-        private const double BombingTime = 0.2d;
+        private const double MovementSpeed = 20.0d / 60;  // per tick
+        private const int FiringTimeTicks = 30;
+        private const double BombingTimeTicks = 12;
         private const float GunRange = 100f;
-        private float _rotation;
 
-        private float Rotation
-        {
-            get
-            {
-                return _rotation;
-                //return (float) (Math.Round(_rotation / (Math.PI * 2 / 32)) * (Math.PI * 2 / 32));
-            }
-            set
-            {
-                _rotation = value;
-            }
-        }
-        private TimeSpan LastBombingTime { get; set; }
-        private TimeSpan LastFiringTime { get; set; }
+        private float Rotation { get; set; }
+        private int? LastBombingTicks { get; set; }
+        private int? LastFiringTicks { get; set; }
 
         public override int MaxHealth => 100;
         protected override float EntityZOrder => ZOrder.FlyingUnits;
@@ -57,7 +45,7 @@ namespace TiberianStrike.Entities
             return Sprites.A10.GetFrameForRotation(Rotation);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             Vector2 movement = new Vector2(
                 (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
@@ -68,24 +56,24 @@ namespace TiberianStrike.Entities
 
         public void TurnLeft()
         {
-            _rotation -= 0.05f;
-            _rotation %= MathHelper.TwoPi;
+            Rotation -= 0.05f;
+            Rotation %= MathHelper.TwoPi;
         }
 
         public void TurnRight()
         {
-            _rotation += 0.05f;
-            _rotation %= MathHelper.TwoPi;
+            Rotation += 0.05f;
+            Rotation %= MathHelper.TwoPi;
         }
 
-        public void Shoot(GameTime gameTime)
+        public void Shoot()
         {
-            if (gameTime.TotalGameTime < LastFiringTime + TimeSpan.FromSeconds(FiringTime))
+            if (LastFiringTicks != null && World.Ticks - LastFiringTicks < FiringTimeTicks)
             {
                 return;
             }
 
-            LastFiringTime = gameTime.TotalGameTime;
+            LastFiringTicks = World.Ticks;
 
             Vector2 bulletDirection = new Vector2(
                 (float) (Math.Cos(Rotation - MathHelper.PiOver2)),
@@ -101,14 +89,14 @@ namespace TiberianStrike.Entities
             World.AddExplosion(new GunfireMuzzle(World, this, Rotation));
         }
 
-        public void Bomb(GameTime gameTime)
+        public void Bomb()
         {
-            if (gameTime.TotalGameTime < LastBombingTime + TimeSpan.FromSeconds(BombingTime))
+            if (LastBombingTicks != null && World.Ticks - LastBombingTicks < BombingTimeTicks)
             {
                 return;
             }
 
-            LastBombingTime = gameTime.TotalGameTime;
+            LastBombingTicks = World.Ticks;
 
             Point target = Position;
             target.Y += FlyingHeight;
@@ -116,14 +104,14 @@ namespace TiberianStrike.Entities
             World.AddProjectile(new Bomblet(World, Player, Position, target));
         }
 
-        public void Rocket(GameTime gameTime)
+        public void Rocket()
         {
-            if (gameTime.TotalGameTime < LastBombingTime + TimeSpan.FromSeconds(BombingTime))
+            if (LastBombingTicks != null && World.Ticks - LastBombingTicks < BombingTimeTicks)
             {
                 return;
             }
 
-            LastBombingTime = gameTime.TotalGameTime;
+            LastBombingTicks = World.Ticks;
 
             Vector2 rocketDirection = new Vector2(
                 (float)(Math.Cos(Rotation - MathHelper.PiOver2)),

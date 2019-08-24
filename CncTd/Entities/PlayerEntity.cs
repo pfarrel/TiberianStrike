@@ -11,6 +11,6 @@ namespace TiberianStrike.Entities
         Vector2 PositionVector { get; }
         void Damage(int amount, Warhead warhead);
         void Draw(SpriteBatch spriteBatch);
-        void Update(GameTime gameTime);
+        void Update();
     }
 }

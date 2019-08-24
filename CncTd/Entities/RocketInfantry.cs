@@ -34,7 +34,7 @@ namespace TiberianStrike.Entities
             EnteredStateTicks = world.Ticks;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             A10 a10 = World.GetEntities<A10>().First();
             float a10Distance = Vector2.Distance(a10.PositionVector, PositionVector);

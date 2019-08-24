@@ -125,8 +125,10 @@ namespace TiberianStrike
                 previousKeyboardState = Keyboard.GetState();
             }
 
-                if (gameState != GameState.Playing)
+            if (gameState != GameState.Playing)
+            {
                 return;
+            }
 
             world.Tick();
 
@@ -174,15 +176,15 @@ namespace TiberianStrike
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    a10.Shoot(gameTime);
+                    a10.Shoot();
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.B))
                 {
-                    a10.Bomb(gameTime);
+                    a10.Bomb();
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.R))
                 {
-                    a10.Rocket(gameTime);
+                    a10.Rocket();
                 }
 
                 camera.Pos += movement * 20;
@@ -204,18 +206,18 @@ namespace TiberianStrike
 
             foreach (IEntity entity in world.Entities)
             {
-                entity.Update(gameTime);
+                entity.Update();
             }
 
             foreach (Projectile bullet in world.Projectiles)
             {
-                bullet.Update(gameTime);
+                bullet.Update();
             }
             world.Projectiles = world.Projectiles.Where(p => p.IsAlive).ToList();
 
             foreach (Explosion explosion in world.Explosions)
             {
-                explosion.Update(gameTime) ;
+                explosion.Update();
             }
             world.Explosions = world.Explosions.Where(e => e.IsAlive).ToList();
             world.Entities = world.Entities.Where(e => e.IsAlive).ToList();
@@ -257,11 +259,11 @@ namespace TiberianStrike
             }
             foreach (Projectile bullet in world.Projectiles)
             {
-                bullet.Draw(gameTime, spriteBatch);
+                bullet.Draw(spriteBatch);
             }
             foreach (Explosion explosion in world.Explosions)
             {
-                explosion.Draw(gameTime, spriteBatch);
+                explosion.Draw(spriteBatch);
             }
 
             spriteBatch.End();

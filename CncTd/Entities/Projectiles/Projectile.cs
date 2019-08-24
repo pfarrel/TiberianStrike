@@ -38,7 +38,7 @@ namespace TiberianStrike.Entities.Projectiles
         protected bool AirTarget { get; }
         protected int CreatedTicks { get; set; }
 
-        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed, Boolean airTarget = false)
+        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed, bool airTarget = false)
         {
             World = world;
             Player = player;
@@ -57,26 +57,26 @@ namespace TiberianStrike.Entities.Projectiles
             Rotation = targetRotation;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             int x = Math.Max(0, Position.X - Sprite.Width / 2);
             int y = Math.Max(0, Position.Y - Sprite.Height / 2);
 
-            SpriteFrame frame = GetSpriteFrame(gameTime);
+            SpriteFrame frame = GetSpriteFrame();
 
             spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), frame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, ZOrder.Projectiles);
         }
 
-        protected virtual SpriteFrame GetSpriteFrame(GameTime gameTime)
+        protected virtual SpriteFrame GetSpriteFrame()
         {
             return Sprite.GetFrameForAnimationAndRotation("default", Rotation, World.Ticks - CreatedTicks, 3);
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update()
         {
             Vector2 targetVector = new Vector2(Target.X, Target.Y);
             float distanceToTarget = Vector2.Distance(PositionVector, targetVector);
-            double speedPerFrame = MovementSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
+            double speedPerFrame = MovementSpeed;
             if (Target == Position)
             {
                 Explode();

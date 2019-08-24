@@ -12,10 +12,10 @@ namespace TiberianStrike.Entities
 {
     class Turret : BaseEntity
     {
-        private const float RotationSpeed = (float) (Math.PI * 2) / 25;  // per second
+        private const float RotationSpeed = (float) (Math.PI * 2) / 25 / 60;  // per tick
         private const int TicksToBuild = 60 * 3;
         private const int Range = 200;
-        private readonly TimeSpan FiringInterval = TimeSpan.FromSeconds(1); // 1 second
+        private const int FiringIntervalTicks = 60; // 1 second
 
         public Point Target { get; set; }
 
@@ -23,7 +23,7 @@ namespace TiberianStrike.Entities
         private bool Constructing { get; set; }
         private int CreatedTicks { get; }
         private IEntity TargetEntity { get; set; }
-        private TimeSpan LastShot { get; set;}
+        private int? LastShotTicks { get; set;}
 
         public override int MaxHealth => 200;
 
@@ -35,7 +35,7 @@ namespace TiberianStrike.Entities
             CreatedTicks = world.Ticks;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             if (World.Ticks >= CreatedTicks + TicksToBuild)
             {
@@ -75,12 +75,12 @@ namespace TiberianStrike.Entities
                     diffV.Normalize();
                     float targetRotation = (float) Math.Atan2(diffV.X, -diffV.Y);
                     float rotationDiff = targetRotation - Rotation;
-                    float rotationPerFrame = (float) (RotationSpeed * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0d));
+                    float rotationPerFrame = RotationSpeed;
                     //Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);
                     if (rotationDiff < rotationPerFrame)
                     {
                         Rotation = targetRotation;
-                        if (LastShot == null || gameTime.TotalGameTime - LastShot > FiringInterval)
+                        if (LastShotTicks == null || World.Ticks - LastShotTicks >= FiringIntervalTicks)
                         {
                             int x = Math.Max(0, Position.X - Sprites.Turret.Width / 2);
                             int y = Math.Max(0, Position.Y - Sprites.Turret.Height / 2);
@@ -88,7 +88,7 @@ namespace TiberianStrike.Entities
 
                             Projectile bullet = new CannonShot(World, Player, Position, Target);
                             World.AddProjectile(bullet);
-                            LastShot = gameTime.TotalGameTime;
+                            LastShotTicks = World.Ticks;
                             Sounds.CannonShot.Play();
                         }
                     }

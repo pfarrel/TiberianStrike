@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class CannonShot : Projectile
     {
-        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.CannonShot120mm, 250f)
+        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.CannonShot120mm, 250f / 60)
         {
         }
 
