@@ -129,14 +129,15 @@ namespace TiberianStrike
                 }
             }
 
-            if (IsActive)
-            {
-                ProcessInput(command);
-            }
 
             if (gameState != GameState.Playing)
             {
                 return;
+            }
+
+            if (IsActive)
+            {
+                ProcessInput(command);
             }
 
             world.Tick();
