@@ -26,6 +26,8 @@ namespace TiberianStrike
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
 
+        private Rectangle worldBounds = new Rectangle(0, 0, 744, 744);
+
         public TiberianStrikeGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -183,9 +185,10 @@ namespace TiberianStrike
                 gameState = GameState.Won;
                 Sounds.MissionAccomplished.Play();
             }
-            else
+
+            if (a10.Position.X < 0 || a10.Position.X > worldBounds.Width || a10.Position.Y < 0 || a10.Position.Y > worldBounds.Height)
             {
-                gameState = GameState.Playing;
+                a10.RotateInstantlyToPointAt(new Vector2(worldBounds.Width / 2, worldBounds.Height / 2));
             }
 
             base.Update(gameTime);

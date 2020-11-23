@@ -66,6 +66,13 @@ namespace TiberianStrike.Entities
             Rotation %= MathHelper.TwoPi;
         }
 
+        public void RotateInstantlyToPointAt(Vector2 target)
+        {
+            Vector2 direction = target - PositionVector;
+            direction.Normalize();
+            Rotation = (float)Math.Atan2(direction.X, -direction.Y);
+        }
+
         public void Shoot()
         {
             if (LastFiringTicks != null && World.Ticks - LastFiringTicks < FiringTimeTicks)
