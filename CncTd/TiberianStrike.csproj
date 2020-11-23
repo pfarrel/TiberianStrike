@@ -52,7 +52,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardStateWrapper.cs" />
     <Compile Include="Input\PlayerInput.cs" />
-    <Compile Include="ZOrder.cs" />
+    <Compile Include="Graphics\ZOrder.cs" />
     <Compile Include="Entities\Artillery.cs" />
     <Compile Include="Entities\Apc.cs" />
     <Compile Include="Entities\StealthTank.cs" />
@@ -83,12 +83,12 @@
     <Compile Include="Entities\Sam.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Sounds.cs" />
-    <Compile Include="SpriteHelper.cs" />
-    <Compile Include="Fonts.cs" />
-    <Compile Include="Sprites.cs" />
-    <Compile Include="SpriteFrame.cs" />
-    <Compile Include="SpriteSequence.cs" />
-    <Compile Include="SpriteSheet.cs" />
+    <Compile Include="Graphics\SpriteHelper.cs" />
+    <Compile Include="Graphics\Fonts.cs" />
+    <Compile Include="Graphics\Sprites.cs" />
+    <Compile Include="Graphics\SpriteFrame.cs" />
+    <Compile Include="Graphics\SpriteSequence.cs" />
+    <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="VectorHelpers.cs" />
     <Compile Include="World.cs" />
     <Content Include="Content\120mm.png" />
