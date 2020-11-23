@@ -808,6 +808,12 @@
 /processorParam:Quality=Best
 /build:Sounds/tnkfire6.wav
 
+#begin Sounds/void.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/void.wav
+
 #begin Sounds/xplobig4.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

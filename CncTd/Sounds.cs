@@ -30,6 +30,8 @@ namespace TiberianStrike
         public static SoundEffect MissionAccomplished { get; private set; }
         public static SoundEffect MissionFailed { get; private set; }
 
+        public static SoundEffect Void { get; private set; }
+
         public static void Load(ContentManager content)
         {
             Bazooka = content.Load<SoundEffect>("Sounds/bazook1");
@@ -50,6 +52,8 @@ namespace TiberianStrike
 
             MissionAccomplished = content.Load<SoundEffect>("Sounds/accom1");
             MissionFailed = content.Load<SoundEffect>("Sounds/fail1");
+
+            Void = content.Load<SoundEffect>("Sounds/void");
         }
     }
 }

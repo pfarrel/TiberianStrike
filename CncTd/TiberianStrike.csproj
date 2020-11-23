@@ -47,7 +47,7 @@
     <Compile Include="Entities\Explosions\ExplosionHeight.cs" />
     <Compile Include="Entities\InfantryDeath.cs" />
     <Compile Include="Entities\ObeliskState.cs" />
-    <Compile Include="Entities\Projectiles\Rocket.cs" />
+    <Compile Include="Entities\Projectiles\AirToGroundRocket.cs" />
     <Compile Include="Entities\Projectiles\AbstractMissile.cs" />
     <Compile Include="Entities\Warhead.cs" />
     <Compile Include="Input\InputManager.cs" />
@@ -161,6 +161,7 @@
     <Content Include="Content\Sounds\tnkfire3.wav" />
     <Content Include="Content\Sounds\tnkfire4.wav" />
     <Content Include="Content\Sounds\tnkfire6.wav" />
+    <Content Include="Content\Sounds\void.wav" />
     <Content Include="Content\Sounds\xplobig4.wav" />
     <Content Include="Content\Sounds\xplobig6.wav" />
     <Content Include="Content\Sounds\xplos.wav" />

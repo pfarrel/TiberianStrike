@@ -12,13 +12,17 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class Bomblet : Projectile
     {
-        public Bomblet(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Bomblet, 20f / 60)
+        public Bomblet(World world, Player player, Point position, Point target) : base(world, player, position, target)
         {
         }
 
         protected override Type ExplosionType => typeof(NapalmExplosion);
 
         protected override SoundEffect ExplosionSound => Sounds.FireExplosion;
+
+        protected override float MovementSpeed { get { return 20f / 60; } }
+
+        protected override SpriteSheet Sprite { get { return Sprites.Bomblet; } }
 
         protected override Warhead Warhead => Warhead.Fire;
     }

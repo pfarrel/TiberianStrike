@@ -133,7 +133,7 @@ namespace TiberianStrike.Entities
             rocketTarget.Y += new Random().Next(15) - 30;
 
             Sounds.Rocket2.Play();
-            World.AddProjectile(new Rocket(World, Player, Position, rocketTarget));
+            World.AddProjectile(new AirToGroundRocket(World, Player, Position, rocketTarget));
         }
     }
 }

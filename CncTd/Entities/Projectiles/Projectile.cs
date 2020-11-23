@@ -13,13 +13,15 @@ namespace TiberianStrike.Entities.Projectiles
     abstract class Projectile
     {
         protected const int FrameRepeat = 3;
-        protected const double ExplosionRadius = 15;
-        protected const int Damage = 10;
-        protected readonly SpriteSheet Sprite;
 
-        protected virtual Type ExplosionType { get { return null; } }
-        protected virtual SoundEffect ExplosionSound { get { return null; } }
-        protected virtual Warhead Warhead => Warhead.Explosive;
+        protected virtual int ExplosionRadius => 15;
+        protected virtual int Damage => 10;
+        protected abstract SpriteSheet Sprite { get; }
+        protected abstract Type ExplosionType { get; }
+        protected abstract SoundEffect ExplosionSound { get; }
+        protected abstract Warhead Warhead { get; }
+        protected abstract float MovementSpeed { get; }
+
         public Player Player { get; }
         public Point Position
         {
@@ -31,22 +33,19 @@ namespace TiberianStrike.Entities.Projectiles
         public Point Target { get; set; }
         public bool IsAlive { get; private set; }
         protected World World { get; }
-
         protected Vector2 PositionVector { get; set; }
         protected float Rotation { get; set; }
-        protected float MovementSpeed { get; set; }
+        
         protected bool AirTarget { get; }
         protected int CreatedTicks { get; set; }
 
-        public Projectile(World world, Player player, Point position, Point target, SpriteSheet sprite, float speed, bool airTarget = false)
+        public Projectile(World world, Player player, Point position, Point target, bool airTarget = false)
         {
             World = world;
             Player = player;
             PositionVector = new Vector2(position.X, position.Y);
             Target = target;
             IsAlive = true;
-            Sprite = sprite;
-            MovementSpeed = speed;
             AirTarget = airTarget;
             CreatedTicks = world.Ticks;
 

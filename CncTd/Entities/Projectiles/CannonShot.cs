@@ -12,10 +12,18 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class CannonShot : Projectile
     {
-        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.CannonShot120mm, 250f / 60)
+        protected override Type ExplosionType => typeof(ShellExplosion);
+
+        protected override SpriteSheet Sprite => Sprites.CannonShot120mm;
+
+        protected override SoundEffect ExplosionSound => Sounds.Explosion;
+
+        protected override Warhead Warhead => Warhead.Explosive;
+
+        protected override float MovementSpeed => 250f / 60;
+
+        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target)
         {
         }
-
-        protected override Type ExplosionType => typeof(ShellExplosion);
     }
 }

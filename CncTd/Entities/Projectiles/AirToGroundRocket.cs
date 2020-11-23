@@ -10,12 +10,19 @@ using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities.Projectiles
 {
-    class Rocket : Projectile
+    class AirToGroundRocket : Projectile
     {
         protected override Type ExplosionType => typeof(ShellExplosion);
+        
         protected override SoundEffect ExplosionSound => Sounds.Explosion;
 
-        public Rocket(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Dragon, 200f / 60, false)
+        protected override SpriteSheet Sprite => Sprites.Dragon;
+
+        protected override Warhead Warhead => Warhead.Explosive;
+
+        protected override float MovementSpeed => 20.0f / 60;
+
+        public AirToGroundRocket(World world, Player player, Point position, Point target) : base(world, player, position, target)
         {
         }
     }

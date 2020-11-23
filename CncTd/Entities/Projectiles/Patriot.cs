@@ -10,12 +10,26 @@ using TiberianStrike.Entities.Explosions;
 
 namespace TiberianStrike.Entities.Projectiles
 {
-    class Patriot : Projectile
+    class Patriot : AbstractMissile
     {
-        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Patriot, 200f / 60, true)
+        protected override Type ExplosionType => typeof(ExplosionBig);
+
+        protected override SpriteSheet Sprite => Sprites.Patriot;
+
+        protected override Warhead Warhead => Warhead.Explosive;
+
+        protected override float MovementSpeed => 200f / 60;
+
+        protected override int Damage => 30;
+
+        protected override int ExplosionRadius => 15;
+
+        public Patriot(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity)
         {
         }
 
-        protected override Type ExplosionType => typeof(ShellExplosion);
+        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target)
+        {
+        }
     }
 }

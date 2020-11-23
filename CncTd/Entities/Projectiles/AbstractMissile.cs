@@ -19,28 +19,30 @@ namespace TiberianStrike.Entities.Projectiles
         protected override Type ExplosionType => typeof(ShellExplosion);
         protected override SoundEffect ExplosionSound => Sounds.Explosion;
 
-        public AbstractMissile(World world, Player player, Point position, Point target) : base(world, player, position, target, Sprites.Dragon, 100f / 60, false)
+        public AbstractMissile(World world, Player player, Point position, Point target) : base(world, player, position, target)
         {
             TargetEntity = null;
         }
 
-        public AbstractMissile(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity.Position, Sprites.Dragon, 100f / 60, targetEntity is A10)
+        public AbstractMissile(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity.Position)
         {
             TargetEntity = targetEntity;
         }
 
         public override void Update()
         {
-            float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector) ?? Rotation;
+            Point target = TargetEntity != null ? TargetEntity.Position : Target;
+            Vector2 targetVector = new Vector2(target.X, target.Y);
+            float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, targetVector) ?? Rotation;
             float rotationDiff = targetRotation - Rotation;
             float amountToTurn = Math.Min(TurnRate, rotationDiff);
             Rotation += amountToTurn;
 
-            float distanceToTarget = Vector2.Distance(TargetEntity.PositionVector, PositionVector);
+            float distanceToTarget = Vector2.Distance(targetVector, PositionVector);
             float distanceToFly = Math.Min(distanceToTarget, MovementSpeed);
             PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, distanceToFly);
 
-            if (Vector2.Distance(TargetEntity.PositionVector, PositionVector) < ExplosionRadius)
+            if (Vector2.Distance(targetVector, PositionVector) < ExplosionRadius)
             {
                 Explode();
             }

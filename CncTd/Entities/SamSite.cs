@@ -61,7 +61,7 @@ namespace TiberianStrike.Entities
 
                     if (World.Ticks - LastShotTicks > TicksBetweenShots)
                     {
-                        World.AddProjectile(new Patriot(World, Player, Position, a10.Position));
+                        World.AddProjectile(new Patriot(World, Player, Position, a10));
                         World.AddExplosion(new SamMuzzle(World, this, Rotation));
                         Sounds.Rocket1.Play();
                         LastShotTicks = World.Ticks;
