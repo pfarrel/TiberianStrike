@@ -42,7 +42,7 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), 2000, 2000);
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
             camera.Pos = new Vector2(200, 200);
 
             world = new World();
