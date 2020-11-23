@@ -44,10 +44,11 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\Explosions\ExplosionLocation.cs" />
+    <Compile Include="Entities\Explosions\ExplosionHeight.cs" />
     <Compile Include="Entities\InfantryDeath.cs" />
     <Compile Include="Entities\ObeliskState.cs" />
     <Compile Include="Entities\Projectiles\Rocket.cs" />
+    <Compile Include="Entities\Projectiles\AbstractMissile.cs" />
     <Compile Include="Entities\Warhead.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardStateWrapper.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="Entities\Projectiles\Bomblet.cs" />
     <Compile Include="Entities\Explosions\SamMuzzle.cs" />
     <Compile Include="Entities\Explosions\ExplosionBig.cs" />
-    <Compile Include="Entities\Sam.cs" />
+    <Compile Include="Entities\SamSite.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="Graphics\SpriteHelper.cs" />

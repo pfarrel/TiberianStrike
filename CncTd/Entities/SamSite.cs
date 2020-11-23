@@ -9,7 +9,7 @@ using TiberianStrike.Entities.Projectiles;
 
 namespace TiberianStrike.Entities
 {
-    class Sam : BaseEntity
+    class SamSite : BaseEntity
     {
         private const int FrameRepeat = 6;
         private const float TimeToBuild = 5000;
@@ -26,7 +26,7 @@ namespace TiberianStrike.Entities
         private float Rotation { get; set; }
         protected override int HealthBarOffset => -5;
 
-        public Sam(World world, Player player, Point position) : base(world, player, position)
+        public SamSite(World world, Player player, Point position) : base(world, player, position)
         {
             State = SamState.Closed;
             CreatedTicks = World.Ticks;
@@ -61,7 +61,7 @@ namespace TiberianStrike.Entities
 
                     if (World.Ticks - LastShotTicks > TicksBetweenShots)
                     {
-                        World.AddProjectile(new Patriot(World, Player.Two, Position, a10.Position));
+                        World.AddProjectile(new Patriot(World, Player, Position, a10.Position));
                         World.AddExplosion(new SamMuzzle(World, this, Rotation));
                         Sounds.Rocket1.Play();
                         LastShotTicks = World.Ticks;

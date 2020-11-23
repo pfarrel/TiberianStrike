@@ -87,7 +87,7 @@ namespace TiberianStrike.Entities
                 if ((World.Ticks - EnteredStateTicks) % 64 == 48)
                 {
                     Point missileStartPosition = new Point(Position.X, Position.Y - 6);
-                    SmallMissile smallMissile = new SmallMissile(World, Player.Two, missileStartPosition, a10.Position, a10);
+                    SmallMissile smallMissile = new SmallMissile(World, Player.Two, missileStartPosition, a10);
                     World.AddProjectile(smallMissile);
                     Sounds.Bazooka.Play();
                 }

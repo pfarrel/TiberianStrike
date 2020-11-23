@@ -67,7 +67,7 @@ namespace TiberianStrike
             world.AddEntity(new FlameTank(world, Player.Two, new Point(496, 100)));
             world.AddEntity(new StealthTank(world, Player.Two, new Point(520, 100)));
 
-            Sam sam = new Sam(world, Player.Two, new Point(400, 300));
+            SamSite sam = new SamSite(world, Player.Two, new Point(400, 300));
             world.AddEntity(sam);
 
             RocketInfantry rocketInfantry = new RocketInfantry(world, Player.Two, new Point(400, 150));
