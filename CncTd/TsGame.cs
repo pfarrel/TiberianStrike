@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TiberianStrike.Entities.Explosions;
 using TiberianStrike.Entities.Projectiles;
+using TiberianStrike.Input;
 
 namespace TiberianStrike
 {
@@ -20,8 +21,7 @@ namespace TiberianStrike
         private World world;
         private A10 a10;
 
-        private MouseState previousMouseState;
-        private KeyboardState previousKeyboardState;
+        private InputManager inputManager;
 
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
@@ -40,8 +40,7 @@ namespace TiberianStrike
             base.Initialize();
 
             IsMouseVisible = true;
-            previousMouseState = Mouse.GetState();
-            previousKeyboardState = Keyboard.GetState();
+            inputManager = new InputManager();
 
             camera = new Camera(new Viewport(0, 0, 1920, 1080), 2000, 2000);
             camera.Pos = new Vector2(200, 200);
@@ -97,7 +96,6 @@ namespace TiberianStrike
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Sprites.Load(Content);
@@ -107,22 +105,30 @@ namespace TiberianStrike
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            if (gameState == GameState.Paused)
+            PlayerInput command = inputManager.Process();
+            if (command.Quit)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P)) {
+                Exit();
+            }
+            if (command.Pause)
+            {
+                if (gameState == GameState.Paused)
+                {
                     gameState = GameState.Playing;
                 }
+                else if (gameState == GameState.Playing)
+                {
+                    gameState = GameState.Paused;
+                }
+            }
 
-                previousMouseState = Mouse.GetState();
-                previousKeyboardState = Keyboard.GetState();
+            if (IsActive)
+            {
+                ProcessInput(command);
             }
 
             if (gameState != GameState.Playing)
@@ -131,64 +137,6 @@ namespace TiberianStrike
             }
 
             world.Tick();
-
-            if (IsActive)
-            {
-                if (Keyboard.GetState().IsKeyDown(Keys.P) && !previousKeyboardState.IsKeyDown(Keys.P))
-                {
-                    gameState = GameState.Paused;
-                }
-
-                Matrix inverse = Matrix.Invert(camera.GetTransformation());
-                Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
-                Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
-                //if (previousMouseState.LeftButton == ButtonState.Pressed && Mouse.GetState().LeftButton == ButtonState.Released)
-                //{
-                //    world.AddEntity(new Harvester(world, Player.Two, mousePositionPoint, target1));
-                //}
-
-                //if (previousKeyboardState.IsKeyDown(Keys.R) && Keyboard.GetState().IsKeyUp(Keys.R)) {
-                //    world.AddEntity(new Refinery(world, Player.One, mousePositionPoint));
-                //}
-
-                //if (previousKeyboardState.IsKeyDown(Keys.T) && Keyboard.GetState().IsKeyUp(Keys.T))
-                //{
-                //    world.AddEntity(new Turret(world, Player.Two, mousePositionPoint));
-                //}
-
-                Vector2 movement = Vector2.Zero;
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                    movement.X--;
-                if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                    movement.X++;
-                if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                    movement.Y--;
-                if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                    movement.Y++;
-
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
-                {
-                    a10.TurnLeft();
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.D))
-                {
-                    a10.TurnRight();
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    a10.Shoot();
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.B))
-                {
-                    a10.Bomb();
-                }
-                if (Keyboard.GetState().IsKeyDown(Keys.R))
-                {
-                    a10.Rocket();
-                }
-
-                camera.Pos += movement * 20;
-            }
 
             foreach (Harvester harvester in world.GetEntities<Harvester>()) {
                 if (harvester.Position == harvester.Target)
@@ -238,9 +186,6 @@ namespace TiberianStrike
             {
                 gameState = GameState.Playing;
             }
-
-            previousMouseState = Mouse.GetState();
-            previousKeyboardState = Keyboard.GetState();
 
             base.Update(gameTime);
         }
@@ -311,6 +256,39 @@ namespace TiberianStrike
                     spriteBatch.DrawString(font, line, new Vector2(x, y) + offset, color);
                     y += size.Y;
                 }
+            }
+        }
+
+
+        private void ProcessInput(PlayerInput command)
+        {
+
+
+
+
+            // Matrix inverse = Matrix.Invert(camera.GetTransformation());
+            // Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
+            // Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                a10.TurnLeft();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                a10.TurnRight();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                a10.Shoot();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                a10.Bomb();
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                a10.Rocket();
             }
         }
     }

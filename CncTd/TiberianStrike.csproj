@@ -49,6 +49,9 @@
     <Compile Include="Entities\ObeliskState.cs" />
     <Compile Include="Entities\Projectiles\Rocket.cs" />
     <Compile Include="Entities\Warhead.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\KeyboardStateWrapper.cs" />
+    <Compile Include="Input\PlayerInput.cs" />
     <Compile Include="ZOrder.cs" />
     <Compile Include="Entities\Artillery.cs" />
     <Compile Include="Entities\Apc.cs" />
