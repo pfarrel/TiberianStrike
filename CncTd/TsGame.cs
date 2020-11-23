@@ -114,6 +114,7 @@ namespace TiberianStrike
             {
                 Exit();
             }
+
             if (command.Pause)
             {
                 if (gameState == GameState.Paused)
@@ -227,6 +228,9 @@ namespace TiberianStrike
             {
                 messages.Add("MISSION");
                 messages.Add("FAILED");
+            } else if (gameState == GameState.Paused)
+            {
+                messages.Add("PAUSED");
             }
 
             if (messages.Count > 0)
@@ -262,10 +266,6 @@ namespace TiberianStrike
 
         private void ProcessInput(PlayerInput command)
         {
-
-
-
-
             // Matrix inverse = Matrix.Invert(camera.GetTransformation());
             // Vector2 mousePos = Vector2.Transform(new Vector2(previousMouseState.Position.X, previousMouseState.Position.Y), inverse);
             // Point mousePositionPoint = new Point((int)mousePos.X, (int)mousePos.Y);
