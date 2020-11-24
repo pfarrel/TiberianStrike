@@ -18,11 +18,13 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected override Warhead Warhead => Warhead.Explosive;
 
-        protected override float MovementSpeed => 200f / 60;
+        protected override float MovementSpeed => 250f / 60;
 
         protected override int Damage => 30;
 
         protected override int ExplosionRadius => 15;
+
+        protected override float TurnRate => 0.01f;
 
         public Patriot(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity)
         {

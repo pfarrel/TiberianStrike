@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities.Projectiles
 {
     abstract class AbstractMissile : Projectile
     {
-        protected const float TurnRate = 0.02f;
+        protected virtual float TurnRate => 0.02f;
         protected IEntity TargetEntity { get; }
         protected float DistanceTravelled { get; set; }
         
