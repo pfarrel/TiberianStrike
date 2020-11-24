@@ -44,10 +44,11 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            world = new World();
+            world = new World(744, 744);
 
             a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
             world.AddEntity(a10);
+            world.Explore(a10.PositionVector, 100f);
 
             camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
             camera.Pos = a10.PositionVector;
@@ -172,6 +173,8 @@ namespace TiberianStrike
                 a10.RotateInstantlyToPointAt(new Vector2(worldBounds.Width / 2, worldBounds.Height / 2));
             }
 
+            world.Explore(a10.PositionVector, 100f);
+
             base.Update(gameTime);
         }
 
@@ -195,6 +198,7 @@ namespace TiberianStrike
             {
                 explosion.Draw(spriteBatch);
             }
+            world.DrawFog(spriteBatch);
 
             spriteBatch.End();
 

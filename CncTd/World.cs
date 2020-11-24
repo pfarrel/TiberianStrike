@@ -6,21 +6,31 @@ using System.Text;
 using System.Threading.Tasks;
 using TiberianStrike.Entities.Explosions;
 using TiberianStrike.Entities.Projectiles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TiberianStrike
 {
     class World
     {
+        private const int CellSize = 16;
+
+        public int Width { get; }
+        public int Height { get; }
         public List<IEntity> Entities { get; set; }
         public List<Projectile> Projectiles { get; set; }
         public List<Explosion> Explosions { get; set; }
+        public bool[,] Explored { get; private set; }
         public int Ticks { get; private set; }
 
-        public World()
+        public World(int width, int height)
         {
+            Width = width;
+            Height = height;
             Entities = new List<IEntity>();
             Projectiles = new List<Projectile>();
             Explosions = new List<Explosion>();
+            Explored = new bool[height / CellSize + 1, width / CellSize + 1];
             Ticks = 0;
         }
 
@@ -50,6 +60,35 @@ namespace TiberianStrike
         public void Tick()
         {
             Ticks++;
+        }
+
+        public void Explore(Vector2 center, float range)
+        {
+            for (int y = 0; y < Explored.GetLength(0); y++)
+            {
+                for (int x = 0; x < Explored.GetLength(1); x++)
+                {
+                    Vector2 cell = new Vector2(x * CellSize + CellSize / 2, y * CellSize + CellSize / 2);
+                    if (Vector2.Distance(center, cell) < range)
+                    {
+                        Explored[y, x] = true;
+                    }
+                }
+            }
+        }
+
+        public void DrawFog(SpriteBatch spriteBatch)
+        {
+            for (int y = 0; y < Explored.GetLength(0); y++)
+            {
+                for (int x = 0; x < Explored.GetLength(1); x++)
+                {
+                    if (!Explored[y, x])
+                    {
+                        spriteBatch.Draw(Sprites.WhitePixel.Texture, new Rectangle(x * CellSize, y * CellSize, CellSize, CellSize), Color.Black);
+                    }
+                }
+            }
         }
     }
 }
