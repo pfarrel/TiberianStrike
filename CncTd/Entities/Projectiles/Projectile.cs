@@ -48,12 +48,7 @@ namespace TiberianStrike.Entities.Projectiles
             IsAlive = true;
             AirTarget = airTarget;
             CreatedTicks = world.Ticks;
-
-            Point diff = Target - Position;
-            Vector2 diffV = new Vector2(diff.X, diff.Y);
-            diffV.Normalize();
-            float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
-            Rotation = targetRotation;
+            Rotation = VectorHelpers.GetRotationToFace(PositionVector, new Vector2(Target.X, Target.Y)) ?? 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -69,11 +69,7 @@ namespace TiberianStrike.Entities
 
                 if (TargetEntity != null)
                 {
-                    Target = TargetEntity.Position;
-                    Point diff = Target - Position;
-                    Vector2 diffV = new Vector2(diff.X, diff.Y);
-                    diffV.Normalize();
-                    float targetRotation = (float) Math.Atan2(diffV.X, -diffV.Y);
+                    float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, TargetEntity.PositionVector) ?? Rotation;
                     float rotationDiff = targetRotation - Rotation;
                     float rotationPerFrame = RotationSpeed;
                     //Console.WriteLine("Source: {0}, Target: {1}, Diff: {2} MaxPerFrame: {3}", Rotation, targetRotation, rotationDiff, rotationPerFrame);

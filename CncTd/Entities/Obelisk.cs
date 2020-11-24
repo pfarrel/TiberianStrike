@@ -93,8 +93,7 @@ namespace TiberianStrike.Entities
         {
             Vector2 edge = end - start;
             // calculate angle to rotate line
-            float angle =
-                (float)Math.Atan2(edge.Y, edge.X);
+            float angle = VectorHelpers.GetRotationToFace(start, end) ?? 0;
 
             spriteBatch.Draw(Sprites.WhitePixel.Texture,
                 new Rectangle(// rectangle defines shape of line and position of start of line

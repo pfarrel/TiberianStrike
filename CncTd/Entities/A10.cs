@@ -13,7 +13,7 @@ namespace TiberianStrike.Entities
     class A10 : BaseEntity
     {
         private const int FlyingHeight = 30;
-        private const double MovementSpeed = 20.0d / 60;  // per tick
+        private const float MovementSpeed = 20.0f / 60;  // per tick
         private const int FiringTimeTicks = 30;
         private const double BombingTimeTicks = 12;
         private const float GunRange = 100f;
@@ -27,7 +27,7 @@ namespace TiberianStrike.Entities
 
         public A10(World world, Player player, Point position) : base(world, player, position)
         {
-            Rotation = MathHelper.ToRadians(90);
+            Rotation = 0;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -47,11 +47,7 @@ namespace TiberianStrike.Entities
 
         public override void Update()
         {
-            Vector2 movement = new Vector2(
-                (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
-                (float)((Math.Sin(Rotation - MathHelper.PiOver2)))
-            );
-            PositionVector += movement;
+            PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, MovementSpeed);
         } 
 
         public void TurnLeft()
@@ -68,9 +64,7 @@ namespace TiberianStrike.Entities
 
         public void RotateInstantlyToPointAt(Vector2 target)
         {
-            Vector2 direction = target - PositionVector;
-            direction.Normalize();
-            Rotation = (float)Math.Atan2(direction.X, -direction.Y);
+            Rotation = VectorHelpers.GetRotationToFace(PositionVector, target) ?? Rotation;
         }
 
         public void Shoot()
@@ -82,13 +76,10 @@ namespace TiberianStrike.Entities
 
             LastFiringTicks = World.Ticks;
 
-            Vector2 bulletDirection = new Vector2(
-                (float) (Math.Cos(Rotation - MathHelper.PiOver2)),
-                (float) ((Math.Sin(Rotation - MathHelper.PiOver2)))
-            );
+            Vector2 bulletDirection = VectorHelpers.GetVectorInDirection(Rotation);
             bulletDirection.Normalize();
-            bulletDirection = GunRange * bulletDirection;
-            Point bulletImpact = Position + new Point((int) bulletDirection.X, (int) bulletDirection.Y);
+            Vector2 bulletImpactVector = GunRange * bulletDirection;
+            Point bulletImpact = Position + new Point((int)bulletImpactVector.X, (int)bulletImpactVector.Y);
             bulletImpact.Y += FlyingHeight;
             Bullet bullet = new Bullet(World, Player.One, Position, bulletImpact);
             World.AddProjectile(bullet);
@@ -120,11 +111,7 @@ namespace TiberianStrike.Entities
 
             LastBombingTicks = World.Ticks;
 
-            Vector2 rocketDirection = new Vector2(
-                (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
-                (float)((Math.Sin(Rotation - MathHelper.PiOver2)))
-            );
-            rocketDirection.Normalize();
+            Vector2 rocketDirection = VectorHelpers.GetVectorInDirection(Rotation);
             rocketDirection = GunRange * 2 * rocketDirection;
             Point rocketTarget = Position + new Point((int)rocketDirection.X, (int)rocketDirection.Y);
             rocketTarget.Y += FlyingHeight;

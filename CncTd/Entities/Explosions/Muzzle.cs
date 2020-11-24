@@ -18,11 +18,7 @@ namespace TiberianStrike.Entities.Explosions
         {
             get
             {
-                Vector2 offsetDirection = new Vector2(
-                    (float)(Math.Cos(Rotation - MathHelper.PiOver2)),
-                    (float)((Math.Sin(Rotation - MathHelper.PiOver2)))
-                );
-                offsetDirection.Normalize();
+                Vector2 offsetDirection = VectorHelpers.GetVectorInDirection(Rotation);
                 Vector2 offset = OffsetDistance * offsetDirection;
                 return Source.Position - new Point((int)offset.X, (int)offset.Y);
             }

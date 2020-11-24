@@ -10,8 +10,8 @@ namespace TiberianStrike.Entities
 {
     class Harvester : BaseEntity
     {
-        private const double RotationSpeed = (Math.PI * 2) / 3;  // per second
-        private const double MovementSpeed = 20.0d / 60;  // per tick
+        private const float RotationSpeed = (float)(Math.PI * 2) / 3;  // per second
+        private const float MovementSpeed = 20.0f / 60;  // per tick
 
         public Point Target { get; set; }
         private float Rotation { get; set; }
@@ -32,13 +32,10 @@ namespace TiberianStrike.Entities
         {
             if (Position != Target)
             {
-                Point diff = Target - Position;
-                Vector2 diffV = new Vector2(diff.X, diff.Y);
-                diffV.Normalize();
-                float targetRotation = (float)Math.Atan2(diffV.X, -diffV.Y);
+                float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, new Vector2(Target.X, Target.Y)) ?? Rotation;
                 if (Rotation == targetRotation)
                 {
-                    PositionVector += Vector2.Multiply(diffV, (float)(MovementSpeed));
+                    PositionVector = VectorHelpers.MoveInDirection(PositionVector, targetRotation, MovementSpeed);
                 }
                 Rotation = targetRotation;
             }
