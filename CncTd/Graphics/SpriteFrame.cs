@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TiberianStrike
 {
-    struct SpriteFrame
+    public struct SpriteFrame
     {
         public Texture2D Texture { get; }
         public Rectangle Coordinates { get; }

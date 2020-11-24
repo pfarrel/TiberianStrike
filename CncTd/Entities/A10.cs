@@ -13,7 +13,7 @@ namespace TiberianStrike.Entities
     class A10 : BaseEntity
     {
         private const int FlyingHeight = 30;
-        private const float MovementSpeed = 20.0f / 60;  // per tick
+        private const float MovementSpeed = 60.0f / 60;  // per tick
         private const int FiringTimeTicks = 30;
         private const double BombingTimeTicks = 12;
         private const float GunRange = 100f;

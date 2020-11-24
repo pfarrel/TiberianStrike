@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TiberianStrike
 {
-    class SpriteSequence
+    public class SpriteSequence
     {
         public string Name { get; }
         public int Start { get; }

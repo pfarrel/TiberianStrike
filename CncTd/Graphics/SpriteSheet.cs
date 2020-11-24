@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace TiberianStrike
 {
-    class SpriteSheet
+    public class SpriteSheet
     {
         public Texture2D Texture { get; }
         public int Width { get; }
@@ -70,7 +70,7 @@ namespace TiberianStrike
         public SpriteFrame GetFrameForRotation(string name, float rotation)
         {
             SpriteSequence spriteFrameSet = SpriteSequences.Where(s => s.Name == name).First();
-            int facing = getFacing(spriteFrameSet, rotation);
+            int facing = GetFacing(spriteFrameSet, rotation);
             int frame = spriteFrameSet.Start + (facing * spriteFrameSet.Length);
             return GetFrame(frame);
         }
@@ -93,24 +93,37 @@ namespace TiberianStrike
         public SpriteFrame GetFrameForAnimationAndRotation(string name, float rotation, int ticks, int frameRepeat = 8)
         {
             SpriteSequence spriteFrameSet = SpriteSequences.Where(s => s.Name == name).First();
-            int facing = getFacing(spriteFrameSet, rotation);
+            int facing = GetFacing(spriteFrameSet, rotation);
             int startOfAnimation = spriteFrameSet.Start + (facing * spriteFrameSet.Length);
             int animationOffset = (ticks / frameRepeat) % spriteFrameSet.Length;
             int frame = startOfAnimation + animationOffset;
             return GetFrame(frame);
         }
 
-        private int getFacing(SpriteSequence spriteFrameSet, float rotation)
+        private int GetFacing(SpriteSequence spriteFrameSet, float rotation)
         {
-            double adjustedRotation = rotation < 0 ? rotation + Math.PI * 2 : rotation;
-            int spriteNumber = Convert.ToInt32(((adjustedRotation / (Math.PI * 2)) * spriteFrameSet.Facings));
-            spriteNumber -= 1;
-            spriteNumber = (spriteFrameSet.Facings - 1) - spriteNumber;
-            spriteNumber %= spriteFrameSet.Facings;
+            return GetFacing(spriteFrameSet.Facings, rotation);
+        }
 
-            if (spriteNumber < 0 || spriteNumber >= spriteFrameSet.Facings)
+        public static int GetFacing(int facings, float rotation)
+        {
+            // Sprite sheet is reversed rotation
+            rotation *= -1;
+            // Sprite sheets start at 270' rather than 0'
+            rotation -= MathHelper.PiOver2;
+            // Normalize to positive range of rotation
+            while (rotation < 0)
             {
-                throw new Exception("Calculated facing greater than number of facings in SpriteFrameSet");
+                rotation += MathHelper.TwoPi;
+            }
+            rotation %= MathHelper.TwoPi;
+
+            int spriteNumber = Convert.ToInt32(((rotation / (Math.PI * 2)) * facings));
+            spriteNumber %= facings;
+
+            if (spriteNumber < 0 || spriteNumber >= facings)
+            {
+                throw new Exception(String.Format("Calculated facing: {0} greater than number of facings in SpriteFrameSet: {1}", spriteNumber, facings));
             }
 
             return spriteNumber;
