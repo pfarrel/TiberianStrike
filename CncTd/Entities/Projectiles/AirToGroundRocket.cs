@@ -22,7 +22,7 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected override float MovementSpeed => 20.0f / 60;
 
-        public AirToGroundRocket(World world, Player player, Point position, Point target) : base(world, player, position, target)
+        public AirToGroundRocket(World world, Player player, Point position, Point target) : base(world, player, position, target, null)
         {
         }
     }

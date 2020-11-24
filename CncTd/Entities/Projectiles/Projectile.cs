@@ -30,25 +30,24 @@ namespace TiberianStrike.Entities.Projectiles
                 return new Point((int)PositionVector.X, (int)PositionVector.Y);
             }
         }
-        public Point Target { get; set; }
+        public Point Target { get; }
+        public IEntity TargetEntity { get; }
         public bool IsAlive { get; private set; }
         protected World World { get; }
         protected Vector2 PositionVector { get; set; }
         protected float Rotation { get; set; }
-        
-        protected bool AirTarget { get; }
-        protected int CreatedTicks { get; set; }
+        protected int CreatedTicks { get; }
 
-        public Projectile(World world, Player player, Point position, Point target, bool airTarget = false)
+        public Projectile(World world, Player player, Point position, Point target, IEntity targetEntity)
         {
             World = world;
             Player = player;
             PositionVector = new Vector2(position.X, position.Y);
             Target = target;
             IsAlive = true;
-            AirTarget = airTarget;
             CreatedTicks = world.Ticks;
-            Rotation = VectorHelpers.GetRotationToFace(PositionVector, new Vector2(Target.X, Target.Y)) ?? 0;
+            TargetEntity = targetEntity;
+            Rotation = VectorHelpers.GetRotationToFace(PositionVector, new Vector2(target.X, target.Y)) ?? 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -92,6 +91,7 @@ namespace TiberianStrike.Entities.Projectiles
             IsAlive = false;
             List<IEntity> inRadius = World.Entities
                 .Where(e => Vector2.Distance(new Vector2(e.Position.X, e.Position.Y), PositionVector) < ExplosionRadius)
+                .Where(e => e is A10 == TargetEntity is A10)
                 .ToList();
             foreach (IEntity entity in inRadius)
             {
@@ -106,7 +106,7 @@ namespace TiberianStrike.Entities.Projectiles
         {
             if (ExplosionType != null)
             {
-                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position, AirTarget ? ExplosionHeight.Air : ExplosionHeight.Ground });
+                Explosion explosion = (Explosion)Activator.CreateInstance(ExplosionType, new object[] { World, Position, TargetEntity != null && TargetEntity is A10 ? ExplosionHeight.Air : ExplosionHeight.Ground });
                 World.AddExplosion(explosion);
             }
             if (ExplosionSound != null)

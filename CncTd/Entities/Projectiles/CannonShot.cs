@@ -22,7 +22,7 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected override float MovementSpeed => 250f / 60;
 
-        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target)
+        public CannonShot(World world, Player player, Point position, Point target) : base(world, player, position, target, null)
         {
         }
     }

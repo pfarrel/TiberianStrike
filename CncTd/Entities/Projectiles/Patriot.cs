@@ -29,9 +29,5 @@ namespace TiberianStrike.Entities.Projectiles
         public Patriot(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity)
         {
         }
-
-        public Patriot(World world, Player player, Point position, Point target) : base(world, player, position, target)
-        {
-        }
     }
 }

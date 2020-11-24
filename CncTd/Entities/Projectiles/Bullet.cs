@@ -12,7 +12,7 @@ namespace TiberianStrike.Entities.Projectiles
 {
     class Bullet : Projectile
     {
-        public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target)
+        public Bullet(World world, Player player, Point position, Point target) : base(world, player, position, target, null)
         {
         }
 

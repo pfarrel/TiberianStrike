@@ -25,9 +25,5 @@ namespace TiberianStrike.Entities.Projectiles
         public SmallMissile(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity)
         {
         }
-
-        public SmallMissile(World world, Player player, Point position, Point target) : base(world, player, position, target)
-        {
-        }
     }
 }
