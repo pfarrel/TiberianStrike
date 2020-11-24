@@ -27,7 +27,9 @@ namespace TiberianStrike.Entities
 
         public override void Update()
         {
-            IEntity nearestEnemy = World.Entities.Where(e => e.Player != Player)
+            IEntity nearestEnemy = World.Entities
+                .Where(e => e.Player != Player)
+                .Where(e => !(e is A10))
                 .OrderBy(e => Vector2.Distance(PositionVector, e.PositionVector))
                 .FirstOrDefault();
 

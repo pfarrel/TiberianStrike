@@ -57,7 +57,7 @@ namespace TiberianStrike
             world.AddEntity(new Airfield(world, Player.Two, new Point(530, 50)));
             world.AddEntity(new ConstructionYard(world, Player.Two, new Point(620, 50)));
             world.AddEntity(new TempleOfNod(world, Player.Two, new Point(690, 40)));
-            world.AddEntity(new Obelisk(world, Player.One, new Point(350, 100)));
+            world.AddEntity(new Obelisk(world, Player.Two, new Point(350, 100)));
             world.AddEntity(new SamSite(world, Player.Two, new Point(400, 300)));
 
             world.AddEntity(new Harvester(world, Player.Two, target1, target2));
@@ -243,9 +243,9 @@ namespace TiberianStrike
                 float y = centerY - (totalLines * size.Y / 2);
                 foreach (string line in message)
                 {
-                    size = font.MeasureString(line);
+                    size = font.MeasureString(line) * 3;
                     float x = centerX - size.X / 2;
-                    spriteBatch.DrawString(font, line, new Vector2(x, y) + offset, color);
+                    spriteBatch.DrawString(font, line, new Vector2(x, y) + offset, color, 0, Vector2.Zero, 3.0f, SpriteEffects.None, 1);
                     y += size.Y;
                 }
             }
