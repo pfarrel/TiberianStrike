@@ -44,16 +44,14 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
-            camera.Pos = new Vector2(200, 200);
-
             world = new World();
-            world.AddEntity(new Harvester(world, Player.Two, target1, target2));
 
             a10 = new A10(world, Player.One, new Point(0, 100));
             world.AddEntity(a10);
 
-            //world.AddEntity(new Refinery(world, Player.Two, new Point(400, 50)));
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
+            camera.Pos = a10.PositionVector;
+
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
             world.AddEntity(new Airfield(world, Player.Two, new Point(530, 50)));
             world.AddEntity(new ConstructionYard(world, Player.Two, new Point(620, 50)));
@@ -61,6 +59,7 @@ namespace TiberianStrike
             world.AddEntity(new Obelisk(world, Player.One, new Point(350, 100)));
             world.AddEntity(new SamSite(world, Player.Two, new Point(400, 300)));
 
+            world.AddEntity(new Harvester(world, Player.Two, target1, target2));
             world.AddEntity(new Apc(world, Player.Two, new Point(400, 100)));
             world.AddEntity(new Artillery(world, Player.Two, new Point(424, 100)));
             world.AddEntity(new Bike(world, Player.Two, new Point(448, 100)));
