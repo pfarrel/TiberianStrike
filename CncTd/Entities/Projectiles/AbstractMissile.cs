@@ -32,17 +32,18 @@ namespace TiberianStrike.Entities.Projectiles
         public override void Update()
         {
             Point target = TargetEntity != null ? TargetEntity.Position : Target;
-            Vector2 targetVector = new Vector2(target.X, target.Y);
-            float targetRotation = VectorHelpers.GetRotationToFace(PositionVector, targetVector) ?? Rotation;
-            float rotationDiff = targetRotation - Rotation;
-            float amountToTurn = Math.Min(TurnRate, rotationDiff);
+            Vector2 targetPositionVector = new Vector2(target.X, target.Y);
+            
+            float rotationDiff = VectorHelpers.FindRotationAdjustment(PositionVector, targetPositionVector, Rotation);
+            float turnFactor = Math.Min(TurnRate / Math.Abs(rotationDiff), 1);
+            float amountToTurn = rotationDiff * turnFactor;
             Rotation += amountToTurn;
 
-            float distanceToTarget = Vector2.Distance(targetVector, PositionVector);
+            float distanceToTarget = Vector2.Distance(targetPositionVector, PositionVector);
             float distanceToFly = Math.Min(distanceToTarget, MovementSpeed);
             PositionVector = VectorHelpers.MoveInDirection(PositionVector, Rotation, distanceToFly);
 
-            if (Vector2.Distance(targetVector, PositionVector) < ExplosionRadius)
+            if (Vector2.Distance(targetPositionVector, PositionVector) < ExplosionRadius)
             {
                 Explode();
             }

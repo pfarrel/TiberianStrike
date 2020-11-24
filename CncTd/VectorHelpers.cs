@@ -35,5 +35,27 @@ namespace TiberianStrike
         {
             return source + GetVectorInDirection(rotation) * distancePerTick;
         }
+
+        public static float Cross(Vector2 a, Vector2 b)
+        {
+            return a.X * b.Y - b.X * a.Y;
+        }
+
+        public static float FindRotationAdjustment(Vector2 source, Vector2 target, float currentRotation)
+        {
+            Vector2 towardsTarget = target - source;
+            Vector2 currentDirection = GetVectorInDirection(currentRotation);
+            float targetRotation = GetRotationToFace(source, target) ?? currentRotation;
+            float cross = Cross(towardsTarget, currentDirection);
+            float rotationDifference = Math.Abs(targetRotation - currentRotation);
+            if (cross < 0)
+            {
+                return rotationDifference;
+            }
+            else
+            {
+                return -rotationDifference;
+            }
+        }
     }
 }
