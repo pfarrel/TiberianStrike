@@ -25,9 +25,9 @@ namespace TiberianStrike.Entities
         public override int MaxHealth => 100;
         protected override float EntityZOrder => ZOrder.FlyingUnits;
 
-        public A10(World world, Player player, Point position) : base(world, player, position)
+        public A10(World world, Player player, Point position, float rotation) : base(world, player, position)
         {
-            Rotation = 0;
+            Rotation = rotation;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

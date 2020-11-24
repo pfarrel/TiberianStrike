@@ -46,7 +46,7 @@ namespace TiberianStrike
 
             world = new World();
 
-            a10 = new A10(world, Player.One, new Point(0, 100));
+            a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
             world.AddEntity(a10);
 
             camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
