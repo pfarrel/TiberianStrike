@@ -56,6 +56,11 @@ namespace TiberianStrike.Entities
 
             spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, EntityZOrder);
 
+            if (this is AbstractWall)
+            {
+                return;
+            }
+
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;
             int healthBarWidth = Math.Max(1, (int)(healthFraction * (maxHealthBarWidth - 2)));

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TiberianStrike.Entities;
 
 namespace TiberianStrike
 {
@@ -105,6 +106,7 @@ namespace TiberianStrike
             return GetFacing(spriteFrameSet.Facings, rotation);
         }
 
+        // Visible for testing
         public static int GetFacing(int facings, float rotation)
         {
             // Sprite sheet is reversed rotation
@@ -127,6 +129,13 @@ namespace TiberianStrike
             }
 
             return spriteNumber;
+        }
+
+        public SpriteFrame GetFrameForWall(string name, WallNeighbours wallNeighbours)
+        {
+            SpriteSequence spriteFrameSet = SpriteSequences.Where(s => s.Name == name).First();
+            int frame = (int)wallNeighbours;
+            return GetFrame(spriteFrameSet.Start + frame);
         }
 
 

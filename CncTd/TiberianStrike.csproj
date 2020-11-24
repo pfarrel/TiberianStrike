@@ -49,6 +49,11 @@
     <Compile Include="Entities\ObeliskState.cs" />
     <Compile Include="Entities\Projectiles\AirToGroundRocket.cs" />
     <Compile Include="Entities\Projectiles\AbstractMissile.cs" />
+    <Compile Include="Entities\AbstractWall.cs" />
+    <Compile Include="Entities\ChainlinkFence.cs" />
+    <Compile Include="Entities\Sandbags.cs" />
+    <Compile Include="Entities\Wall.cs" />
+    <Compile Include="Entities\WallNeighbours.cs" />
     <Compile Include="Entities\Warhead.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardStateWrapper.cs" />

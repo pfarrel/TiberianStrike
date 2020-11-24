@@ -26,7 +26,7 @@ namespace TiberianStrike
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
 
-        private Rectangle worldBounds = new Rectangle(0, 0, 744, 744);
+        private Rectangle worldBounds = new Rectangle(0, 0, 736, 736);
 
         public TiberianStrikeGame()
         {
@@ -44,13 +44,13 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            world = new World(744, 744);
+            world = new World(736, 736);
 
             a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
             world.AddEntity(a10);
             world.Explore(a10.PositionVector, 100f);
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), 736, 736);
             camera.Pos = a10.PositionVector;
 
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
@@ -71,6 +71,57 @@ namespace TiberianStrike
             world.AddEntity(new RocketInfantry(world, Player.Two, new Point(430, 150)));
             world.AddEntity(new RocketInfantry(world, Player.Two, new Point(460, 150)));
             world.AddEntity(new RocketInfantry(world, Player.Two, new Point(490, 150)));
+
+            world.AddEntity(new Wall(world, Player.Two, new Point(608, 496)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(608, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(624, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(624, 560)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(624, 576)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(640, 496)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(640, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(640, 528)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(640, 560)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(656, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(656, 528)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(656, 544)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(656, 560)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(672, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(672, 560)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(688, 512)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(688, 496)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(688, 480)));
+            world.AddEntity(new Wall(world, Player.Two, new Point(704, 480)));
+
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(624, 448)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(624, 432)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(640, 448)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(640, 432)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(656, 448)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(672, 448)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(672, 432)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(688, 448)));
+            world.AddEntity(new Sandbags(world, Player.Two, new Point(688, 432)));
+
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 412)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 412)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(656, 412)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 412)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 412)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 396)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 396)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 396)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 396)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 380)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 380)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 364)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 364)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 364)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 364)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 348)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 348)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(656, 348)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 348)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 348)));
 
             gameState = GameState.Paused;
 

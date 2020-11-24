@@ -60,7 +60,7 @@ namespace TiberianStrike
         public static SpriteSheet RocketInfantryRot { get; private set; }
         public static SpriteSheet Sam { get; private set; }
         public static SpriteSheet SamFire { get; private set; }
-        public static SpriteSheet SandBag { get; private set; }
+        public static SpriteSheet Sandbags { get; private set; }
         public static SpriteSheet Shadow { get; private set; }
         public static SpriteSheet StealthTank { get; private set; }
         public static SpriteSheet TempleOfNod { get; private set; }
@@ -187,7 +187,7 @@ namespace TiberianStrike
             HandOfNod = SpriteSheet.Building(content.Load<Texture2D>("hand"), 48, 72);
             Harvester = SpriteSheet.Unit(content.Load<Texture2D>("harvester"), 48, 48, 32);
             IonSfx = SpriteSheet.Animation(content.Load<Texture2D>("ionsfx"), 72, 191, 15);
-            Map = SpriteSheet.Static(content.Load<Texture2D>("map"), 744, 744);
+            Map = SpriteSheet.Static(content.Load<Texture2D>("map"), 736, 736);
             MobileSam = SpriteSheet.Unit(content.Load<Texture2D>("msam"), 24, 24, 32);
             MuzzleFlash = SpriteSheet.Complex(content.Load<Texture2D>("minigun"), 18, 17,
                 new SpriteSequence("default", 0) { Facings = 8, Length = 6 }
@@ -289,7 +289,7 @@ namespace TiberianStrike
             SamFire = SpriteSheet.Complex(content.Load<Texture2D>("samfire"), 55, 35,
                 new SpriteSequence("default", 0) { Facings = 8, Length = 18 }
             );
-            SandBag = SpriteSheet.Wall(content.Load<Texture2D>("sbag"), 24, 24);
+            Sandbags = SpriteSheet.Wall(content.Load<Texture2D>("sbag"), 24, 24);
             Shadow = SpriteSheet.Static(content.Load<Texture2D>("shadow"), 48, 48);
             StealthTank = SpriteSheet.Unit(content.Load<Texture2D>("stnk"), 24, 24, 32);
             TempleOfNod = SpriteSheet.Building(content.Load<Texture2D>("tmpl"), 72, 72, 0, 6, 11);

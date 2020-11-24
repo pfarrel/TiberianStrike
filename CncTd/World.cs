@@ -77,6 +77,25 @@ namespace TiberianStrike
             }
         }
 
+        public List<IEntity> GetAdjacentEntities(IEntity entity)
+        {
+            Point entityCellPoint = ToCellPoint(entity.Position);
+            return Entities
+                .Where(e => ManhattanDistance(entityCellPoint, ToCellPoint(e.Position)) <= 1)
+                .Where(e => e != entity)
+                .ToList();
+        }
+
+        private Point ToCellPoint(Point point)
+        {
+            return new Point(point.X / CellSize, point.Y / CellSize);
+        }
+
+        private static int ManhattanDistance(Point a, Point b)
+        {
+            return Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+        }
+
         public void DrawFog(SpriteBatch spriteBatch)
         {
             for (int y = 0; y < Explored.GetLength(0); y++)
