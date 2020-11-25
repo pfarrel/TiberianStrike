@@ -20,7 +20,7 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected override Warhead Warhead => Warhead.Explosive;
 
-        protected override float MovementSpeed => 20.0f / 60;
+        protected override float MovementSpeed => 80.0f / 60;
 
         public SmallMissile(World world, Player player, Point position, IEntity targetEntity) : base(world, player, position, targetEntity)
         {
