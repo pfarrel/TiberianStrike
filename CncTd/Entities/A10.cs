@@ -118,8 +118,8 @@ namespace TiberianStrike.Entities
             Point rocketTarget = Position + new Point((int)rocketDirection.X, (int)rocketDirection.Y);
             rocketTarget.Y += FlyingHeight;
 
-            rocketTarget.X += new Random().Next(15) - 30;
-            rocketTarget.Y += new Random().Next(15) - 30;
+            rocketTarget.X += (new Random().Next(30) - 15);
+            rocketTarget.Y += (new Random().Next(30) - 15);
 
             Sounds.Rocket2.Play();
             World.AddProjectile(new AirToGroundRocket(World, Player, Position, rocketTarget));
