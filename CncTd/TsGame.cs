@@ -72,56 +72,56 @@ namespace TiberianStrike
             world.AddEntity(new RocketInfantry(world, Player.Two, new Point(460, 150)));
             world.AddEntity(new RocketInfantry(world, Player.Two, new Point(490, 150)));
 
-            world.AddEntity(new Wall(world, Player.Two, new Point(608, 496)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(608, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(624, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(624, 560)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(624, 576)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(640, 496)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(640, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(640, 528)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(640, 560)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(656, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(656, 528)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(656, 544)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(656, 560)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(672, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(672, 560)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(688, 512)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(688, 496)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(688, 480)));
-            world.AddEntity(new Wall(world, Player.Two, new Point(704, 480)));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(608, 496))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(608, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(624, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(624, 560))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(624, 576))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(640, 496))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(640, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(640, 528))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(640, 560))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(656, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(656, 528))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(656, 544))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(656, 560))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(672, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(672, 560))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(688, 512))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(688, 496))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(688, 480))));
+            world.AddEntity(new Wall(world, Player.Two, HackWallCoordinates(new Point(704, 480))));
 
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(624, 448)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(624, 432)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(640, 448)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(640, 432)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(656, 448)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(672, 448)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(672, 432)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(688, 448)));
-            world.AddEntity(new Sandbags(world, Player.Two, new Point(688, 432)));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(624, 448))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(624, 432))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(640, 448))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(640, 432))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(656, 448))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(672, 448))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(672, 432))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(688, 448))));
+            world.AddEntity(new Sandbags(world, Player.Two, HackWallCoordinates(new Point(688, 432))));
 
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 412)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 412)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(656, 412)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 412)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 412)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 396)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 396)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 396)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 396)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 380)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 380)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 364)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 364)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 364)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 364)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(624, 348)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(640, 348)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(656, 348)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(672, 348)));
-            world.AddEntity(new ChainlinkFence(world, Player.Two, new Point(688, 348)));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(624, 412))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(640, 412))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(656, 412))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(672, 412))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(688, 412))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(624, 396))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(640, 396))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(672, 396))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(688, 396))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(624, 380))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(688, 380))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(624, 364))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(640, 364))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(672, 364))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(688, 364))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(624, 348))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(640, 348))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(656, 348))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(672, 348))));
+            world.AddEntity(new ChainlinkFence(world, Player.Two, HackWallCoordinates(new Point(688, 348))));
 
             gameState = GameState.Paused;
 
@@ -329,6 +329,18 @@ namespace TiberianStrike
             {
                 a10.Rocket();
             }
+        }
+
+        private static Point HackWallCoordinates(Point point)
+        {
+            const int minX = 608;
+            const int minY = 348;
+            const int newMinX = 504;
+            const int newMinY = 288;
+
+            int x = newMinX + (((point.X - minX) / 16) * 24);
+            int y = newMinY + (((point.Y - minY) / 16) * 24);
+            return new Point(x, y);
         }
     }
 }
