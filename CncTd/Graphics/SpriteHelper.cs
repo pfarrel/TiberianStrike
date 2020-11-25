@@ -58,7 +58,6 @@ namespace TiberianStrike
 
         public static void DrawAxisOrientedLine(SpriteBatch spriteBatch, Point start, Point end, Color color, float zOrder)
         {
-
             spriteBatch.Draw(
                 Sprites.WhitePixel.Texture,
                 new Rectangle(
@@ -72,7 +71,8 @@ namespace TiberianStrike
                 0,  
                 new Vector2(0, 0),
                 SpriteEffects.None,
-                0);
+                zOrder
+            );
         }
 
         public static void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, float zOrder)
@@ -81,6 +81,25 @@ namespace TiberianStrike
             DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X, rectangle.Y), new Point(rectangle.X + 1, rectangle.Y + rectangle.Height), color, zOrder); // left
             DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X, rectangle.Y + rectangle.Height - 1), new Point(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), color, zOrder); // bottom
             DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X + rectangle.Width - 1, rectangle.Y), new Point(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), color, zOrder); // right
+        }
+
+        public static void DrawPoint(SpriteBatch spriteBatch, Point point, Color color, float zOrder)
+        {
+            spriteBatch.Draw(
+                Sprites.WhitePixel.Texture,
+                new Rectangle(
+                    point.X,
+                    point.Y,
+                    1,
+                    1
+                ),
+                null,
+                color,
+                0,
+                new Vector2(0, 0),
+                SpriteEffects.None,
+                zOrder
+            );
         }
     }
 }

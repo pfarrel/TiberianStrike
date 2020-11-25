@@ -62,6 +62,7 @@ namespace TiberianStrike.Entities
             }
 
             SpriteHelper.DrawRectangle(spriteBatch, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), Color.White, ZOrder.Debug);
+            SpriteHelper.DrawPoint(spriteBatch, Position, Color.White, ZOrder.Debug);
 
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;
