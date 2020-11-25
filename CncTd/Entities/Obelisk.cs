@@ -87,29 +87,8 @@ namespace TiberianStrike.Entities
 
             if (state == ObeliskState.Firing)
             {
-                DrawLine(spriteBatch, PositionVector - new Vector2(2, 17), target.PositionVector);
+                SpriteHelper.DrawLine(spriteBatch, PositionVector - new Vector2(2, 17), target.PositionVector, Color.Red, ZOrder.Projectiles);
             }
-        }
-
-        void DrawLine(SpriteBatch spriteBatch, Vector2 start, Vector2 end)
-        {
-            Vector2 edge = end - start;
-            // calculate angle to rotate line
-            float angle = VectorHelpers.GetRotationToFace(start, end) ?? 0;
-
-            spriteBatch.Draw(Sprites.WhitePixel.Texture,
-                new Rectangle(// rectangle defines shape of line and position of start of line
-                    (int)start.X,
-                    (int)start.Y,
-                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
-                    1), //width of line, change this to make thicker line
-                null,
-                Color.Red, //colour of line
-                angle,     //angle of line (calulated above)
-                new Vector2(0, 0), // point in line about which to rotate
-                SpriteEffects.None,
-                0);
-
         }
 
         protected override SpriteFrame GetSpriteFrame()

@@ -55,11 +55,13 @@ namespace TiberianStrike.Entities
             int y = Position.Y - spriteFrame.Coordinates.Height / 2;
 
             spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, GetZOrder());
-
+            
             if (this is AbstractWall)
             {
                 return;
             }
+
+            SpriteHelper.DrawRectangle(spriteBatch, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), Color.White, ZOrder.Debug);
 
             int maxHealthBarWidth = spriteFrame.Coordinates.Width / 2;
             float healthFraction = (float)Health / MaxHealth;

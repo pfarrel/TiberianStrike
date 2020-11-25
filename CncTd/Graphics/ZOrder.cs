@@ -17,7 +17,8 @@ namespace TiberianStrike
         public const float InGameChrome = 0.3f;
         public const float HealthBarsBackground = 0.21f;
         public const float HealthBars = 0.2f;
-        public const float MenuChrome = 0.1f;
-        public const float Mouse = 0f;
+        public const float Fog = 0.1f;
+        public const float Debug = 0.05f;
+        public const float Mouse = 0.0f;
     }
 }

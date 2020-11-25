@@ -34,5 +34,53 @@ namespace TiberianStrike
             }
             refinerySprite.SetData(data);
         }
+
+        public static void DrawLine(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Color color, float zOrder)
+        {
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle = VectorHelpers.GetRotationToFace(start, end) ?? 0;
+
+            spriteBatch.Draw(
+                Sprites.WhitePixel.Texture,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    1), //width of line, change this to make thicker line
+                null,
+                color, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                zOrder);
+        }
+
+        public static void DrawAxisOrientedLine(SpriteBatch spriteBatch, Point start, Point end, Color color, float zOrder)
+        {
+
+            spriteBatch.Draw(
+                Sprites.WhitePixel.Texture,
+                new Rectangle(
+                    Math.Min(start.X, end.X),
+                    Math.Min(start.Y, end.Y),
+                    Math.Abs(end.X - start.X),
+                    Math.Abs(end.Y - start.Y)
+                ),
+                null,
+                color,
+                0,  
+                new Vector2(0, 0),
+                SpriteEffects.None,
+                0);
+        }
+
+        public static void DrawRectangle(SpriteBatch spriteBatch, Rectangle rectangle, Color color, float zOrder)
+        {
+            DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X, rectangle.Y), new Point(rectangle.X + rectangle.Width, rectangle.Y + 1), color, zOrder); // top
+            DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X, rectangle.Y), new Point(rectangle.X + 1, rectangle.Y + rectangle.Height), color, zOrder); // left
+            DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X, rectangle.Y + rectangle.Height - 1), new Point(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), color, zOrder); // bottom
+            DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X + rectangle.Width - 1, rectangle.Y), new Point(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), color, zOrder); // right
+        }
     }
 }

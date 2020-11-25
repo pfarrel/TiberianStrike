@@ -106,7 +106,7 @@ namespace TiberianStrike
                 {
                     if (!Explored[y, x])
                     {
-                        spriteBatch.Draw(Sprites.WhitePixel.Texture, new Rectangle(x * CellSize, y * CellSize, CellSize, CellSize), Color.Black);
+                        spriteBatch.Draw(Sprites.WhitePixel.Texture, new Rectangle(x * CellSize, y * CellSize, CellSize, CellSize), null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, ZOrder.Fog);
                     }
                 }
             }
