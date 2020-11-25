@@ -187,7 +187,7 @@ namespace TiberianStrike
             HandOfNod = SpriteSheet.Building(content.Load<Texture2D>("hand"), 48, 72);
             Harvester = SpriteSheet.Unit(content.Load<Texture2D>("harvester"), 48, 48, 32);
             IonSfx = SpriteSheet.Animation(content.Load<Texture2D>("ionsfx"), 72, 191, 15);
-            Map = SpriteSheet.Static(content.Load<Texture2D>("map"), 736, 736);
+            Map = SpriteSheet.Static(content.Load<Texture2D>("map"), 744, 744);
             MobileSam = SpriteSheet.Unit(content.Load<Texture2D>("msam"), 24, 24, 32);
             MuzzleFlash = SpriteSheet.Complex(content.Load<Texture2D>("minigun"), 18, 17,
                 new SpriteSequence("default", 0) { Facings = 8, Length = 6 }

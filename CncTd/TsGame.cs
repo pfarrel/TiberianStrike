@@ -26,7 +26,7 @@ namespace TiberianStrike
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
 
-        private Rectangle worldBounds = new Rectangle(0, 0, 736, 736);
+        private Rectangle worldBounds = new Rectangle(0, 0, 744, 744);
 
         public TiberianStrikeGame()
         {
@@ -44,13 +44,13 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            world = new World(736, 736);
+            world = new World(744, 744);
 
             a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
             world.AddEntity(a10);
             world.Explore(a10.PositionVector, 100f);
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), 736, 736);
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
             camera.Pos = a10.PositionVector;
 
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
