@@ -73,7 +73,15 @@ namespace TiberianStrike.Entities.Projectiles
             if (Target == Position)
             {
                 Explode();
+                return;
             }
+            
+            if (World.GetEntities<AbstractWall>().Where(wall => Vector2.Distance(wall.PositionVector, PositionVector) < World.CellSize / 2).Any())
+            {
+                Explode();
+                return;
+            }
+
             else if (distanceToTarget < speedPerFrame)
             {
                 PositionVector = new Vector2(Target.X, Target.Y);

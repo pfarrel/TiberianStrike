@@ -20,7 +20,7 @@ namespace TiberianStrike.Entities.Projectiles
 
         protected override Warhead Warhead => Warhead.Explosive;
 
-        protected override float MovementSpeed => 20.0f / 60;
+        protected override float MovementSpeed => 100.0f / 60;
 
         public AirToGroundRocket(World world, Player player, Point position, Point target) : base(world, player, position, target, null)
         {
