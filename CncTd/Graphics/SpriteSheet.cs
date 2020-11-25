@@ -53,9 +53,9 @@ namespace TiberianStrike
             return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Facings = directions });
         }
 
-        public static SpriteSheet Wall(Texture2D texture, int width, int height)
+        public static SpriteSheet Wall(Texture2D texture, int width, int height, bool hasHeavyDamage, bool hasDead)
         {
-            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Length = 16 }, new SpriteSequence("damaged-default", 16) { Length = 16 });
+            return new SpriteSheet(texture, width, height, new SpriteSequence("default", 0) { Length = 16 }, new SpriteSequence("damaged", 16) { Length = 16 }, new SpriteSequence("heavily-damaged", hasHeavyDamage ? 32 : 16) { Length = 16 }, new SpriteSequence("dead", hasDead ? 48 : 16) { Length = 16 });
         }
 
         public static SpriteSheet Complex(Texture2D texture, int width, int height, params SpriteSequence[] spriteSequences)

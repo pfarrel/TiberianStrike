@@ -91,7 +91,7 @@ namespace TiberianStrike
             BulletImpact = SpriteSheet.Animation(content.Load<Texture2D>("piffpiff"), 15, 15, 8);
             BulletImpactSmall = SpriteSheet.Animation(content.Load<Texture2D>("piff"), 9, 13, 4);
             CannonShot120mm = SpriteSheet.Static(content.Load<Texture2D>("120mm"), 24, 24);
-            ChainlinkFence = SpriteSheet.Wall(content.Load<Texture2D>("cycl"), 24, 24);
+            ChainlinkFence = SpriteSheet.Wall(content.Load<Texture2D>("cycl"), 24, 24, true, false);
             ChemTrooper = SpriteSheet.Complex(content.Load<Texture2D>("e5"), 50, 39,
                 new SpriteSequence("stand", 0) { Facings = 8 },
                 new SpriteSequence("stand2", 8) { Facings = 8 },
@@ -114,7 +114,7 @@ namespace TiberianStrike
                 new SpriteSequence("die6", 494) { Length = 10 }
             );
             Chinook = SpriteSheet.Unit(content.Load<Texture2D>("tran"), 48, 48, 32);
-            ConcreteWall = SpriteSheet.Wall(content.Load<Texture2D>("brik"), 24, 24);
+            ConcreteWall = SpriteSheet.Wall(content.Load<Texture2D>("brik"), 24, 24, true, true);
             ConstructionYard = SpriteSheet.Building(content.Load<Texture2D>("fact"), 72, 48, 0, 25, 49);
             Dragon = SpriteSheet.Unit(content.Load<Texture2D>("dragon"), 15, 15, 32);
             Engineer = SpriteSheet.Complex(content.Load<Texture2D>("e6"), 50, 39,
@@ -289,7 +289,7 @@ namespace TiberianStrike
             SamFire = SpriteSheet.Complex(content.Load<Texture2D>("samfire"), 55, 35,
                 new SpriteSequence("default", 0) { Facings = 8, Length = 18 }
             );
-            Sandbags = SpriteSheet.Wall(content.Load<Texture2D>("sbag"), 24, 24);
+            Sandbags = SpriteSheet.Wall(content.Load<Texture2D>("sbag"), 24, 24, false, false);
             Shadow = SpriteSheet.Static(content.Load<Texture2D>("shadow"), 48, 48);
             StealthTank = SpriteSheet.Unit(content.Load<Texture2D>("stnk"), 24, 24, 32);
             TempleOfNod = SpriteSheet.Building(content.Load<Texture2D>("tmpl"), 72, 72, 0, 6, 11);

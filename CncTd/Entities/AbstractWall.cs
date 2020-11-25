@@ -43,8 +43,8 @@ namespace TiberianStrike.Entities
                     throw new Exception(String.Format("Unexpected neighboard positions. {0} and {1}", this, adjacentWall));
                 }
             }
-
-            return SpriteSheet.GetFrameForWall("default", wallNeighbours);
+            String name = Health >= (MaxHealth / 2) ? "default" : Health >= (MaxHealth / 4) ? "damaged" : Health >= (MaxHealth / 10) ? "heavily-damaged" : "dead";
+            return SpriteSheet.GetFrameForWall(name, wallNeighbours);
         }
     }
 }
