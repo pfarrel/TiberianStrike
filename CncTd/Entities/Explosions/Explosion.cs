@@ -35,12 +35,11 @@ namespace TiberianStrike.Entities.Explosions
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int x = Math.Max(0, Position.X - (Sprite.Width / 2));
-            int y = Math.Max(0, Position.Y - (Sprite.Height / 2));
-
             if (IsAlive)
             {
                 SpriteFrame spriteFrame = GetSpriteFrame();
+                int x = Math.Max(0, Position.X - (Sprite.Width / 2));
+                int y = Math.Max(0, Position.Y - (Sprite.Height / 2));
                 spriteBatch.Draw(Sprite.Texture, new Rectangle(x, y, Sprite.Width, Sprite.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, Height == ExplosionHeight.Air ? ZOrder.AirExplosion : ZOrder.GroundExplosion);
             }
         }

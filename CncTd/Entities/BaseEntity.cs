@@ -54,7 +54,7 @@ namespace TiberianStrike.Entities
             int x = Position.X - spriteFrame.Coordinates.Width / 2;
             int y = Position.Y - spriteFrame.Coordinates.Height / 2;
 
-            spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, EntityZOrder);
+            spriteBatch.Draw(spriteFrame.Texture, new Rectangle(x, y, spriteFrame.Coordinates.Width, spriteFrame.Coordinates.Height), spriteFrame.Coordinates, Color.White, 0, Vector2.Zero, SpriteEffects.None, GetZOrder());
 
             if (this is AbstractWall)
             {
@@ -71,6 +71,11 @@ namespace TiberianStrike.Entities
         }
 
         public virtual void Update() { }
+
+        protected virtual float GetZOrder()
+        {
+            return EntityZOrder - (PositionVector.Y / 100000f);
+        }
 
         protected abstract SpriteFrame GetSpriteFrame();
 

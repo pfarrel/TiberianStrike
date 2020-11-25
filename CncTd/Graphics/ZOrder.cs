@@ -9,7 +9,6 @@ namespace TiberianStrike
     class ZOrder
     {
         public const float Map = 1f;
-        public const float Buildings = 0.95f;
         public const float GroundUnits = 0.9f;
         public const float GroundExplosion = 0.85f;
         public const float Projectiles = 0.8f;
