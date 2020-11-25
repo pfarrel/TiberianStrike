@@ -59,6 +59,16 @@ namespace TiberianStrike
             }
         }
 
+        public Rectangle Bounds
+        {
+            get
+            {
+                int width = (int)(_viewportWidth / Zoom);
+                int height = (int)(_viewportHeight / Zoom);
+                return new Rectangle((int)(Pos.X - width / 2), (int)(Pos.Y - height / 2), width, height);
+            }
+        }
+
         #endregion
 
         public Matrix GetTransformation()

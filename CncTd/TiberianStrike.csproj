@@ -88,6 +88,7 @@
     <Compile Include="Entities\Explosions\ExplosionBig.cs" />
     <Compile Include="Entities\SamSite.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="RadarView.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="Graphics\SpriteHelper.cs" />
     <Compile Include="Graphics\Fonts.cs" />

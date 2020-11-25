@@ -83,15 +83,15 @@ namespace TiberianStrike
             DrawAxisOrientedLine(spriteBatch, new Point(rectangle.X + rectangle.Width - 1, rectangle.Y), new Point(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), color, zOrder); // right
         }
 
-        public static void DrawPoint(SpriteBatch spriteBatch, Point point, Color color, float zOrder)
+        public static void DrawPoint(SpriteBatch spriteBatch, Point point, Color color, float zOrder, int size = 1)
         {
             spriteBatch.Draw(
                 Sprites.WhitePixel.Texture,
                 new Rectangle(
-                    point.X,
-                    point.Y,
-                    1,
-                    1
+                    point.X - size / 2,
+                    point.Y - size / 2,
+                    size,
+                    size
                 ),
                 null,
                 color,

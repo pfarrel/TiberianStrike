@@ -79,6 +79,11 @@ namespace TiberianStrike
             }
         }
 
+        public bool IsExplored(Point point)
+        {
+            return Explored[point.Y / CellSize, point.X / CellSize];
+        }
+
         public List<IEntity> GetAdjacentEntities(IEntity entity)
         {
             Point entityCellPoint = ToCellPoint(entity.Position);

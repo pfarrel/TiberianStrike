@@ -254,8 +254,11 @@ namespace TiberianStrike
             spriteBatch.End();
 
             spriteBatch.Begin();
+
+            RadarView.Draw(spriteBatch, world, camera);
+
             spriteBatch.DrawString(Fonts.Font, "SCORE: 100", new Vector2(20, 20), Color.LawnGreen);
-            spriteBatch.DrawString(Fonts.Font, "ENEMIES REMAINING: " + world.Entities.Where(entity => entity.Player == Player.Two).Count(), new Vector2(1500, 20), Color.LawnGreen);
+            spriteBatch.DrawString(Fonts.Font, "ENEMIES REMAINING: " + world.Entities.Where(entity => entity.Player == Player.Two && !(entity is AbstractWall)).Count(), new Vector2(1100, 20), Color.LawnGreen);
 
             List<string> messages = new List<string>();
             if (gameState == GameState.Won)
