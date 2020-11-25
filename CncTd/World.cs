@@ -13,7 +13,9 @@ namespace TiberianStrike
 {
     class World
     {
-        private const int CellSize = 24;
+        public const int CellSize = 24;
+        public const int FixedWidth = 744;
+        public const int FixedHeight = 744;
 
         public int Width { get; }
         public int Height { get; }

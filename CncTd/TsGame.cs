@@ -26,7 +26,7 @@ namespace TiberianStrike
         private Point target1 = new Point(300, 50);
         private Point target2 = new Point(300, 400);
 
-        private Rectangle worldBounds = new Rectangle(0, 0, 744, 744);
+        private Rectangle worldBounds = new Rectangle(0, 0, World.FixedWidth, World.FixedHeight);
 
         public TiberianStrikeGame()
         {
@@ -44,13 +44,13 @@ namespace TiberianStrike
             IsMouseVisible = true;
             inputManager = new InputManager();
 
-            world = new World(744, 744);
+            world = new World(World.FixedWidth, World.FixedHeight);
 
             a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
             world.AddEntity(a10);
             world.Explore(a10.PositionVector, 100f);
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), 744, 744);
+            camera = new Camera(new Viewport(0, 0, 1920, 1080), World.FixedWidth, World.FixedHeight);
             camera.Pos = a10.PositionVector;
 
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
@@ -338,8 +338,8 @@ namespace TiberianStrike
             const int newMinX = 504;
             const int newMinY = 288;
 
-            int x = newMinX + (((point.X - minX) / 16) * 24);
-            int y = newMinY + (((point.Y - minY) / 16) * 24);
+            int x = newMinX + (((point.X - minX) / 16) * World.CellSize);
+            int y = newMinY + (((point.Y - minY) / 16) * World.CellSize);
             return new Point(x, y);
         }
     }
