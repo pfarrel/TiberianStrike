@@ -10,6 +10,7 @@ namespace TiberianStrike
 {
     class PlayerInput
     {
+        public bool Debug { get { return keyboard.LeadingEdge(Keys.F1); } }
         public bool Pause { get { return keyboard.LeadingEdge(Keys.P); } }
         public bool Quit { get { return keyboard.LeadingEdge(Keys.Escape); } }
         public bool Left { get { return keyboard.IsKeyDown(Keys.A); } }

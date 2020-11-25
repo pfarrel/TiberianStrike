@@ -37,7 +37,10 @@ namespace TiberianStrike.Entities
 
             spriteBatch.Draw(Sprites.Shadow.Texture, new Rectangle(x, y + FlyingHeight, Sprites.Shadow.Width, Sprites.Shadow.Height), Color.White);
 
-            SpriteHelper.DrawLine(spriteBatch, PositionVector, VectorHelpers.MoveInDirection(PositionVector, Rotation, 50), Color.White, ZOrder.Debug);
+            if (TsGame.DebugEnabled)
+            {
+                SpriteHelper.DrawLine(spriteBatch, PositionVector, VectorHelpers.MoveInDirection(PositionVector, Rotation, 50), Color.White, ZOrder.Debug);
+            }
 
             base.Draw(spriteBatch);
         }

@@ -11,8 +11,10 @@ using TiberianStrike.Input;
 
 namespace TiberianStrike
 {
-    public class TiberianStrikeGame : Game
+    public class TsGame : Game
     {
+        public static bool DebugEnabled = false;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -28,7 +30,7 @@ namespace TiberianStrike
 
         private Rectangle worldBounds = new Rectangle(0, 0, World.FixedWidth, World.FixedHeight);
 
-        public TiberianStrikeGame()
+        public TsGame()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1920;
@@ -161,6 +163,10 @@ namespace TiberianStrike
                 }
             }
 
+            if (command.Debug)
+            {
+                DebugEnabled ^= true;
+            }
 
             if (gameState != GameState.Playing)
             {

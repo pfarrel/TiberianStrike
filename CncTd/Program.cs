@@ -14,7 +14,7 @@ namespace TiberianStrike
         [STAThread]
         static void Main()
         {
-            using (var game = new TiberianStrikeGame())
+            using (var game = new TsGame())
 
                 game.Run();
         }
