@@ -44,6 +44,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\EntityType.cs" />
     <Compile Include="Entities\Explosions\ExplosionHeight.cs" />
     <Compile Include="Entities\InfantryDeath.cs" />
     <Compile Include="Entities\ObeliskState.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Entities\Wall.cs" />
     <Compile Include="Entities\WallNeighbours.cs" />
     <Compile Include="Entities\Warhead.cs" />
+    <Compile Include="EntityPlacement.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardStateWrapper.cs" />
     <Compile Include="Input\PlayerInput.cs" />
@@ -88,6 +90,8 @@
     <Compile Include="Entities\Explosions\ExplosionBig.cs" />
     <Compile Include="Entities\SamSite.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="CellPoint.cs" />
+    <Compile Include="EntityBlock.cs" />
     <Compile Include="RadarView.cs" />
     <Compile Include="Sounds.cs" />
     <Compile Include="Graphics\SpriteHelper.cs" />

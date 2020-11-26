@@ -40,7 +40,7 @@ namespace TiberianStrike.Entities
                 }
                 else
                 {
-                    throw new Exception(String.Format("Unexpected neighboard positions. {0} and {1}", this, adjacentWall));
+                    throw new Exception(String.Format("Unexpected neighbour positions. {0} and {1}", this.Position, adjacentWall.Position));
                 }
             }
             String name = Health >= (MaxHealth / 2) ? "default" : Health >= (MaxHealth / 4) ? "damaged" : Health >= (MaxHealth / 10) ? "heavily-damaged" : "dead";

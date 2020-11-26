@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace TiberianStrike.Entities
 {
-    class Apc : Vehicle
+    class Bike : Vehicle
     {
         protected override SpriteSheet SpriteSheet => Sprites.Apc;
 
         public override int MaxHealth => 10;
 
-        public Apc(World world, Player player, Point position) : base(world, player, position)
+        public Bike(World world, Player player, Point position) : base(world, player, position)
         {
         }
     }

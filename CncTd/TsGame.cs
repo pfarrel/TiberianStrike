@@ -51,12 +51,76 @@ namespace TiberianStrike
 
             world = new World(World.FixedWidth, World.FixedHeight);
 
-            a10 = new A10(world, Player.One, new Point(600, 700), MathHelper.ToRadians(-90));
+            a10 = new A10(world, Player.One, new Point(20, 100), MathHelper.ToRadians(0));
             world.AddEntity(a10);
             world.Explore(a10.PositionVector, 100f);
 
             camera = new Camera(new Viewport(0, 0, ResolutionWidth - SidebarWidth, ResolutionHeight), World.FixedWidth, World.FixedHeight);
             camera.Pos = a10.PositionVector;
+
+            EntityBlock entities = new EntityBlock(
+                new CellPoint(0, 0),
+                // Top Wall
+                new EntityPlacement(Player.Two, new CellPoint(0, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(1, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(2, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(3, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(4, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(5, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(6, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(7, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(8, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(9, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(10, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(11, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(12, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(13, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(14, 0), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 0), typeof(Wall)),
+
+                // Right Wall
+                new EntityPlacement(Player.Two, new CellPoint(15, 1), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 2), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 3), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 4), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 5), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 6), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 7), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 8), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 9), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 10), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(15, 11), typeof(Wall)),
+
+                // Bottom Wall
+                new EntityPlacement(Player.Two, new CellPoint(0, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(1, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(2, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(3, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(4, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(5, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(6, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(7, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(8, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(9, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(10, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(11, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(12, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(13, 11), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(14, 11), typeof(Wall)),
+
+                // Left Wall
+                new EntityPlacement(Player.Two, new CellPoint(0, 1), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 2), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 3), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 4), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 5), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 6), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 7), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 8), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 9), typeof(Wall)),
+                new EntityPlacement(Player.Two, new CellPoint(0, 10), typeof(Wall))
+            );
+            entities.AddToWorld(world);
 
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));
             world.AddEntity(new Airfield(world, Player.Two, new Point(530, 50)));
