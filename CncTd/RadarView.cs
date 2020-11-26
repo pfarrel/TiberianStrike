@@ -19,16 +19,7 @@ namespace TiberianStrike
         public static void Draw(SpriteBatch spriteBatch, World world, Camera camera)
         {
             spriteBatch.Draw(Sprites.Map.Texture, null, new Rectangle(StartWidth - 1, StartHeight, Width + 1, Height), null, null, 0, null, Color.White, SpriteEffects.None, 0f);
-            SpriteHelper.DrawRectangle(spriteBatch, new Rectangle(StartWidth - 2, StartHeight, Width + 2, Height), Color.White, 0f);
-            Rectangle cameraBounds = camera.Bounds;
-            Rectangle translated = new Rectangle(
-                StartWidth + cameraBounds.X * Width / world.Width ,
-                StartHeight + cameraBounds.Y * Height / world.Height,
-                cameraBounds.Width * Width / world.Width,
-                cameraBounds.Height * Height / world.Height
-            );
-            SpriteHelper.DrawRectangle(spriteBatch, translated, Color.White, 0f);
-
+            
             foreach (BaseEntity entity in world.Entities)
             {
                 SpriteHelper.DrawPoint(spriteBatch, TranslateToMap(entity.Position, world), entity is AbstractWall ? Color.DarkGray : entity.Player == Player.One ? Color.Green : Color.Red, 0, 8);
@@ -46,6 +37,17 @@ namespace TiberianStrike
                     }
                 }
             }
+
+            SpriteHelper.DrawRectangle(spriteBatch, new Rectangle(StartWidth - 2, StartHeight, Width + 2, Height), Color.White, 0f);
+            Rectangle cameraBounds = camera.Bounds;
+            Rectangle translated = new Rectangle(
+                StartWidth + cameraBounds.X * Width / world.Width,
+                StartHeight + cameraBounds.Y * Height / world.Height,
+                cameraBounds.Width * Width / world.Width,
+                cameraBounds.Height * Height / world.Height
+            );
+            SpriteHelper.DrawRectangle(spriteBatch, translated, Color.White, 0f);
+
         }
 
         private static Point TranslateToMap(Point source, World world)
