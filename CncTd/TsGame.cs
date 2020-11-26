@@ -14,6 +14,9 @@ namespace TiberianStrike
     public class TsGame : Game
     {
         public static bool DebugEnabled = false;
+        public const int SidebarWidth = 360;
+        public const int ResolutionWidth = 1920;
+        public const int ResolutionHeight = 1080;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -33,8 +36,8 @@ namespace TiberianStrike
         public TsGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = ResolutionWidth;
+            graphics.PreferredBackBufferHeight = ResolutionHeight;
 
             Content.RootDirectory = "Content";
         }
@@ -52,7 +55,7 @@ namespace TiberianStrike
             world.AddEntity(a10);
             world.Explore(a10.PositionVector, 100f);
 
-            camera = new Camera(new Viewport(0, 0, 1920, 1080), World.FixedWidth, World.FixedHeight);
+            camera = new Camera(new Viewport(0, 0, ResolutionWidth - SidebarWidth, ResolutionHeight), World.FixedWidth, World.FixedHeight);
             camera.Pos = a10.PositionVector;
 
             world.AddEntity(new HandOfNod(world, Player.Two, new Point(455, 50)));

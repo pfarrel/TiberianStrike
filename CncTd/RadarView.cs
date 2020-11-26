@@ -13,11 +13,14 @@ namespace TiberianStrike
     {
         const int Width = 336;
         const int Height = 336;
-        const int StartWidth = 1920 - Width;
-        const int StartHeight = 0;
+        const int Padding = (TsGame.SidebarWidth - Width) / 2;
+        const int StartWidth = (TsGame.ResolutionWidth - TsGame.SidebarWidth) + Padding;
+        const int StartHeight = Padding;
 
         public static void Draw(SpriteBatch spriteBatch, World world, Camera camera)
         {
+            spriteBatch.Draw(Sprites.WhitePixel.Texture, new Rectangle(TsGame.ResolutionWidth - TsGame.SidebarWidth, 0, TsGame.SidebarWidth, TsGame.ResolutionHeight), Color.DimGray);
+
             spriteBatch.Draw(Sprites.Map.Texture, null, new Rectangle(StartWidth - 1, StartHeight, Width + 1, Height), null, null, 0, null, Color.White, SpriteEffects.None, 0f);
             
             foreach (BaseEntity entity in world.Entities)
